@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Camera _camera;
+    [SerializeField] private List<CameraPosition> positions;
+
+    private void Start()
     {
-        
+        GlobalEvents.EndBatlle.AddListener(MoveCameraToFirstScreen);
+        GlobalEvents.StartBatlle.AddListener(MoveCameraToBatlleScreen);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void MoveCameraToFirstScreen()
     {
-        
+        _camera.transform.SetParent(positions[0].transform, false);
+    }
+
+    private void MoveCameraToBatlleScreen()
+    {
+        _camera.transform.SetParent(positions[1].transform, false);
     }
 }

@@ -30,7 +30,8 @@ public class Train : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Paused");
-            Pause();
+            GlobalEvents.StressWin.Invoke();
+            GlobalEvents.EndBatlle.Invoke();
         }
     }
 

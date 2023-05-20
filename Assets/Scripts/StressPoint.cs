@@ -8,8 +8,6 @@ public class StressPoint : MonoBehaviour
     {
         if (!other.GetComponent<Train>()) return;
         GlobalEvents.Pause.Invoke();
-
-        //TO DO: заменить StressWin на вызов нового боя
-        GlobalEvents.StressWin.Invoke();
+        GlobalEvents.StartBatlle.Invoke();
     }
 }

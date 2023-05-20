@@ -9,6 +9,11 @@ public class Rails : MonoBehaviour
     private int currentWayPoint = 0;
     private int previousWayPoint = 0;
 
+    private void Start()
+    {
+        GlobalEvents.Restart.AddListener(Restart);
+    }
+
     public void SetNextPoint()
     {
         previousWayPoint = currentWayPoint;
@@ -29,5 +34,11 @@ public class Rails : MonoBehaviour
     {
         if (waypoints == null) return Vector3.zero;
         return waypoints[previousWayPoint].transform.position;
+    }
+
+    private void Restart()
+    {
+        currentWayPoint = 0;
+        previousWayPoint = 0;
     }
 }

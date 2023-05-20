@@ -5,28 +5,37 @@ using UnityEngine;
 public class Train : MonoBehaviour
 {
     [SerializeField] private Rails rails;
+    [SerializeField] private Transform station;
     [SerializeField] private float speed;
 
-    private int paused = 1;
+    private int paused = 0;
+    private Quaternion startRotation;
+
+    private bool restart = false;
+    private Coroutine ride;
 
     private void Start()
     {
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
-        StartCoroutine(Ride());
+        GlobalEvents.Restart.AddListener(ResetPosition);
+
+        startRotation = transform.rotation;
+
+        ride = StartCoroutine(Ride());
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            paused = 0;
             Debug.Log("Paused");
+            Pause();
         }
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            paused = 1;
             Debug.Log("UnPaused");
+            UnPause();
         }
     }
 
@@ -44,6 +53,7 @@ public class Train : MonoBehaviour
             timer += Time.deltaTime * paused;
             transform.position = Vector3.Lerp(startPoint, endPoint, timer / needTime);
             yield return null;
+            if (restart) yield break;
         }
         transform.position = endPoint;
     }
@@ -53,6 +63,7 @@ public class Train : MonoBehaviour
         while (true)
         {
             rails.SetNextPoint();
+            if (restart) yield break;
             yield return MoveToPoint(rails.CurrentPoint());
 
         }
@@ -66,5 +77,21 @@ public class Train : MonoBehaviour
     private void UnPause()
     {
         paused = 1;
+        restart = false;
+        if (ride == null) StartRide();
+    }
+    private void StartRide()
+    {
+        ride = StartCoroutine(Ride());
+    }
+    private void ResetPosition()
+    {
+        Pause();
+        transform.rotation = startRotation;
+        restart = true;
+        StopAllCoroutines();
+        ride = null;
+        transform.position = new Vector3( station.position.x, transform.position.y, station.position.z);
+        
     }
 }

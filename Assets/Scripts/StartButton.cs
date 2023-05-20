@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
-    private bool newGame = true;
+    private bool newLoop = true;
 
     private void Start()
     {
-        GlobalEvents.Restart.AddListener(NewGame);
+        GlobalEvents.Restart.AddListener(Restart);
+        GlobalEvents.StationEnter.AddListener(Restart);
     }
 
-    private void NewGame()
+    private void Restart()
     {
-        newGame = true;
+        newLoop = true;
     }
 
     private void OnMouseDown()
     {
-        if (!newGame) return;
+        if (!newLoop) return;
         GlobalEvents.UnPause.Invoke();
-        newGame = false;
+        GlobalEvents.NewLoop.Invoke();
+        newLoop = false;
     }
 }

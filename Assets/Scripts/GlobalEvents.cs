@@ -7,8 +7,9 @@ public static class GlobalEvents
 {
     public static UnityEvent Pause = new UnityEvent();
     public static UnityEvent UnPause = new UnityEvent();
-    public static UnityEvent Win = new UnityEvent();
-    public static UnityEvent Lose = new UnityEvent();
     public static UnityEvent Restart = new UnityEvent();
     public static UnityEvent StationEnter = new UnityEvent();
+    public static UnityEvent StressWin = new UnityEvent();
+    public static UnityEvent StressLose = new UnityEvent();
+    public static UnityEvent NewLoop = new UnityEvent();
 }

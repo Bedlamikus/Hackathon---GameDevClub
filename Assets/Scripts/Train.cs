@@ -6,7 +6,6 @@ public class Train : MonoBehaviour
 {
     [SerializeField] private Rails rails;
     [SerializeField] private float speed;
-    [SerializeField] private float angleSpeed;
 
     private float currentSpeed;
     private int paused = 1;
@@ -34,9 +33,12 @@ public class Train : MonoBehaviour
     private IEnumerator MoveToPoint(Vector3 point)
     {
         Vector3 startPoint = transform.position;
-        Vector3 endPoint = new Vector3(point.x, transform.position.y, point.z);
+        Vector3 endPoint = new Vector3(point.x, startPoint.y, point.z);
         float needTime = (endPoint - startPoint).magnitude / speed;
         float timer = 0;
+
+        transform.LookAt(new Vector3(point.x, startPoint.y, point.z));
+
         while (timer < needTime)
         {
             timer += Time.deltaTime * paused;

@@ -7,12 +7,12 @@ public class Train : MonoBehaviour
     [SerializeField] private Rails rails;
     [SerializeField] private float speed;
 
-    private float currentSpeed;
     private int paused = 1;
 
     private void Start()
     {
-        currentSpeed = speed;
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
         StartCoroutine(Ride());
     }
 
@@ -56,5 +56,15 @@ public class Train : MonoBehaviour
             yield return MoveToPoint(rails.CurrentPoint());
 
         }
+    }
+
+    private void Pause()
+    {
+        paused = 0;
+    }
+
+    private void UnPause()
+    {
+        paused = 1;
     }
 }

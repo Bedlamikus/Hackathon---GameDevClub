@@ -32,11 +32,6 @@ public class Train : MonoBehaviour
             Debug.Log("Paused");
             Pause();
         }
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Debug.Log("UnPaused");
-            UnPause();
-        }
     }
 
     private IEnumerator MoveToPoint(Vector3 point)

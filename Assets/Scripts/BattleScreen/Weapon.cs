@@ -6,8 +6,10 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private float radius = 3.0f;
     [SerializeField] private float shootSpeed = 0.3f;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private List<GameObject> enemyes = new List<GameObject>();
+    [SerializeField] private int damage = 20;
+    [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private Enemies enemies;
+
 
     private void Start()
     {
@@ -26,10 +28,10 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator Shooting()
     {
-        GameObject target = FindTarget();
+        Enemy target = FindTarget();
         Debug.Log("I find target: " + target);
         float timer = 0;
-        while (target) 
+        while (target != null) 
         {
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
@@ -37,24 +39,27 @@ public class Weapon : MonoBehaviour
             if (timer >= shootSpeed)
             {
                 timer = 0;
-                GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                bullet.damage = damage;
                 bullet.transform.LookAt(target.transform);
             }
             yield return null;
         }
     }
 
-    private GameObject FindTarget()
+    private Enemy FindTarget()
     {
-        GameObject target = null;
+        Enemy target = null;
+        if (enemies.enemies.Count == 0) return target;
         float min_distanse = radius;
-        for (int i = 0; i < enemyes.Count; i++)
+        for (int i = 0; i < enemies.enemies.Count; i++)
         {
-            float distance = Vector3.Distance(transform.position, enemyes[i].transform.position);
+            if (enemies.enemies[i] == null) return target;
+            float distance = Vector3.Distance(transform.position, enemies.enemies[i].transform.position);
             if ( distance <= radius && distance < min_distanse)
             {
                 min_distanse = distance;
-                target = enemyes[i];
+                target = enemies.enemies[i];
             }
         }
         return target;

@@ -11631,6 +11631,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1279121027028766435, guid: d5330a2d15a871547af7690da0aa4174, type: 3}
+      propertyPath: radius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1279121027028766435, guid: d5330a2d15a871547af7690da0aa4174, type: 3}
       propertyPath: enemies
       value: 
       objectReference: {fileID: 2031400386}

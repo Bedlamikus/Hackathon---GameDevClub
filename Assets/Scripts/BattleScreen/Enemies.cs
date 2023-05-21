@@ -13,22 +13,40 @@ public class Enemies : MonoBehaviour
     [SerializeField] private float coolDown = 2f;
 
     private int countSpawned;
+    private Coroutine spawnEnemies;
 
     private void Start()
     {
-        countSpawned = count;
-        GlobalEvents.EnemyDie.AddListener(CleanList);
         GlobalEvents.StartBatlle.AddListener(StartSpawned);
+        GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
+    }
+
+    private void CheckCountEnemies()
+    {
+        StartCoroutine(CheckContEnemiesCoroutine());
+    }
+
+    private IEnumerator CheckContEnemiesCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+        print(enemies.Count);
+        if (countSpawned <= 0 && enemies.Count <= 0)
+        {
+            GlobalEvents.EndBatlle.Invoke();
+            GlobalEvents.StressWin.Invoke();
+        }
     }
 
     private void StartSpawned()
     {
-        StartCoroutine(SpawnEnemies());
-     }
+        enemies.Clear();
+        if (spawnEnemies != null) StopCoroutine(spawnEnemies);
+        spawnEnemies = StartCoroutine(SpawnEnemies());
+    }
 
     private IEnumerator SpawnEnemies()
     {
-
+        countSpawned = count;
         while (countSpawned > 0)
         {
             countSpawned--;
@@ -45,10 +63,5 @@ public class Enemies : MonoBehaviour
         if (spawners.Count < 0) return result;
         result = spawners[Random.Range(0, spawners.Count)].position;
         return result;
-    }
-
-    private void CleanList(Enemy enemy)
-    {
-        enemies.Remove(enemy);
     }
 }

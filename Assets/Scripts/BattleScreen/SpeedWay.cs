@@ -8,18 +8,24 @@ public class SpeedWay : MonoBehaviour
 
     private void Start()
     {
-        GlobalEvents.DestroyWay.AddListener(CreateWay);
         GlobalEvents.StartBatlle.AddListener(Initialize);
+        GlobalEvents.EndBatlle.AddListener(DestryWays);
     }
 
     private void Initialize()
     {
+        GlobalEvents.DestroyWay.AddListener(CreateWay);
         MovedWay way = InstantiateWay(wayPrefab);
         way.transform.position = transform.position;
         way.Distance = 40.0f;
         way = InstantiateWay(wayPrefab);
         way.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 20.0f);
         way.Distance = 20.0f;
+    }
+
+    private void DestryWays()
+    {
+        GlobalEvents.DestroyWay.RemoveListener(CreateWay);
     }
 
     private void CreateWay()

@@ -16,7 +16,7 @@ public static class GlobalEvents
     public static UnityEvent DestroyWay = new UnityEvent();
     public static UnityEvent EndBatlle = new UnityEvent();
     public static UnityEvent StartBatlle = new UnityEvent();
-    public static UnityEvent<Enemy> EnemyDie = new UnityEvent<Enemy>();
+    public static UnityEvent EnemyDie = new UnityEvent();
     public static UnityEvent BattleTrainDie = new UnityEvent();
 
     public static UnityEvent<float> ApplyCoins = new UnityEvent<float>();

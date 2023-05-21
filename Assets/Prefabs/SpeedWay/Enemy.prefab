@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed_velocity: 30
-  speedWay_velocity: 20
+  speedWay_velocity: 19
   cost: 1
   attackDistance: 0
   damage: 20

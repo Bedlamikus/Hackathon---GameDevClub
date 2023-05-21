@@ -14,9 +14,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private BattleTrain target = null;
     private Rigidbody rb;
+    private Enemies enemies;
 
     private void Start()
     {
+        enemies = FindObjectOfType<Enemies>();
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         StartCoroutine(LifeCycle());
@@ -27,9 +29,9 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health < 0)
         {
-            GlobalEvents.EnemyDie.Invoke(this);
+            GlobalEvents.EnemyDie.Invoke();
             GlobalEvents.ApplyCoins.Invoke(cost);
-
+            enemies.enemies.Remove(this);
             Destroy(gameObject);
         }
     }

@@ -28,4 +28,11 @@ public class MovedWay : MonoBehaviour
         GlobalEvents.DestroyWay.Invoke();
         Destroy(gameObject);
     }
+
+    public float Distance
+    {
+        get { return distance; }
+        set { distance = value; }
+    }
+
 }

@@ -6,15 +6,18 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int health;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed_velocity;
+    [SerializeField] private float speedWay_velocity;
     [SerializeField] private float cost;
     [SerializeField] private float attackDistance;
     [SerializeField] private int damage;
 
     [SerializeField] private BattleTrain target = null;
+    private Rigidbody rb;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         StartCoroutine(LifeCycle());
     }
@@ -38,7 +41,9 @@ public class Enemy : MonoBehaviour
             Vector3 targetPosition = target.transform.position;
             targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
-            transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime / (Vector3.Distance(transform.position, target.transform.position) / speed));
+            rb.AddForce(transform.forward * speed_velocity);
+            rb.AddForce(new Vector3(0,0,-1) * speedWay_velocity);
+            //transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime / (Vector3.Distance(transform.position, target.transform.position) / speed));
             yield return null;
         }
     }

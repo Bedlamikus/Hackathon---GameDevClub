@@ -21,7 +21,6 @@ public class Weapon : MonoBehaviour
         while (true)
         {
             yield return Shooting();
-            Debug.Log("Try Find Enemy");
             yield return new WaitForSeconds(shootSpeed);
         }
     }
@@ -29,7 +28,6 @@ public class Weapon : MonoBehaviour
     private IEnumerator Shooting()
     {
         Enemy target = FindTarget();
-        Debug.Log("I find target: " + target);
         float timer = 0;
         while (target != null) 
         {

@@ -75,6 +75,7 @@ MonoBehaviour:
   speedWay_velocity: 19
   cost: 1
   attackDistance: 0
+  coolDownAttack: 1
   damage: 20
   target: {fileID: 0}
 --- !u!54 &-6229669653163597149

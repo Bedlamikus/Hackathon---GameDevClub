@@ -10,6 +10,7 @@ public class MovedWay : MonoBehaviour
     private void Start()
     {
         StartCoroutine(MoveTo());
+        GlobalEvents.EndBatlle.AddListener(Remove);
     }
 
     private IEnumerator MoveTo()
@@ -33,6 +34,11 @@ public class MovedWay : MonoBehaviour
     {
         get { return distance; }
         set { distance = value; }
+    }
+
+    private void Remove()
+    {
+        Destroy(gameObject);
     }
 
 }

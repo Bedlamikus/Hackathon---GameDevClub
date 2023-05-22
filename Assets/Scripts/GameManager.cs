@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private void Start()
     {
-        
+        GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
     }
 
     private void LoseBattle()

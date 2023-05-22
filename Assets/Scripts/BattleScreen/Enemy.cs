@@ -6,15 +6,18 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int health;
-    [SerializeField] private float speed_velocity;
-    [SerializeField] private float speedWay_velocity;
+    [SerializeField] protected float speed_velocity;
+    [SerializeField] protected float speedWay_velocity;
     [SerializeField] private float cost;
-    [SerializeField] private float attackDistance;
+    [SerializeField] protected float attackDistance;
+    [SerializeField] private float coolDownAttack;
     [SerializeField] private int damage;
 
-    [SerializeField] private BattleTrain target = null;
-    private Rigidbody rb;
+    [SerializeField] protected BattleTrain target = null;
+    protected Rigidbody rb;
     private Enemies enemies;
+    protected bool attack = false;
+
 
     private void Start()
     {
@@ -36,16 +39,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private IEnumerator RunToTarget()
+    protected virtual IEnumerator RunToTarget(Vector3 targetPosition)
     {
-        while (Vector3.Distance(transform.position, target.transform.position) > attackDistance)
+        float timer = 0;
+        while (Vector3.Distance(transform.position, targetPosition) > attackDistance)
         {
-            Vector3 targetPosition = target.transform.position;
+            timer += Time.deltaTime;
             targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
             rb.AddForce(transform.forward * speed_velocity);
             rb.AddForce(new Vector3(0,0,-1) * speedWay_velocity);
-            //transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime / (Vector3.Distance(transform.position, target.transform.position) / speed));
             yield return null;
         }
     }
@@ -62,21 +65,32 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator LifeCycle()
+    protected virtual IEnumerator LifeCycle()
     {
         while (true)
         {
-            yield return RunToTarget();
+            yield return RunToTarget(target.transform.position);
             yield return AttackTarget();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    float timerAttack = 0;
+    protected void OnCollisionStay(Collision collision)
     {
+        if (timerAttack > 0) return;
         BattleTrain train = collision.gameObject.GetComponent<BattleTrain>();
         if (train)
         {
             train.ApplyDamage(damage);
+            timerAttack = coolDownAttack;
+            print("Attack");
+            attack = true;
         }
+    }
+
+    private void Update()
+    {
+        if (timerAttack > 0)
+            timerAttack -= Time.deltaTime;
     }
 }

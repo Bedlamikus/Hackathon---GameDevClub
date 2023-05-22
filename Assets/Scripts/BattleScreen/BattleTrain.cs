@@ -15,6 +15,7 @@ public class BattleTrain : MonoBehaviour
             armor = armorCalc;
             return;
         }
+        armor = 0;
         health += armorCalc;
         if (health <= 0)
         {

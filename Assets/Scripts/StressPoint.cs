@@ -5,16 +5,16 @@ using UnityEngine;
 public class StressPoint : MonoBehaviour
 {
     [SerializeField] private int enemyCount;
-    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private StressEnemy enemyPrefab;
 
-    private List<Enemy> enemyList = new List<Enemy>();
+    private List<StressEnemy> enemyList = new List<StressEnemy>();
 
     private void Start()
     {
-        for (int i = 0; i < enemyCount; i++)
+        int count = (enemyCount - 1) / 10 + 1;
+        for (int i = 0; i < count; i++)
         {
             enemyList.Add(Instantiate(enemyPrefab, transform));
-            enemyList[i].transform.position = new Vector3();
         }
     }
 
@@ -22,6 +22,6 @@ public class StressPoint : MonoBehaviour
     {
         if (!other.GetComponent<Train>()) return;
         GlobalEvents.Pause.Invoke();
-        GlobalEvents.StartBattle.Invoke();
+        GlobalEvents.StartBattle.Invoke(enemyCount);
     }
 }

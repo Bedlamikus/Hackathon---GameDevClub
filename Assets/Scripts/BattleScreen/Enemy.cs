@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] protected float speed_velocity;
     [SerializeField] protected float speedWay_velocity;
-    [SerializeField] private float cost;
+    [SerializeField] private int cost;
     [SerializeField] protected float attackDistance;
     [SerializeField] private float coolDownAttack;
     [SerializeField] private int damage;

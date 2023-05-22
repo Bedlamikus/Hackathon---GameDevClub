@@ -22,10 +22,10 @@ public class GameManager : MonoBehaviour
         GlobalEvents.StressLose.Invoke();
     }
 
-    private void StartBattle()
+    private void StartBattle(int enemyCount)
     {
         game = Instantiate(gamePrefab, screenFight.transform);
-        game.Init();
+        game.Init(enemyCount);
     }
 
     private void EndBattle()

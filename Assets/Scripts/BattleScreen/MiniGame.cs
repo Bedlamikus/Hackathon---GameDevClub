@@ -7,12 +7,11 @@ public class MiniGame : MonoBehaviour
     [SerializeField] SpeedWay speedWay;
     [SerializeField] Enemies enemies;
     [SerializeField] BattleTrain train;
-    [SerializeField] int enemiesCount = 10;
 
-    public void Init()
+    public void Init(int enemyCount)
     {
         speedWay.Init();
-        enemies.Init(enemiesCount);
+        enemies.Init(enemyCount);
         train.Init();
     }
 

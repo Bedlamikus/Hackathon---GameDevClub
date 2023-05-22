@@ -28,7 +28,6 @@ public class Enemies : MonoBehaviour
     private IEnumerator CheckContEnemiesCoroutine()
     {
         yield return new WaitForSeconds(1.0f);
-        print(enemies.Count);
         if (countSpawned <= 0 && enemies.Count <= 0)
         {
             GlobalEvents.EndBattle.Invoke();

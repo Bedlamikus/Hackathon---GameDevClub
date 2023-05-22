@@ -17,7 +17,7 @@ public class StartButton : MonoBehaviour
         newLoop = true;
     }
 
-    private void OnMouseDown()
+    public void Tap()
     {
         if (!newLoop) return;
         GlobalEvents.UnPause.Invoke();

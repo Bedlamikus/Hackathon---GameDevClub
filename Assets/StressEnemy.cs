@@ -6,9 +6,9 @@ public class StressEnemy : MonoBehaviour
 {
     private void Start()
     {
-        Vector3 vector = transform.position + new Vector3(Random.Range(-2.0f, 2.0f), transform.position.y, Random.Range(-2.0f, 2.0f));
+        Vector3 vector = transform.position + new Vector3(Random.Range(-2.0f, 2.0f), 0, Random.Range(-2.0f, 2.0f));
         transform.LookAt(vector);
-        Vector3 vectorPosition = transform.position + new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.5f, .5f));
+        Vector3 vectorPosition = transform.position + new Vector3(Random.Range(-.2f, .2f), 0, Random.Range(-.2f, .2f));
         transform.position = vectorPosition;
     }
 }

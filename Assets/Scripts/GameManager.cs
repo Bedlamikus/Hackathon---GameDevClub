@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private MiniGame gamePrefab;
     [SerializeField] private GameObject screenFight;
+    [SerializeField] private GameCycle gameCycle;
 
     private MiniGame game;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.StartBattle.AddListener(StartBattle);
         GlobalEvents.EndBattle.AddListener(EndBattle);
+        gameCycle.Init();
     }
 
     private void LoseBattle()

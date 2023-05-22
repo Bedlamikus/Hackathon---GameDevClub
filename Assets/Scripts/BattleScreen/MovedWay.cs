@@ -10,7 +10,7 @@ public class MovedWay : MonoBehaviour
     private void Start()
     {
         StartCoroutine(MoveTo());
-        GlobalEvents.EndBatlle.AddListener(Remove);
+        GlobalEvents.EndBattle.AddListener(Remove);
     }
 
     private IEnumerator MoveTo()

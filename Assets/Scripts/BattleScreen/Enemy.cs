@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackDistance;
     [SerializeField] private float coolDownAttack;
     [SerializeField] private int damage;
+    [SerializeField] private float heightheightAboveGround = 0.51f;
 
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
@@ -41,12 +43,10 @@ public class Enemy : MonoBehaviour
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)
     {
-        float timer = 0;
         while (Vector3.Distance(transform.position, targetPosition) > attackDistance)
         {
-            timer += Time.deltaTime;
-            targetPosition.y = transform.position.y;
             transform.LookAt(targetPosition);
+            transform.position = new Vector3(transform.position.x, heightheightAboveGround, transform.position.z);
             rb.AddForce(transform.forward * speed_velocity);
             rb.AddForce(new Vector3(0,0,-1) * speedWay_velocity);
             yield return null;

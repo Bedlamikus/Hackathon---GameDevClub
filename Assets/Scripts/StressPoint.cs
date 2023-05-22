@@ -8,6 +8,6 @@ public class StressPoint : MonoBehaviour
     {
         if (!other.GetComponent<Train>()) return;
         GlobalEvents.Pause.Invoke();
-        GlobalEvents.StartBatlle.Invoke();
+        GlobalEvents.StartBattle.Invoke();
     }
 }

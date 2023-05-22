@@ -31,7 +31,7 @@ public class Train : MonoBehaviour
         {
             Debug.Log("Paused");
             GlobalEvents.StressWin.Invoke();
-            GlobalEvents.EndBatlle.Invoke();
+            GlobalEvents.EndBattle.Invoke();
         }
     }
 

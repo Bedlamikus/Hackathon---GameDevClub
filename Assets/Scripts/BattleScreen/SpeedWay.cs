@@ -8,11 +8,10 @@ public class SpeedWay : MonoBehaviour
 
     private void Start()
     {
-        GlobalEvents.StartBatlle.AddListener(Initialize);
-        GlobalEvents.EndBatlle.AddListener(DestryWays);
+        GlobalEvents.EndBattle.AddListener(DestryWays);
     }
 
-    private void Initialize()
+    public void Init()
     {
         GlobalEvents.DestroyWay.AddListener(CreateWay);
         MovedWay way = InstantiateWay(wayPrefab);

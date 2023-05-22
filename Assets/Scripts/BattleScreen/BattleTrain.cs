@@ -7,6 +7,11 @@ public class BattleTrain : MonoBehaviour
     [SerializeField] private int health = 1000;
     [SerializeField] private int armor = 300;
 
+    public void Init()
+    { 
+        //etc
+    }
+
     public void ApplyDamage(int damage)
     {
         int armorCalc = armor - damage;

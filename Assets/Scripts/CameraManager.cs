@@ -10,8 +10,8 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         GlobalEvents.BattleTrainDie.AddListener(MoveCameraToFirstScreen);
-        GlobalEvents.EndBatlle.AddListener(MoveCameraToFirstScreen);
-        GlobalEvents.StartBatlle.AddListener(MoveCameraToBatlleScreen);
+        GlobalEvents.EndBattle.AddListener(MoveCameraToFirstScreen);
+        GlobalEvents.StartBattle.AddListener(MoveCameraToBatlleScreen);
     }
 
     private void MoveCameraToFirstScreen()

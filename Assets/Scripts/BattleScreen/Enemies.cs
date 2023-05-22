@@ -9,15 +9,14 @@ public class Enemies : MonoBehaviour
     [SerializeField] private List<Transform> spawners = new List<Transform>();
     [SerializeField] private Enemy enemyPrefab;
 
-    [SerializeField] private int count = 5;
     [SerializeField] private float coolDown = 2f;
 
     private int countSpawned;
+    private int count;
     private Coroutine spawnEnemies;
 
     private void Start()
     {
-        GlobalEvents.StartBatlle.AddListener(StartSpawned);
         GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
     }
 
@@ -32,13 +31,14 @@ public class Enemies : MonoBehaviour
         print(enemies.Count);
         if (countSpawned <= 0 && enemies.Count <= 0)
         {
-            GlobalEvents.EndBatlle.Invoke();
+            GlobalEvents.EndBattle.Invoke();
             GlobalEvents.StressWin.Invoke();
         }
     }
 
-    private void StartSpawned()
+    public void Init(int enemiesCount)
     {
+        count = enemiesCount;
         enemies.Clear();
         if (spawnEnemies != null) StopCoroutine(spawnEnemies);
         spawnEnemies = StartCoroutine(SpawnEnemies());

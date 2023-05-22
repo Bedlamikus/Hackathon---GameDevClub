@@ -71,12 +71,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed_velocity: 30
-  speedWay_velocity: 19
+  speed_velocity: 2
+  speedWay_velocity: 1.5
   cost: 1
   attackDistance: 0
   coolDownAttack: 1
   damage: 20
+  heightheightAboveGround: 0.51
   target: {fileID: 0}
 --- !u!54 &-6229669653163597149
 Rigidbody:
@@ -86,8 +87,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3741843800494917837}
   serializedVersion: 4
-  m_Mass: 2
-  m_Drag: 10
+  m_Mass: 1
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -100,7 +101,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80

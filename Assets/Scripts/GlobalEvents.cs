@@ -14,8 +14,8 @@ public static class GlobalEvents
     public static UnityEvent NewLoop = new UnityEvent();
 
     public static UnityEvent DestroyWay = new UnityEvent();
-    public static UnityEvent EndBatlle = new UnityEvent();
-    public static UnityEvent StartBatlle = new UnityEvent();
+    public static UnityEvent EndBattle = new UnityEvent();
+    public static UnityEvent StartBattle = new UnityEvent();
     public static UnityEvent EnemyDie = new UnityEvent();
     public static UnityEvent BattleTrainDie = new UnityEvent();
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        SceneManager.LoadScene(0);
+
         if (gameCycle) Destroy(gameCycle.gameObject);
         EndBattle();
         gameCycle = Instantiate(gameCyclePrefab, transform.position, Quaternion.identity);

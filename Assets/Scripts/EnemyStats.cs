@@ -11,6 +11,12 @@ public class EnemyStats : MonoBehaviour
     private void Start()
     {
         GlobalEvents.StationEnter.AddListener(SetNextCycle);
+        GlobalEvents.Restart.AddListener(RestartCycle);
+    }
+
+    private void RestartCycle(int numCycle)
+    {
+        cycle = numCycle;
     }
 
     private void SetNextCycle()

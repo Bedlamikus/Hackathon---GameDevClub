@@ -25,16 +25,6 @@ public class Train : MonoBehaviour
         ride = StartCoroutine(Ride());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Paused");
-            GlobalEvents.StressWin.Invoke();
-            GlobalEvents.EndBattle.Invoke();
-        }
-    }
-
     private IEnumerator MoveToPoint(Vector3 point)
     {
         Vector3 startPoint = transform.position;
@@ -80,7 +70,7 @@ public class Train : MonoBehaviour
     {
         ride = StartCoroutine(Ride());
     }
-    private void ResetPosition()
+    private void ResetPosition(int _)
     {
         Pause();
         transform.rotation = startRotation;

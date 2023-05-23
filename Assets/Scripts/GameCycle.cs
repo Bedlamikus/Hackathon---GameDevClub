@@ -8,11 +8,16 @@ public class GameCycle : MonoBehaviour
 {
     [SerializeField] private List<StressPoints> stressPoints;
     
-    public void Init()
+    public void Init(int numCycle)
     {
+        for (int i = 0; i < numCycle; i++)
+        {
+            NextPoint();
+        }
         stressPoints[0].gameObject.SetActive(true);
         GlobalEvents.StationEnter.AddListener(NextPoint);
     }
+
     public void NextPoint()
     {
         Destroy(stressPoints[0]);

@@ -6,22 +6,34 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private MiniGame gamePrefab;
     [SerializeField] private GameObject screenFight;
-    [SerializeField] private GameCycle gameCycle;
+    [SerializeField] private GameCycle gameCyclePrefab;
 
+    private GameCycle gameCycle = null;
     private MiniGame game = null;
 
 
     private void Start()
     {
+        gameCycle = Instantiate(gameCyclePrefab, transform.position, Quaternion.identity);
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.StartBattle.AddListener(StartBattle);
         GlobalEvents.EndBattle.AddListener(EndBattle);
-        gameCycle.Init();
+        gameCycle.Init(0);
+    }
+
+    public void Restart()
+    {
+        if (gameCycle) Destroy(gameCycle.gameObject);
+        EndBattle();
+        gameCycle = Instantiate(gameCyclePrefab, transform.position, Quaternion.identity);
+        gameCycle.Init(0);
+        GlobalEvents.Restart.Invoke(0);
     }
 
     private void LoseBattle()
     {
         GlobalEvents.StressLose.Invoke();
+        GlobalEvents.EndBattle.Invoke();
         EndBattle();
     }
 
@@ -34,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void EndBattle()
     {
-        Destroy(game.gameObject);
+        if (game) Destroy(game.gameObject);
     }
 
     public void Pause()

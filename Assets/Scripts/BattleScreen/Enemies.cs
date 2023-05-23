@@ -8,6 +8,7 @@ public class Enemies : MonoBehaviour
 
     [SerializeField] private List<Transform> spawners = new List<Transform>();
     [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private Charls charls;
 
     [SerializeField] private float coolDown = 2f;
 
@@ -45,6 +46,13 @@ public class Enemies : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        if (count == 1)
+        {
+            Charls enemy = Instantiate(charls, RandomPosition(), Quaternion.identity);
+
+            enemies.Add(enemy);
+            yield break;
+        }
         countSpawned = count;
         while (countSpawned > 0)
         {

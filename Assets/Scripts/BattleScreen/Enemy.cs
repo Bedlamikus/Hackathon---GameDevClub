@@ -20,17 +20,22 @@ public class Enemy : MonoBehaviour
     private Enemies enemies;
     protected bool attack = false;
     private bool pause = false;
+    protected bool charles = false;
 
-    private void Start()
+    protected virtual void Start()
     {
-        var stats = FindObjectOfType<EnemyStats>();
-        health = stats.GetHealth();
-        damage = stats.GetAttackDamage();
+        if (!charles)
+        {
+            var stats = FindObjectOfType<EnemyStats>();
+            health = stats.GetHealth();
+            damage = stats.GetAttackDamage();
+        }
         enemies = FindObjectOfType<Enemies>();
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         StartCoroutine(LifeCycle());
-        GlobalEvents.TrainStop.AddListener(Die);
+
+        GlobalEvents.BattleTrainDie.AddListener(Die);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
     }

@@ -11,6 +11,12 @@ public class Charls : Enemy
 
     private bool retreat = false;
 
+    protected override void Start()
+    {
+        charles = true;
+        base.Start();
+    }
+
     protected override IEnumerator LifeCycle()
     {
         while (true)

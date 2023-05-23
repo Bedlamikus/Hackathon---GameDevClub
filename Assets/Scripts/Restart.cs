@@ -6,6 +6,6 @@ public class Restart : MonoBehaviour
 {
     public void Invoke()
     {
-        GlobalEvents.Restart.Invoke();
+        //GlobalEvents.Restart.Invoke();
     }
 }

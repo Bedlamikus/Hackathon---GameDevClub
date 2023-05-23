@@ -150,6 +150,7 @@ MonoBehaviour:
   - {fileID: 3219485564114039619}
   - {fileID: 1931638334945946002}
   enemyPrefab: {fileID: 4743110244049441296, guid: f63660890618d634ab4fb88ef23eb87b, type: 3}
+  charls: {fileID: 7609195585896111667, guid: e3931cba2f6c4b64d9993d4e86db20ab, type: 3}
   coolDown: 1
 --- !u!1001 &259920340374676399
 PrefabInstance:

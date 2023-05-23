@@ -36,7 +36,7 @@ public class Rails : MonoBehaviour
         return waypoints[previousWayPoint].transform.position;
     }
 
-    private void Restart()
+    private void Restart(int _)
     {
         currentWayPoint = 0;
         previousWayPoint = 0;

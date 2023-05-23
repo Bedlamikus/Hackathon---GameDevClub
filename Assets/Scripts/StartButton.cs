@@ -11,10 +11,15 @@ public class StartButton : MonoBehaviour
     {
         image = GetComponent<Image>();
         GlobalEvents.Restart.AddListener(Restart);
-        GlobalEvents.StationEnter.AddListener(Restart);
+        GlobalEvents.StationEnter.AddListener(StationEnter);
     }
 
-    private void Restart()
+    private void Restart(int _)
+    {
+        StationEnter();
+    }
+
+    private void StationEnter()
     {
         newLoop = true;
         if (image) image.raycastTarget = true;

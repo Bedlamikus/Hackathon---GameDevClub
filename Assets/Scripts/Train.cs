@@ -16,8 +16,8 @@ public class Train : MonoBehaviour
 
     private void Start()
     {
-        GlobalEvents.Pause.AddListener(Pause);
-        GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.TrainStop.AddListener(Pause);
+        GlobalEvents.TrainGo.AddListener(UnPause);
         GlobalEvents.Restart.AddListener(ResetPosition);
 
         startRotation = transform.rotation;

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject screenFight;
     [SerializeField] private GameCycle gameCycle;
 
-    private MiniGame game;
+    private MiniGame game = null;
 
 
     private void Start()
@@ -22,10 +22,12 @@ public class GameManager : MonoBehaviour
     private void LoseBattle()
     {
         GlobalEvents.StressLose.Invoke();
+        EndBattle();
     }
 
     private void StartBattle(int enemyCount)
     {
+        if (game != null) return;
         game = Instantiate(gamePrefab, screenFight.transform);
         game.Init(enemyCount);
     }
@@ -33,5 +35,15 @@ public class GameManager : MonoBehaviour
     private void EndBattle()
     {
         Destroy(game.gameObject);
+    }
+
+    public void Pause()
+    {
+        GlobalEvents.Pause.Invoke();
+    }
+
+    public void UnPause()
+    {
+        GlobalEvents.UnPause.Invoke();
     }
 }

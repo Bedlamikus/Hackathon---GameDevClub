@@ -23,7 +23,7 @@ public class Station : MonoBehaviour
     {
         if (!other.GetComponent<Train>()) return;
         GlobalEvents.StationEnter.Invoke();
-        GlobalEvents.Pause.Invoke();
+        GlobalEvents.TrainStop.Invoke();
         trigger.enabled = false;
     }
 

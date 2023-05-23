@@ -5,8 +5,10 @@ using UnityEngine.Events;
 
 public static class GlobalEvents
 {
+    public static UnityEvent TrainStop = new UnityEvent();
     public static UnityEvent Pause = new UnityEvent();
     public static UnityEvent UnPause = new UnityEvent();
+    public static UnityEvent TrainGo = new UnityEvent();
     public static UnityEvent Restart = new UnityEvent();
     public static UnityEvent StationEnter = new UnityEvent();
     public static UnityEvent StressWin = new UnityEvent();
@@ -19,5 +21,10 @@ public static class GlobalEvents
     public static UnityEvent EnemyDie = new UnityEvent();
     public static UnityEvent BattleTrainDie = new UnityEvent();
 
-    public static UnityEvent<int> ApplyCoins = new UnityEvent<int>();
+    public static UnityEvent<int> ApplyGolds = new UnityEvent<int>();
+    public static UnityEvent<float> ApplyDamage = new UnityEvent<float>();
+    public static UnityEvent<int> ApplyExperience = new UnityEvent<int>();
+    public static UnityEvent<int> ApplyHlam = new UnityEvent<int>();
+
+    public static UnityEvent UpdateUI = new UnityEvent();
 }

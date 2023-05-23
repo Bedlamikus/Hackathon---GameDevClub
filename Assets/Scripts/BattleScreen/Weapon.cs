@@ -5,15 +5,31 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private float radius = 3.0f;
-    [SerializeField] private float shootSpeed = 0.3f;
-    [SerializeField] private int damage = 20;
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private Enemies enemies;
 
+    private float attackSpeed;
+    private float damage;
+    private bool pause = false;
 
     private void Start()
     {
+        var settings = FindObjectOfType<PlayerStats>();
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
+        damage = settings.Damage;
+        attackSpeed = settings.AttackSpeed;
         StartCoroutine(ShootingLoop());
+    }
+
+    private void Pause()
+    {
+        pause = true;
+    }
+
+    private void UnPause()
+    {
+        pause = false;
     }
 
     private IEnumerator ShootingLoop()
@@ -21,7 +37,7 @@ public class Weapon : MonoBehaviour
         while (true)
         {
             yield return Shooting();
-            yield return new WaitForSeconds(shootSpeed);
+            yield return new WaitForSeconds(0.005f / attackSpeed);
         }
     }
 
@@ -34,7 +50,7 @@ public class Weapon : MonoBehaviour
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
             transform.Rotate(new Vector3(0, 90, 90));
-            if (timer >= shootSpeed)
+            if (timer >= attackSpeed && !pause)
             {
                 timer = 0;
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);

@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-    public int damage;
+    public float damage;
     [SerializeField] private float force = 100.0f;
 
     private void Start()

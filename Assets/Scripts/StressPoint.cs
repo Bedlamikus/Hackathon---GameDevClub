@@ -22,7 +22,7 @@ public class StressPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.GetComponent<Train>()) return;
-        GlobalEvents.Pause.Invoke();
+        GlobalEvents.TrainStop.Invoke();
         GlobalEvents.StartBattle.Invoke(enemyCount);
         GlobalEvents.StressWin.AddListener(DestroyPoint);
     }

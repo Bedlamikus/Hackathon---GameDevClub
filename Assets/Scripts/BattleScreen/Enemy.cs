@@ -6,49 +6,77 @@ using UnityEngine.XR;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int health;
+    [SerializeField] private float health;
     [SerializeField] protected float speed_velocity;
     [SerializeField] protected float speedWay_velocity;
     [SerializeField] private int cost;
     [SerializeField] protected float attackDistance;
     [SerializeField] private float coolDownAttack;
-    [SerializeField] private int damage;
+    [SerializeField] private float damage;
     [SerializeField] private float heightheightAboveGround = 0.51f;
 
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
     private Enemies enemies;
     protected bool attack = false;
-
+    private bool pause = false;
 
     private void Start()
     {
+        var stats = FindObjectOfType<EnemyStats>();
+        health = stats.GetHealth();
+        damage = stats.GetAttackDamage();
         enemies = FindObjectOfType<Enemies>();
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         StartCoroutine(LifeCycle());
+        GlobalEvents.TrainStop.AddListener(Die);
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
     }
 
-    public void ApplyDamage(int damage)
+    private void Pause()
     {
+        pause = true;
+        rb.velocity = Vector3.zero;
+    }
+
+    private void UnPause()
+    {
+        pause = false;
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        if (pause) return;
         health -= damage;
         if (health < 0)
         {
-            GlobalEvents.EnemyDie.Invoke();
-            GlobalEvents.ApplyCoins.Invoke(cost);
-            enemies.enemies.Remove(this);
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        GlobalEvents.EnemyDie.Invoke();
+        GlobalEvents.ApplyGolds.Invoke(cost);
+        GlobalEvents.ApplyExperience.Invoke(1);
+        GlobalEvents.ApplyHlam.Invoke(1);
+        enemies.enemies.Remove(this);
+        Destroy(gameObject);
     }
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)
     {
         while (Vector3.Distance(transform.position, targetPosition) > attackDistance)
         {
-            transform.LookAt(targetPosition);
-            transform.position = new Vector3(transform.position.x, heightheightAboveGround, transform.position.z);
-            rb.AddForce(transform.forward * speed_velocity);
-            rb.AddForce(new Vector3(0,0,-1) * speedWay_velocity);
+            if (!pause)
+            {
+                transform.LookAt(targetPosition);
+                transform.position = new Vector3(transform.position.x, heightheightAboveGround, transform.position.z);
+                rb.AddForce(transform.forward * speed_velocity);
+                rb.AddForce(new Vector3(0, 0, -1) * speedWay_velocity);
+            }
             yield return null;
         }
     }
@@ -69,8 +97,12 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return RunToTarget(target.transform.position);
-            yield return AttackTarget();
+            if (!pause)
+            {
+                yield return RunToTarget(target.transform.position);
+                yield return AttackTarget();
+            }
+            yield return null;
         }
     }
 
@@ -78,18 +110,19 @@ public class Enemy : MonoBehaviour
     protected void OnCollisionStay(Collision collision)
     {
         if (timerAttack > 0) return;
+        if (pause) return;
         BattleTrain train = collision.gameObject.GetComponent<BattleTrain>();
         if (train)
         {
-            train.ApplyDamage(damage);
+            GlobalEvents.ApplyDamage.Invoke(damage);
             timerAttack = coolDownAttack;
-            print("Attack");
             attack = true;
         }
     }
 
     private void Update()
     {
+        if (pause) return;
         if (timerAttack > 0)
             timerAttack -= Time.deltaTime;
     }

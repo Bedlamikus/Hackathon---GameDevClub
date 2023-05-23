@@ -6,6 +6,6 @@ public class UnPause : MonoBehaviour
 {
     public void UnPaused()
     {
-        GlobalEvents.UnPause.Invoke();
+        GlobalEvents.TrainGo.Invoke();
     }
 }

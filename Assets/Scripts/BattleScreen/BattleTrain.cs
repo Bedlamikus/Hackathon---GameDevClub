@@ -4,24 +4,19 @@ using UnityEngine;
 
 public class BattleTrain : MonoBehaviour
 {
-    [SerializeField] private int health = 1000;
-    [SerializeField] private int armor = 300;
+    private float health;
+    private float armor;
 
     public void Init()
     { 
-        //etc
+        var settings = FindObjectOfType<PlayerStats>();
+        health = settings.Health;
+        armor = settings.Armor;
     }
 
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(float damage)
     {
-        int armorCalc = armor - damage;
-        if (armorCalc > 0) 
-        { 
-            armor = armorCalc;
-            return;
-        }
-        armor = 0;
-        health += armorCalc;
+        health -= damage - damage * armor / 100;
         if (health <= 0)
         {
             GlobalEvents.BattleTrainDie.Invoke();

@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour
     private void ApplyExperience(int exp)
     {
         currentExperience += exp;
-        if (currentExperience > maxExperience)
+        if (currentExperience >= maxExperience)
         {
             currentLevel += 1;
             currentExperience = maxExperience;

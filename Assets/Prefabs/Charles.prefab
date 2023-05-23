@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
-  speed_velocity: 8
+  speed_velocity: 7
   speedWay_velocity: 1
   cost: 200
   attackDistance: 0
   coolDownAttack: 2
-  damage: 25
+  damage: 4
   heightheightAboveGround: 0.51
   target: {fileID: 0}
   retreatDistance: 4

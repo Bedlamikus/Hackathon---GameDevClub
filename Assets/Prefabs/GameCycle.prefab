@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stressPoints:
   - {fileID: 7015017443675185565}
-  - {fileID: 3500511972873824438}
+  - {fileID: 494449433734713500}
   - {fileID: 1812923136549207301}
   - {fileID: 7477348356105175535}
   - {fileID: 87122124863133449}
@@ -405,17 +405,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
---- !u!114 &3500511972873824438 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1895444126136636879, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
-  m_PrefabInstance: {fileID: 3087685335872503161}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bca506bc3671624080b1ac795a909de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7434672444386104805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5617372224623749276, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
@@ -706,11 +695,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1895444126136636879, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
       propertyPath: countEnemies
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1895444126136636879, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
       propertyPath: maxEnemiesInGroup
-      value: 7
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5617372224623749276, guid: cf7718e21f34d0242bcd04844174c1fe, type: 3}
       propertyPath: m_RootOrder

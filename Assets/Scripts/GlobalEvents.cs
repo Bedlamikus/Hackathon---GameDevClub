@@ -14,7 +14,7 @@ public static class GlobalEvents
     public static UnityEvent StressWin = new UnityEvent();
     public static UnityEvent StressLose = new UnityEvent();
     public static UnityEvent NewLoop = new UnityEvent();
-
+    public static UnityEvent BuyHealth = new UnityEvent();
     public static UnityEvent DestroyWay = new UnityEvent();
     public static UnityEvent EndBattle = new UnityEvent();
     public static UnityEvent<int> StartBattle = new UnityEvent<int>();

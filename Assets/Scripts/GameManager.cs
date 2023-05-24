@@ -61,4 +61,8 @@ public class GameManager : MonoBehaviour
     {
         GlobalEvents.UnPause.Invoke();
     }
+    public void BuyHealth() 
+    {
+        GlobalEvents.BuyHealth.Invoke();
+    }
 }

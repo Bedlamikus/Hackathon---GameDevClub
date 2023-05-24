@@ -3,6 +3,7 @@ using TMPro;
 
 public class UpdateUIStats : MonoBehaviour
 {
+    [SerializeField] private TMP_Text buyHealth;
     [SerializeField] private TMP_Text maxHealth;
     [SerializeField] private TMP_Text health;
     [SerializeField] private TMP_Text maxExperience;
@@ -24,7 +25,9 @@ public class UpdateUIStats : MonoBehaviour
 
     private void UpdateDamage()
     {
+
         maxHealth.text = player.MaxHealth.ToString();
+        buyHealth.text = maxHealth.text;
         health.text = ((int)player.Health).ToString();
     }
 

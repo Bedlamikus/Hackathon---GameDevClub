@@ -40,8 +40,17 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.UpdateUI.Invoke();
+        GlobalEvents.BuyHealth.AddListener(BuyHealth);
     }
-
+    private void BuyHealth()
+    {
+        if (currentHlam > 10)
+        {
+            maxHealth += 10;
+            currentHealth = maxHealth;
+            GlobalEvents.UpdateUI.Invoke();
+        }
+    }
     private void ApplyDamage(float damage)
     {
         currentHealth -= damage;

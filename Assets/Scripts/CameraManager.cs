@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
         _camera.transform.SetParent(positions[0].transform, false);
     }
 
-    private void MoveCameraToBatlleScreen(int _)
+    private void MoveCameraToBatlleScreen()
     {
         _camera.transform.SetParent(positions[1].transform, false);
     }

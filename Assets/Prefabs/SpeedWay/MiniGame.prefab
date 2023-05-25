@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4155440700670342903}
-  - component: {fileID: 9052298139573795355}
+  - component: {fileID: 4531261426242126798}
   m_Layer: 0
   m_Name: MiniGame
   m_TagString: Untagged
@@ -32,10 +32,11 @@ Transform:
   - {fileID: 5520602332792824901}
   - {fileID: 255325446289163959}
   - {fileID: 1226993677829293701}
+  - {fileID: 1156581132526197463}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9052298139573795355
+--- !u!114 &4531261426242126798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,12 +45,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 471504767072987834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c03b75627dd6649a6227d1d14bd095, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d8affff1d3cd14448875c93f34dfa9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speedWay: {fileID: 1148123660857658956}
-  enemies: {fileID: 5010408353313559463}
   train: {fileID: 3734949273122347215}
+  spawnPoints:
+  - {fileID: 1931638334945946002}
+  - {fileID: 624739000083363346}
+  - {fileID: 6900100521958025382}
+  - {fileID: 3219485564114039619}
+  enemies: {fileID: 8274762086115823105}
 --- !u!1 &1910046121196384588
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +101,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPrefab: {fileID: 1369266317939286597, guid: ae8f3bf7501c5404aa63f4b633977ccb, type: 3}
+--- !u!1 &6979540427426623968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156581132526197463}
+  - component: {fileID: 8274762086115823105}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1156581132526197463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6979540427426623968}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4155440700670342903}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8274762086115823105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6979540427426623968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45274c8400dafa644bca08911ff224f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &8329210763558897794
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +157,7 @@ GameObject:
   - component: {fileID: 1226993677829293701}
   - component: {fileID: 5010408353313559463}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,14 +195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  spawners:
-  - {fileID: 624739000083363346}
-  - {fileID: 6900100521958025382}
-  - {fileID: 3219485564114039619}
-  - {fileID: 1931638334945946002}
-  enemyPrefab: {fileID: 4743110244049441296, guid: f63660890618d634ab4fb88ef23eb87b, type: 3}
-  charls: {fileID: 7609195585896111667, guid: e3931cba2f6c4b64d9993d4e86db20ab, type: 3}
-  coolDown: 1
 --- !u!1001 &259920340374676399
 PrefabInstance:
   m_ObjectHideFlags: 0

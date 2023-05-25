@@ -144,8 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3096cdc2cf54588448b9cd6726e955bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCount: 11
   enemyPrefab: {fileID: 816004035963181687, guid: 7b82a40455fa45f4995aca06014fcb6c, type: 3}
+  fightSettings:
+  - {fileID: 11400000, guid: 93a20c9fc0ef40e469de52af44cfe745, type: 2}
+  screenFightPosition: {fileID: 0}
+  miniGame: {fileID: 4531261426242126798, guid: 48a84ef8c969dc045af7743ffa8a4e4b, type: 3}
 --- !u!114 &1118578763540411342
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,27 +5,27 @@ using UnityEngine.Events;
 
 public static class GlobalEvents
 {
-    public static UnityEvent TrainStop = new UnityEvent();
-    public static UnityEvent Pause = new UnityEvent();
-    public static UnityEvent UnPause = new UnityEvent();
-    public static UnityEvent TrainGo = new UnityEvent();
-    public static UnityEvent<int> Restart = new UnityEvent<int>();
-    public static UnityEvent StationEnter = new UnityEvent();
-    public static UnityEvent StressWin = new UnityEvent();
-    public static UnityEvent StressLose = new UnityEvent();
-    public static UnityEvent NewLoop = new UnityEvent();
-    public static UnityEvent BuyHealth = new UnityEvent();
-    public static UnityEvent DestroyWay = new UnityEvent();
-    public static UnityEvent EndBattle = new UnityEvent();
-    public static UnityEvent<int> StartBattle = new UnityEvent<int>();
-    public static UnityEvent EnemyDie = new UnityEvent();
-    public static UnityEvent BattleTrainDie = new UnityEvent();
-    public static UnityEvent StartCharlesBattle = new UnityEvent();
+    public static UnityEvent TrainStop = new();
+    public static UnityEvent Pause = new();
+    public static UnityEvent UnPause = new();
+    public static UnityEvent TrainGo = new();
+    public static UnityEvent<int> Restart = new();
+    public static UnityEvent StationEnter = new();
+    public static UnityEvent StressWin = new();
+    public static UnityEvent StressLose = new();
+    public static UnityEvent NewLoop = new();
+    public static UnityEvent BuyHealth = new();
+    public static UnityEvent DestroyWay = new();
+    public static UnityEvent EndBattle = new();
+    public static UnityEvent StartBattle = new();
+    public static UnityEvent EnemyDie = new();
+    public static UnityEvent BattleTrainDie = new();
+    public static UnityEvent StartCharlesBattle = new();
 
-    public static UnityEvent<int> ApplyGolds = new UnityEvent<int>();
-    public static UnityEvent<float> ApplyDamage = new UnityEvent<float>();
-    public static UnityEvent<int> ApplyExperience = new UnityEvent<int>();
-    public static UnityEvent<int> ApplyHlam = new UnityEvent<int>();
+    public static UnityEvent<int> ApplyGolds = new();
+    public static UnityEvent<float> ApplyDamage = new();
+    public static UnityEvent<int> ApplyExperience = new();
+    public static UnityEvent<int> ApplyHlam = new();
 
-    public static UnityEvent UpdateUI = new UnityEvent();
+    public static UnityEvent UpdateUI = new();
 }

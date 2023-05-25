@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private float radius = 3.0f;
     [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] private Enemies enemies;
+    private Enemies enemies;
 
     private float attackSpeed;
     private float damage;
@@ -14,6 +14,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
+        enemies = FindObjectOfType<Enemies>();
         var settings = FindObjectOfType<PlayerStats>();
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
@@ -64,16 +65,16 @@ public class Weapon : MonoBehaviour
     private Enemy FindTarget()
     {
         Enemy target = null;
-        if (enemies.enemies.Count == 0) return target;
+        var enemies = this.enemies.GetComponentsInChildren<Enemy>();
+
         float min_distanse = radius;
-        for (int i = 0; i < enemies.enemies.Count; i++)
+        foreach (var enemy in enemies)
         {
-            if (enemies.enemies[i] == null) return target;
-            float distance = Vector3.Distance(transform.position, enemies.enemies[i].transform.position);
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
             if ( distance <= radius && distance < min_distanse)
             {
                 min_distanse = distance;
-                target = enemies.enemies[i];
+                target = enemy;
             }
         }
         return target;

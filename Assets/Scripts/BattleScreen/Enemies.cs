@@ -4,62 +4,51 @@ using UnityEngine;
 
 public class Enemies : MonoBehaviour
 {
-    [SerializeField] public List<Enemy> enemies = new List<Enemy>();
-
-    [SerializeField] private List<Transform> spawners = new List<Transform>();
-    [SerializeField] private Enemy enemyPrefab;
-    [SerializeField] private Charls charls;
-
-    [SerializeField] private float coolDown = 2f;
+    public List<Enemy> enemies = new();
+    private List<Transform> spawnPoints;
 
     private int countSpawned;
-    private int count;
-    private Coroutine spawnEnemies;
 
     private void Start()
     {
-        GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
     }
 
     private void CheckCountEnemies()
     {
+        countSpawned--;
         StartCoroutine(CheckContEnemiesCoroutine());
     }
 
     private IEnumerator CheckContEnemiesCoroutine()
     {
         yield return new WaitForSeconds(1.0f);
-        if (countSpawned <= 0 && enemies.Count <= 0)
+        if (countSpawned <= 0)
         {
             GlobalEvents.EndBattle.Invoke();
             GlobalEvents.StressWin.Invoke();
         }
     }
 
-    public void Init(int enemiesCount)
+    public void Init(List<EnemySettings> enemiesSettings, List<Transform> spawnPoints)
     {
-        count = enemiesCount;
-        enemies.Clear();
-        if (spawnEnemies != null) StopCoroutine(spawnEnemies);
-        spawnEnemies = StartCoroutine(SpawnEnemies());
+        this.spawnPoints = spawnPoints;
+        countSpawned = CountEnemiesInSettings(enemiesSettings);
+        foreach (var enemy in enemiesSettings)
+        {
+            var newRoutine = StartCoroutine(SpawnEnemies(enemy));
+        }
+        GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
     }
 
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnEnemies(EnemySettings settings)
     {
-        if (count == 1)
+        int count = settings.enemyCount;
+        while (count > 0)
         {
-            Charls enemy = Instantiate(charls, RandomPosition(), Quaternion.identity);
-
-            enemies.Add(enemy);
-            yield break;
-        }
-        countSpawned = count;
-        while (countSpawned > 0)
-        {
-            countSpawned--;
-            yield return new WaitForSeconds(coolDown);
-            Enemy enemy = Instantiate(enemyPrefab, RandomPosition(), Quaternion.identity);
-
+            count--;
+            yield return new WaitForSeconds(settings.coolDownSpawn);
+            Enemy enemy = Instantiate(settings.enemyPrefab, RandomPosition(), Quaternion.identity);
+            enemy.transform.SetParent(this.transform);
             enemies.Add(enemy);
         }
     }
@@ -67,8 +56,18 @@ public class Enemies : MonoBehaviour
     private Vector3 RandomPosition()
     {
         Vector3 result = Vector3.zero;
-        if (spawners.Count < 0) return result;
-        result = spawners[Random.Range(0, spawners.Count)].position;
+        if (spawnPoints.Count < 0) return result;
+        result = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
         return result;
+    }
+
+    private int CountEnemiesInSettings(List<EnemySettings> enemiesSettings)
+    {
+        int count = 0;
+        foreach (var enemy in enemiesSettings)
+        {
+            count += enemy.enemyCount;
+        }
+        return count;
     }
 }

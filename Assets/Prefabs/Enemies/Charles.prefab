@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 200
-  speed_velocity: 7
-  speedWay_velocity: 1
+  speed_velocity: 6
+  speedWay_velocity: 0
   cost: 200
   attackDistance: 0
   coolDownAttack: 2

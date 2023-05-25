@@ -145,6 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1682089491187834376, guid: 40c9b35d077d49543b74fce3462a7139, type: 3}
+  fightSettings:
+  - {fileID: 11400000, guid: e8b40ec77664eaa46a42dba9d8ecafe8, type: 2}
+  - {fileID: 11400000, guid: 93a20c9fc0ef40e469de52af44cfe745, type: 2}
+  miniGame: {fileID: 4531261426242126798, guid: 48a84ef8c969dc045af7743ffa8a4e4b, type: 3}
 --- !u!114 &1118578763540411342
 MonoBehaviour:
   m_ObjectHideFlags: 0

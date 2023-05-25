@@ -1,18 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MiniGame : MonoBehaviour
 {
     [SerializeField] SpeedWay speedWay;
-    [SerializeField] Enemies enemies;
     [SerializeField] BattleTrain train;
+    [SerializeField] private List<Transform> spawnPoints = new ();
+    [SerializeField] private Enemies enemies;
 
-    public void Init(int enemyCount)
+    public void Init(List<EnemySettings> settings)
     {
+        enemies.Init(settings, spawnPoints);
         speedWay.Init();
-        enemies.Init(enemyCount);
         train.Init();
+        GlobalEvents.EndBattle.AddListener(DestroyMiniGame);
     }
 
+    public void DestroyMiniGame()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
-    private Enemies enemies;
     protected bool attack = false;
     private bool pause = false;
     protected bool charles = false;
@@ -30,7 +29,6 @@ public class Enemy : MonoBehaviour
             health = stats.GetHealth();
             damage = stats.GetAttackDamage();
         }
-        enemies = FindObjectOfType<Enemies>();
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         StartCoroutine(LifeCycle());
@@ -67,7 +65,6 @@ public class Enemy : MonoBehaviour
         GlobalEvents.ApplyGolds.Invoke(cost);
         GlobalEvents.ApplyExperience.Invoke(1);
         GlobalEvents.ApplyHlam.Invoke(1);
-        enemies.enemies.Remove(this);
         Destroy(gameObject);
     }
 

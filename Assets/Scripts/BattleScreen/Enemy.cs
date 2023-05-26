@@ -62,12 +62,33 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private IEnumerator MooveWith(Transform target)
+    {
+        if (!target) yield break;
+        float direction = transform.position.z - target.position.z;
+        while (true)
+        {
+            if (target)
+            {
+                var selfPosition = transform.position;
+                selfPosition.z = target.position.z + direction;
+                transform.position = selfPosition;
+            }
+            yield return null;
+        }
+    }
+
     private void Die()
     {
-        transform.parent = null;
-        animator.SetBool("bool_die", true);
         _collider.enabled = false;
-        rb.velocity = -rb.velocity * 2;
+        transform.parent = null;
+        rb.isKinematic = true;
+        var movedWay = FindObjectOfType<MovedWay>();
+        if (movedWay != null)
+        {
+            StartCoroutine(MooveWith(movedWay.transform));
+        }
+        animator.SetBool("bool_die", true);
         GlobalEvents.EnemyDie.Invoke();
         GlobalEvents.ApplyGolds.Invoke(cost);
         GlobalEvents.ApplyExperience.Invoke(1);

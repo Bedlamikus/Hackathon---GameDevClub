@@ -46,7 +46,7 @@ public class Weapon : MonoBehaviour
     {
         Enemy target = FindTarget();
         float timer = 0;
-        while (target != null) 
+        while (target != null && target.transform.parent != null) 
         {
             timer += Time.deltaTime;
             transform.LookAt(target.transform);

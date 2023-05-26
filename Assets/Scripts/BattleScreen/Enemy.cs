@@ -14,9 +14,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float coolDownAttack;
     [SerializeField] private float damage;
     [SerializeField] private float heightheightAboveGround = 0.51f;
+    [SerializeField] private Animator animator;
 
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
+    [SerializeField] private Collider _collider;
     protected bool attack = false;
     private bool pause = false;
     protected bool charles = false;
@@ -31,6 +33,7 @@ public class Enemy : MonoBehaviour
         }
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
+        _collider = GetComponent<Collider>();
         StartCoroutine(LifeCycle());
 
         GlobalEvents.BattleTrainDie.AddListener(Die);
@@ -61,11 +64,14 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        transform.parent = null;
+        animator.SetBool("bool_die", true);
+        _collider.enabled = false;
+        rb.velocity = -rb.velocity * 2;
         GlobalEvents.EnemyDie.Invoke();
         GlobalEvents.ApplyGolds.Invoke(cost);
         GlobalEvents.ApplyExperience.Invoke(1);
         GlobalEvents.ApplyHlam.Invoke(1);
-        Destroy(gameObject);
     }
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)

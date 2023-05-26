@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 632292150659721472}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7609195585896111667
 MonoBehaviour:
@@ -55,7 +55,9 @@ MonoBehaviour:
   coolDownAttack: 2
   damage: 4
   heightheightAboveGround: 0.51
+  animator: {fileID: 2127274074732082172}
   target: {fileID: 0}
+  _collider: {fileID: 3634978628397725430}
   retreatDistance: 4
   retreadSpeed: 5
   retreatTimer: 5

@@ -91,8 +91,8 @@ public class Enemy : MonoBehaviour
         animator.SetBool("bool_die", true);
         GlobalEvents.EnemyDie.Invoke();
         GlobalEvents.ApplyGolds.Invoke(cost);
-        GlobalEvents.ApplyExperience.Invoke(1);
-        GlobalEvents.ApplyHlam.Invoke(1);
+        GlobalEvents.ApplyExperience.Invoke(cost);
+        GlobalEvents.ApplyHlam.Invoke(cost);
     }
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)

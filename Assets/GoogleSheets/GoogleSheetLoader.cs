@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CVSLoader), typeof(SheetProcessor))]
 public class GoogleSheetLoader : MonoBehaviour
 {
-    //public event Action<ExcelSettings> OnProcessData;
+    public event Action<ExcelSettings> OnProcessData;
     
     [SerializeField] private string _sheetId;
     [SerializeField] private ExcelSettings _data;
@@ -26,8 +26,7 @@ public class GoogleSheetLoader : MonoBehaviour
 
     private void OnRawCVSLoaded(string rawCVSText)
     {
-        print(rawCVSText);
-        //_data = _sheetProcessor.ProcessData(rawCVSText);
-        //OnProcessData?.Invoke(_data);
+        _data = _sheetProcessor.ProcessData(rawCVSText);
+        OnProcessData?.Invoke(_data);
     }
 }

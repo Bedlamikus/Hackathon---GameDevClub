@@ -9,8 +9,8 @@ public class ExcelSettings
 [System.Serializable]
 public class CycleSettings
 {
-    public int Id;
-    public Vector3 Position;
+    public int num;
+    public Vector3 position;
     public List<EnemiesSettings> enemies;
 }
 

@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 public class CVSLoader : MonoBehaviour
 {
     private bool _debug = false;
-    private const string url = "https://docs.google.com/spreadsheets/d/*/export?format=csv";
+    private const string url = "https://docs.google.com/spreadsheets/d/*/export?format=csv&gid=0";
+    //&gid=<id sheet>
 
     public void DownloadTable(string sheetId, Action<string> onSheetLoadedAction)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,29 +6,17 @@ using UnityEngine.Networking;
 
 public class SheetProcessor : MonoBehaviour
 {
-    
-    // a1,b1,c1,d1
-    // a2,b2,c2,d2
-    // a3,b3,c3,d3
-    
-    private const int _id = 0;
-    private const int _position = 1;
-    private const int _scale = 2;
-    private const int _color = 3;
+    private const int num = 1;
+    private const int xCoord = 2;
+    private const int yCoord = 3;
+    private const int zCoord = 4;
+    private const int enemyType = 5;
+    private const int countEnemy = 6;
+    private const int coolDown = 7;
 
     private const char _cellSeporator = ',';
     private const char _inCellSeporator = ';';
 
-    private Dictionary<string, Color> _colors = new Dictionary<string, Color>()
-    {
-        {"white", Color.white},
-        {"black", Color.black},
-        {"yellow", Color.yellow},
-        {"red", Color.red},
-        {"green", Color.green},
-        {"blue", Color.blue},
-    };
-    
     public ExcelSettings ProcessData(string cvsRawData)
     {
         char lineEnding = GetPlatformSpecificLineEnd();
@@ -35,61 +24,42 @@ public class SheetProcessor : MonoBehaviour
         int dataStartRawIndex = 1;
         ExcelSettings data = new ExcelSettings();
         data.settings = new List<CycleSettings>();
-        for (int i = dataStartRawIndex; i < rows.Length; i++)
+
+        for (int i = dataStartRawIndex; i < rows.Length - 1; i++)
         {
             string[] cells = rows[i].Split(_cellSeporator);
+            int id = ParseInt(cells[num]);
+            Vector3 position = new Vector3(ParseFloat(cells[xCoord]), ParseFloat(cells[yCoord]), ParseFloat(cells[zCoord]));
 
-            int id = ParseInt(cells[_id]);
-            Vector3 position = ParseVector3(cells[_position]);
-            Vector3 scale = ParseVector3(cells[_scale]);
-            Color color = ParseColor(cells[_color]);
-            
             data.settings.Add(new CycleSettings()
             {
-                Id = id,
-                Position = position,
-                //LocalScale = scale,
-                //Color = color
+                num = id,
+                position = position,
+                enemies = new List<EnemiesSettings>()
             });
+            string[] enemySells = rows[i+1].Split(_cellSeporator);
+            while (enemySells[0] == "" && i+1 < rows.Length)
+            {
+                i++;
+                var enemiesSettings = new EnemiesSettings();
+                enemiesSettings.type = enemySells[enemyType];
+                enemiesSettings.count = ParseInt(enemySells[countEnemy]);
+                enemiesSettings.cooldown = ParseFloat(enemySells[coolDown]);
+                data.settings[data.settings.Count - 1].enemies.Add(enemiesSettings);
+                enemySells = rows[i].Split(_cellSeporator);
+            }
+            i--;
         }
-        Debug.Log(data.settings.ToString());
         return data;
 
     }
-
-    private Color ParseColor(string color)
-    {
-        color = color.Trim();
-        Color result = default;
-        if (_colors.ContainsKey(color))
-        {
-            result = _colors[color];
-        }
-        
-        return result;
-    }
-
-    private Vector3 ParseVector3(string s)
-    {
-        string[] vectorComponents = s.Split(_inCellSeporator);
-        if (vectorComponents.Length < 3)
-        {
-            Debug.Log("Can't parse Vector3. Wrong text format");
-            return default;
-        }
-
-        float x = ParseFloat(vectorComponents[0]);
-        float y = ParseFloat(vectorComponents[1]);
-        float z = ParseFloat(vectorComponents[2]);
-        return new Vector3(x, y, z);
-    }
-    
     private int ParseInt(string s)
     {
         int result = -1;
         if (!int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out result))
         {
             Debug.Log("Can't parse int, wrong text");
+            print(s);
         }
 
         return result;

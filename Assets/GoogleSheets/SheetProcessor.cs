@@ -37,16 +37,18 @@ public class SheetProcessor : MonoBehaviour
                 position = position,
                 enemies = new List<EnemiesSettings>()
             });
-            string[] enemySells = rows[i+1].Split(_cellSeporator);
-            while (enemySells[0] == "" && i+1 < rows.Length)
+            i++;
+            string[] enemySells = rows[i].Split(_cellSeporator);
+            while (enemySells[0] == "" && i < rows.Length)
             {
-                i++;
                 var enemiesSettings = new EnemiesSettings();
                 enemiesSettings.type = enemySells[enemyType];
                 enemiesSettings.count = ParseInt(enemySells[countEnemy]);
                 enemiesSettings.cooldown = ParseFloat(enemySells[coolDown]);
                 data.settings[data.settings.Count - 1].enemies.Add(enemiesSettings);
-                enemySells = rows[i].Split(_cellSeporator);
+                i++;
+                if (i < rows.Length)
+                    enemySells = rows[i].Split(_cellSeporator);
             }
             i--;
         }

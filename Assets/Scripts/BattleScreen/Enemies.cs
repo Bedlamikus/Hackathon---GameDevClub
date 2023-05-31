@@ -50,6 +50,7 @@ public class Enemies : MonoBehaviour
             yield return new WaitForSeconds(settings.cooldown);
             Enemy enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
             enemy.transform.SetParent(this.transform);
+            enemy.Init(settings.health, settings.cooldown, settings.attack);
             enemies.Add(enemy);
         }
     }

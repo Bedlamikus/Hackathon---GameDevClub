@@ -130,7 +130,7 @@ Transform:
   m_Children:
   - {fileID: 8353343967978276153}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &149595329867836614
 MonoBehaviour:
@@ -144,10 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3096cdc2cf54588448b9cd6726e955bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 816004035963181687, guid: 7b82a40455fa45f4995aca06014fcb6c, type: 3}
-  fightSettings:
-  - {fileID: 11400000, guid: 93a20c9fc0ef40e469de52af44cfe745, type: 2}
-  screenFightPosition: {fileID: 0}
   miniGame: {fileID: 4531261426242126798, guid: 48a84ef8c969dc045af7743ffa8a4e4b, type: 3}
 --- !u!114 &1118578763540411342
 MonoBehaviour:
@@ -180,8 +176,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.1538428, z: 0.33708382}
-  m_Center: {x: 0, y: 0.0769214, z: -0.3314581}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2688815048831717833
 Rigidbody:
   m_ObjectHideFlags: 0

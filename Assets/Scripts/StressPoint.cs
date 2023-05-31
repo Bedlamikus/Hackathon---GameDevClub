@@ -26,7 +26,7 @@ public class StressPoint : MonoBehaviour
         if (!other.GetComponent<Train>()) return;
         GlobalEvents.TrainStop.Invoke();
         GlobalEvents.StartBattle.Invoke();
-        GlobalEvents.StressWin.AddListener(DestroySelf);
+        GlobalEvents.EndBattle.AddListener(DestroySelf);
         var game = Instantiate(miniGame, screenFightPosition.transform);
         game.Init(battlePoint);
     }

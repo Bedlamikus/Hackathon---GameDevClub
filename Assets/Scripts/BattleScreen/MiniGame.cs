@@ -8,7 +8,7 @@ public class MiniGame : MonoBehaviour
     [SerializeField] private List<Transform> spawnPoints = new ();
     [SerializeField] private Enemies enemies;
 
-    public void Init(List<EnemySettings> settings)
+    public void Init(BattlePoint settings)
     {
         enemies.Init(settings, spawnPoints);
         speedWay.Init();

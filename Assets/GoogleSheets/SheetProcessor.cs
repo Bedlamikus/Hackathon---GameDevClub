@@ -62,7 +62,6 @@ public class SheetProcessor : MonoBehaviour
                     if (i < rows.Length)
                         enemySells = rows[i].Split(_cellSeporator);
                 }
-                //i--;
                 data.settings[data.settings.Count - 1].battlePoints.Add(battlePoint);
                 if (i < rows.Length)
                     battlePoints = rows[i].Split(_cellSeporator);

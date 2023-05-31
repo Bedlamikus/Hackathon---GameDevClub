@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class StressPoint : MonoBehaviour
 {
-    [SerializeField] private StressEnemy enemyPrefab;
-    [SerializeField] private List<EnemySettings> fightSettings;
     [SerializeField] private MiniGame miniGame;
+
+    private BattlePoint battlePoint = null;
 
     private List<StressEnemy> enemyList = new();
     private ScreenFightPosition screenFightPosition;
 
-    public void Start()
+    public void Init(BattlePoint battlePoint)
     {
+        this.battlePoint = battlePoint;
         screenFightPosition = FindObjectOfType<ScreenFightPosition>();
-        int count = (Count() - 1) / 10 + 1;
-        for (int i = 0; i < count; i++)
+        var enemyPrefabs = FindObjectOfType<EnemyPrefabs>();
+        foreach (var bp in battlePoint.enemies)
         {
-            enemyList.Add(Instantiate(enemyPrefab, transform));
+            enemyList.Add(Instantiate(enemyPrefabs.stressEnemies[bp.type], transform));
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -27,20 +28,10 @@ public class StressPoint : MonoBehaviour
         GlobalEvents.StartBattle.Invoke();
         GlobalEvents.StressWin.AddListener(DestroySelf);
         var game = Instantiate(miniGame, screenFightPosition.transform);
-        game.Init(fightSettings);
+        game.Init(battlePoint);
     }
     private void DestroySelf()
     {
         Destroy(gameObject);
-    }
-
-    private int Count()
-    {
-        int count = 0;
-        foreach (var settings in fightSettings)
-        {
-            count += settings.enemyCount;
-        }
-        return count;
     }
 }

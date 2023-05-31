@@ -28,4 +28,5 @@ public static class GlobalEvents
     public static UnityEvent<int> ApplyHlam = new();
 
     public static UnityEvent UpdateUI = new();
+    public static UnityEvent<ExcelSettings> SettingsLoaded = new();
 }

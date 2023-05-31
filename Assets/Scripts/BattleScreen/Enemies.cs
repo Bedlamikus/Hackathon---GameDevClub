@@ -29,25 +29,26 @@ public class Enemies : MonoBehaviour
         }
     }
 
-    public void Init(List<EnemySettings> enemiesSettings, List<Transform> spawnPoints)
+    public void Init(BattlePoint enemiesSettings, List<Transform> spawnPoints)
     {
         this.spawnPoints = spawnPoints;
         countSpawned = CountEnemiesInSettings(enemiesSettings);
-        foreach (var enemy in enemiesSettings)
+        foreach (var enemy in enemiesSettings.enemies)
         {
             var newRoutine = StartCoroutine(SpawnEnemies(enemy));
         }
         GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
     }
 
-    private IEnumerator SpawnEnemies(EnemySettings settings)
+    private IEnumerator SpawnEnemies(EnemiesSettings settings)
     {
-        int count = settings.enemyCount;
+        var enemyPrefabs = FindObjectOfType<EnemyPrefabs>();
+        int count = settings.count;
         while (count > 0)
         {
             count--;
-            yield return new WaitForSeconds(settings.coolDownSpawn);
-            Enemy enemy = Instantiate(settings.enemyPrefab, RandomPosition(), Quaternion.identity);
+            yield return new WaitForSeconds(settings.cooldown);
+            Enemy enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
             enemy.transform.SetParent(this.transform);
             enemies.Add(enemy);
         }
@@ -61,12 +62,12 @@ public class Enemies : MonoBehaviour
         return result;
     }
 
-    private int CountEnemiesInSettings(List<EnemySettings> enemiesSettings)
+    private int CountEnemiesInSettings(BattlePoint enemiesSettings)
     {
         int count = 0;
-        foreach (var enemy in enemiesSettings)
+        foreach (var enemy in enemiesSettings.enemies)
         {
-            count += enemy.enemyCount;
+            count += enemy.count;
         }
         return count;
     }

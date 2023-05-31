@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6818803134506454916}
   - component: {fileID: 816004035963181687}
   m_Layer: 0
-  m_Name: StressEnemy
+  m_Name: zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,9 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameCycle gameCycle;
+
+    private int currentCycle = 0;
+    private ExcelSettings _data;
+
     private void Start()
     {
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
+        GlobalEvents.SettingsLoaded.AddListener(DataInit);
     }
 
     public void Restart()
@@ -34,5 +40,17 @@ public class GameManager : MonoBehaviour
     public void BuyHealth() 
     {
         GlobalEvents.BuyHealth.Invoke();
+    }
+
+    private void DataInit(ExcelSettings data)
+    {
+        _data = data;
+        LoadCycleByNum(0);
+    }
+    
+    public void LoadCycleByNum(int num)
+    {
+        var cycle = Instantiate(gameCycle, transform);
+        cycle.Init(_data.settings[num]);
     }
 }

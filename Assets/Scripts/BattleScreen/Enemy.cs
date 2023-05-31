@@ -25,12 +25,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        if (!charles)
-        {
-            var stats = FindObjectOfType<EnemyStats>();
-            health = stats.GetHealth();
-            damage = stats.GetAttackDamage();
-        }
         rb = GetComponent<Rigidbody>();
         target = FindObjectOfType<BattleTrain>();
         _collider = GetComponent<Collider>();

@@ -15,7 +15,6 @@ public class EnemyPrefabs : MonoBehaviour
         foreach (var enemy in enemiesPrefabs)
         {
             enemies.Add(enemy.name, enemy);
-            print(enemy.name);
 
         }
         foreach (var stressEnemy in stressEnemiesPrefabs)

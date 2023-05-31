@@ -10,6 +10,8 @@ public class Station : MonoBehaviour
     private void Start()
     {
         GlobalEvents.NewLoop.AddListener(Enabled);
+        GlobalEvents.UnPause.AddListener(Enabled);
+
         trigger = GetComponent<Collider>();
         trigger.enabled = false;
     }

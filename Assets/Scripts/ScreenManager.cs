@@ -7,6 +7,7 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private GameObject panelWin;
     [SerializeField] private GameObject panelLose;
     [SerializeField] private GameObject panelPause;
+    [SerializeField] private GameObject panelTapForContinuos;
 
     private void Start()
     {
@@ -14,6 +15,12 @@ public class ScreenManager : MonoBehaviour
         GlobalEvents.StressLose.AddListener(ShowPanelLose);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.StationEnter.AddListener(SchowStationScreen);
+    }
+
+    private void SchowStationScreen()
+    {
+        panelTapForContinuos.SetActive(true);
     }
 
     private void ShowPanelWin()

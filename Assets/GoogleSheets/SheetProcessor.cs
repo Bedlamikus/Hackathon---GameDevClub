@@ -7,12 +7,13 @@ using UnityEngine.Networking;
 public class SheetProcessor : MonoBehaviour
 {
     private const int num = 1;
-    private const int xCoord = 2;
-    private const int yCoord = 3;
-    private const int zCoord = 4;
+    private const int xCoord = 3;
+    private const int yCoord = 4;
     private const int enemyType = 5;
     private const int countEnemy = 6;
     private const int coolDown = 7;
+    private const int health = 8;
+    private const int attack = 9;
 
     private const char _cellSeporator = ',';
     private const char _inCellSeporator = ';';
@@ -29,26 +30,42 @@ public class SheetProcessor : MonoBehaviour
         {
             string[] cells = rows[i].Split(_cellSeporator);
             int id = ParseInt(cells[num]);
-            Vector3 position = new Vector3(ParseFloat(cells[xCoord]), ParseFloat(cells[yCoord]), ParseFloat(cells[zCoord]));
-
             data.settings.Add(new CycleSettings()
             {
                 num = id,
-                position = position,
-                enemies = new List<EnemiesSettings>()
+                battlePoints = new List<BattlePoint>()
             });
+
+
+            //read battlePoints
             i++;
-            string[] enemySells = rows[i].Split(_cellSeporator);
-            while (enemySells[0] == "" && i < rows.Length)
+            string[] battlePoints = rows[i].Split(_cellSeporator);
+            while (battlePoints[2] == "BattlePoint" && i < rows.Length)
             {
-                var enemiesSettings = new EnemiesSettings();
-                enemiesSettings.type = enemySells[enemyType];
-                enemiesSettings.count = ParseInt(enemySells[countEnemy]);
-                enemiesSettings.cooldown = ParseFloat(enemySells[coolDown]);
-                data.settings[data.settings.Count - 1].enemies.Add(enemiesSettings);
+                var battlePoint = new BattlePoint();
+                battlePoint.position = new Vector2Int(ParseInt(battlePoints[xCoord]), ParseInt(battlePoints[yCoord]));
+                battlePoint.enemies = new List<EnemiesSettings>();
+
+                //read enemies
                 i++;
+                string[] enemySells = rows[i].Split(_cellSeporator);
+                while (enemySells[0] == "" && enemySells[2] == "" && i < rows.Length)
+                {
+                    var enemiesSettings = new EnemiesSettings();
+                    enemiesSettings.type = enemySells[enemyType];
+                    enemiesSettings.count = ParseInt(enemySells[countEnemy]);
+                    enemiesSettings.cooldown = ParseFloat(enemySells[coolDown]);
+                    enemiesSettings.health = ParseInt(enemySells[health]);
+                    enemiesSettings.attack = ParseFloat(enemySells[attack]);
+                    battlePoint.enemies.Add(enemiesSettings);
+                    i++;
+                    if (i < rows.Length)
+                        enemySells = rows[i].Split(_cellSeporator);
+                }
+                //i--;
+                data.settings[data.settings.Count - 1].battlePoints.Add(battlePoint);
                 if (i < rows.Length)
-                    enemySells = rows[i].Split(_cellSeporator);
+                    battlePoints = rows[i].Split(_cellSeporator);
             }
             i--;
         }
@@ -61,7 +78,6 @@ public class SheetProcessor : MonoBehaviour
         if (!int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out result))
         {
             Debug.Log("Can't parse int, wrong text");
-            print(s);
         }
 
         return result;

@@ -42,6 +42,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
     }
+
     private void BuyHealth()
     {
         if (currentHlam > 10)
@@ -143,5 +144,4 @@ public class PlayerStats : MonoBehaviour
     {
         get { return attackSpeed; }
     }
-
 }

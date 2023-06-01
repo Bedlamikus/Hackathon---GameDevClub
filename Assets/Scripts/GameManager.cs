@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         var cycle = Instantiate(gameCycle, transform);
         cycle.Init(_data.settings[num]);
         currentCycle = num;
+        GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
     }
 
     public void LoadNextCycle()

@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 2226421271878518053}
   - component: {fileID: 7183086129091983379}
   - component: {fileID: 8589768199153218031}
+  - component: {fileID: 6301555212132686111}
   m_Layer: 5
   m_Name: CycleIndex
   m_TagString: Untagged
@@ -212,6 +213,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6301555212132686111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758567303451915457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0af0cbd02770e0469d43acb40e606b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 8589768199153218031}
+  beforeText: 'Cycle '
+  afterText: /10
 --- !u!1 &1042568486905054128
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,18 +8,15 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Bullet bulletPrefab;
     private Enemies enemies;
 
-    private float attackSpeed;
-    private float damage;
     private bool pause = false;
+    private PlayerStats playerSettings;
 
     private void Start()
     {
         enemies = FindObjectOfType<Enemies>();
-        var settings = FindObjectOfType<PlayerStats>();
+        playerSettings = FindObjectOfType<PlayerStats>();
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
-        damage = settings.Damage;
-        attackSpeed = settings.AttackSpeed;
         StartCoroutine(ShootingLoop());
     }
 
@@ -51,11 +48,11 @@ public class Weapon : MonoBehaviour
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
             transform.Rotate(new Vector3(0, 90, 65));
-            if (timer >= attackSpeed && !pause)
+            if (timer >= 0.3/playerSettings.AttackSpeed && !pause)
             {
                 timer = 0;
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-                bullet.damage = damage;
+                bullet.damage = playerSettings.Damage;
                 bullet.transform.LookAt(target.transform);
                 bullet.transform.Rotate(new Vector3(-5, 0, 0));
             }

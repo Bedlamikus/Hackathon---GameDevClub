@@ -67,6 +67,7 @@ public class PlayerStats : MonoBehaviour
             currentLevel += 1;
             currentExperience = maxExperience;
             maxExperience = expFromLevels[currentLevel];
+            UpdateStats(currentLevel);
         }
         GlobalEvents.UpdateUI.Invoke();
     }

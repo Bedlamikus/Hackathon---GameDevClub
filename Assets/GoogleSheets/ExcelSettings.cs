@@ -24,7 +24,9 @@ public class EnemiesSettings
 {
     public string type;
     public int count;
-    public float cooldown;
     public int health;
-    public float attack;
+    public float damage;
+    public float coolDownBeetwenSpawns;
+    public float pauseBeforeSpawn;
+    public float coolDownAttack;
 }

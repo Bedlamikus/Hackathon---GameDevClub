@@ -44,13 +44,14 @@ public class Enemies : MonoBehaviour
     {
         var enemyPrefabs = FindObjectOfType<EnemyPrefabs>();
         int count = settings.count;
+        yield return new WaitForSeconds(settings.pauseBeforeSpawn);
         while (count > 0)
         {
             count--;
-            yield return new WaitForSeconds(settings.cooldown);
+            yield return new WaitForSeconds(settings.coolDownBeetwenSpawns);
             Enemy enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
             enemy.transform.SetParent(this.transform);
-            enemy.Init(settings.health, settings.cooldown, settings.attack);
+            enemy.Init(settings.health, settings.coolDownAttack, settings.damage);
             enemies.Add(enemy);
         }
     }

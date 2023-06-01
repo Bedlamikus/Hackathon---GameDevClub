@@ -35,11 +35,11 @@ public class Enemy : MonoBehaviour
         GlobalEvents.UnPause.AddListener(UnPause);
     }
 
-    public void Init(int health, float coolDown, float attack)
+    public void Init(int health, float coolDownAttack, float adamage)
     {
         this.health = health;
-        coolDownAttack = coolDown;
-        damage = attack;
+        this.coolDownAttack = coolDownAttack;
+        this.damage = adamage;
     }
 
     private void Pause()

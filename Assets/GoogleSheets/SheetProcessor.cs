@@ -11,9 +11,11 @@ public class SheetProcessor : MonoBehaviour
     private const int yCoord = 4;
     private const int enemyType = 5;
     private const int countEnemy = 6;
-    private const int coolDown = 7;
-    private const int health = 8;
-    private const int attack = 9;
+    private const int pauseBeforeSpawn = 7;
+    private const int cooldDownBeetwenSpawns = 8;
+    private const int coolDownAttack = 9;
+    private const int health = 10;
+    private const int attack = 11;
 
     private const char _cellSeporator = ',';
     private const char _inCellSeporator = ';';
@@ -23,7 +25,7 @@ public class SheetProcessor : MonoBehaviour
         char lineEnding = GetPlatformSpecificLineEnd();
         string[] rows = cvsRawData.Split(lineEnding);
         int dataStartRawIndex = 1;
-        ExcelSettings data = new ExcelSettings();
+        ExcelSettings data = new ();
         data.settings = new List<CycleSettings>();
 
         for (int i = dataStartRawIndex; i < rows.Length - 1; i++)
@@ -51,12 +53,16 @@ public class SheetProcessor : MonoBehaviour
                 string[] enemySells = rows[i].Split(_cellSeporator);
                 while (enemySells[0] == "" && enemySells[2] == "" && i < rows.Length)
                 {
-                    var enemiesSettings = new EnemiesSettings();
-                    enemiesSettings.type = enemySells[enemyType];
-                    enemiesSettings.count = ParseInt(enemySells[countEnemy]);
-                    enemiesSettings.cooldown = ParseFloat(enemySells[coolDown]);
-                    enemiesSettings.health = ParseInt(enemySells[health]);
-                    enemiesSettings.attack = ParseFloat(enemySells[attack]);
+                    var enemiesSettings = new EnemiesSettings
+                    {
+                        type = enemySells[enemyType],
+                        count = ParseInt(enemySells[countEnemy]),
+                        coolDownAttack = ParseFloat(enemySells[coolDownAttack]),
+                        health = ParseInt(enemySells[health]),
+                        coolDownBeetwenSpawns = ParseFloat(enemySells[cooldDownBeetwenSpawns]),
+                        damage = ParseFloat(enemySells[attack]),
+                        pauseBeforeSpawn = ParseFloat(enemySells[pauseBeforeSpawn])
+                    };
                     battlePoint.enemies.Add(enemiesSettings);
                     i++;
                     if (i < rows.Length)

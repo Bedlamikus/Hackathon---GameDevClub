@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
         while (true)
         {
             yield return Shooting();
-            yield return new WaitForSeconds(0.005f / attackSpeed);
+            //yield return new WaitForSeconds(0.005f / attackSpeed);
         }
     }
 
@@ -50,13 +50,14 @@ public class Weapon : MonoBehaviour
         {
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
-            transform.Rotate(new Vector3(0, 90, 90));
+            transform.Rotate(new Vector3(0, 90, 65));
             if (timer >= attackSpeed && !pause)
             {
                 timer = 0;
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 bullet.damage = damage;
                 bullet.transform.LookAt(target.transform);
+                bullet.transform.Rotate(new Vector3(-15, 0, 0));
             }
             yield return null;
         }

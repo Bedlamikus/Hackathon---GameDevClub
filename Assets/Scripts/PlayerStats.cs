@@ -113,9 +113,18 @@ public class PlayerStats : MonoBehaviour
     public int CurrentUIExperience
     {
         get 
-        { 
-            if (currentLevel == 0) return currentExperience;
-            return currentExperience - expFromLevels[currentLevel-1]; 
+        {
+            //if (currentLevel == 0) return currentExperience;
+            return currentExperience;// - expFromLevels[currentLevel-1]; 
+        }
+    }
+
+    public int MinUIExperience
+    {
+        get 
+        {
+            if (currentLevel == 0) return 0;
+            return expFromLevels[currentLevel - 1];
         }
     }
 

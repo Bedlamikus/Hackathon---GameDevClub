@@ -6,6 +6,9 @@ using UnityEngine.XR;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private UIPositionToWorldObject prefabUIPosition;
+    [SerializeField] private Canvas canvas;
+
     [SerializeField] private float health;
     [SerializeField] protected float speed_velocity;
     [SerializeField] protected float speedWay_velocity;
@@ -57,6 +60,8 @@ public class Enemy : MonoBehaviour
     {
         if (pause) return;
         health -= damage;
+        var text = Instantiate(prefabUIPosition, canvas.transform);
+        text.Init(transform);
         if (health < 0)
         {
             Die();

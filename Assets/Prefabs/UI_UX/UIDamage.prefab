@@ -186,3 +186,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 7408529069419320941}
+  text: {fileID: 5562437111291113158}

@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 bullet.damage = damage;
                 bullet.transform.LookAt(target.transform);
-                bullet.transform.Rotate(new Vector3(-15, 0, 0));
+                bullet.transform.Rotate(new Vector3(-5, 0, 0));
             }
             yield return null;
         }

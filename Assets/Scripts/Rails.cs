@@ -5,6 +5,7 @@ using UnityEngine;
 public class Rails : MonoBehaviour
 {
     [SerializeField] private List<WayPoint> waypoints;
+    [SerializeField] private List<GameObject> rails;
 
     private int currentWayPoint = 0;
     private int previousWayPoint = 0;
@@ -40,5 +41,10 @@ public class Rails : MonoBehaviour
     {
         currentWayPoint = 0;
         previousWayPoint = 0;
+    }
+
+    public Vector3 GetRandomRailPosition()
+    {
+        return rails[Random.Range(0, rails.Count)].transform.position;
     }
 }

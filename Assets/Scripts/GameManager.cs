@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         if (num >= 9) return;
         var cycle = Instantiate(gameCycle, transform);
-        cycle.Init(_data.settings[num]);
+        cycle.Init(_data.cycleSettings[num]);
         currentCycle = num;
         GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
     }

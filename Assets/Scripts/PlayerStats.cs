@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,19 +9,21 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private int maxExperience;
     
-    [SerializeField] private List<int> expFromLevels = new List<int>();
+    [SerializeField] private List<int> expFromLevels = new ();
     [SerializeField] private int hlam = 0;
     [SerializeField] private float damage = 6;
     [SerializeField] private float attackSpeed = 0.6f;
     [SerializeField] private float armor = 1.0f;
     [SerializeField] private float regeneration = 0.3f;
-    [SerializeField] private List<PlayerSettings> levelSettings = new List<PlayerSettings>();
+    [SerializeField] private List<PlayerSettings> levelSettings = new ();
 
-    private float currentHealth;
-    private int currentExperience;
-    private int currentGolds;
-    private int currentHlam;
-    private int currentLevel = 0;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private int currentExperience;
+    [SerializeField] private int currentGolds;
+    [SerializeField] private int currentHlam;
+    [SerializeField] private int currentLevel = 0;
+
+    [SerializeField] private bool firstGameStart = true;
 
     private void UpdateStats(int lvl)
     {
@@ -33,7 +36,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        UpdateStats(0);
+        //UpdateStats(0);
         maxExperience = expFromLevels[0];
         currentHealth = maxHealth;
         currentExperience = 0;
@@ -44,7 +47,6 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
         StartCoroutine(Regeneration());
-        SaveStats();
     }
 
     private void BuyHealth()
@@ -172,8 +174,27 @@ public class PlayerStats : MonoBehaviour
     {
         string expFromLevelsSettings = JsonUtility.ToJson(this);
         PlayerPrefs.SetString("levelSettings", expFromLevelsSettings);
-        var t = new PlayerStats();
-        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("levelSettings", expFromLevelsSettings), t);
-        print(t.levelSettings[9].health);
+    }
+    private void LoadStats()
+    {
+        var s = PlayerPrefs.GetString("levelSettings");
+
+        JsonUtility.FromJsonOverwrite(s, this);
+        if (firstGameStart)
+        {
+            firstGameStart = false;
+            print("FirstStart");
+            SaveStats();
+        }
+        GlobalEvents.UpdateUI.Invoke();
+    }
+
+    private void OnEnable()
+    {
+        //LoadStats();
+    }
+    private void OnDisable()
+    {
+        SaveStats();
     }
 }

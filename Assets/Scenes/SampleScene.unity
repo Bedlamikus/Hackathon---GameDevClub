@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1802834, g: 0.2257135, b: 0.3069223, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3837,51 +3837,61 @@ MonoBehaviour:
     attackSpeed: 0.6
     armor: 1
     regeneration: 0.3
+    goldForUpgrade: 0
   - health: 18
     damage: 9
     attackSpeed: 0.69
     armor: 1.5
     regeneration: 0.55
+    goldForUpgrade: 0
   - health: 26
     damage: 13
     attackSpeed: 0.78
     armor: 2
     regeneration: 0.8
+    goldForUpgrade: 0
   - health: 34
     damage: 16
     attackSpeed: 0.87
     armor: 2.5
     regeneration: 1.05
+    goldForUpgrade: 0
   - health: 34
     damage: 20
     attackSpeed: 0.96
     armor: 3
     regeneration: 1.3
+    goldForUpgrade: 0
   - health: 50
     damage: 24
     attackSpeed: 1.05
     armor: 3.5
     regeneration: 1.55
+    goldForUpgrade: 0
   - health: 58
     damage: 28
     attackSpeed: 1.14
     armor: 4
     regeneration: 1.8
+    goldForUpgrade: 0
   - health: 66
     damage: 32
     attackSpeed: 1.23
     armor: 4.5
     regeneration: 2.05
+    goldForUpgrade: 0
   - health: 74
     damage: 38
     attackSpeed: 1.32
     armor: 5
     regeneration: 2.3
+    goldForUpgrade: 0
   - health: 82
     damage: 42
     attackSpeed: 1.41
     armor: 5.5
     regeneration: 2.55
+    goldForUpgrade: 0
 --- !u!4 &710501595
 Transform:
   m_ObjectHideFlags: 0
@@ -7504,6 +7514,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7e71a9c631fe7748887ecd21c04ed73, type: 3}
+--- !u!1 &1323356800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323356801}
+  m_Layer: 0
+  m_Name: SavingAndLoading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323356801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323356800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 857.28674, y: 545.87756, z: -468.12183}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1337478574
 GameObject:
   m_ObjectHideFlags: 0
@@ -12320,9 +12361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45a2ca6468b46249ab82c88455e2b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sheetId: 1xXmIVZmuqfSgPuG9owL2IANJ4sdlnJCjnBRluQLCF1E
+  _sheetIdCycleSettings: 0
+  _sheetIdPlayerSettings: 312300900
   _data:
-    settings: []
+    cycleSettings: []
+    playerSettings: []
 --- !u!114 &2102927233
 MonoBehaviour:
   m_ObjectHideFlags: 0

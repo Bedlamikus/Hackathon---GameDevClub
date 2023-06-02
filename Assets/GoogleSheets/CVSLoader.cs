@@ -5,18 +5,13 @@ using UnityEngine.Networking;
 
 public class CVSLoader : MonoBehaviour
 {
-    private bool _debug = false;
-    private const string url = "https://docs.google.com/spreadsheets/d/*/export?format=csv&gid=0";//2062927106";
-    //&gid=<id sheet>
+    private readonly bool _debug = false;
 
-    public void DownloadTable(string sheetId, Action<string> onSheetLoadedAction)
-    {
-        string actualUrl = url.Replace("*", sheetId);
-        StartCoroutine(DownloadRawCvsTable(actualUrl, onSheetLoadedAction));
-    }
+    private const string urlCycleSettings = "https://docs.google.com/spreadsheets/d/1xXmIVZmuqfSgPuG9owL2IANJ4sdlnJCjnBRluQLCF1E/export?format=csv&gid=*";
 
-    private IEnumerator DownloadRawCvsTable(string actualUrl, Action<string> callback)
+    public IEnumerator DownloadRawCvsTable(string gID, string[] result)
     {
+        string actualUrl = urlCycleSettings.Replace("*", gID);
         using (UnityWebRequest request = UnityWebRequest.Get(actualUrl))
         {
             yield return request.SendWebRequest();
@@ -33,7 +28,7 @@ public class CVSLoader : MonoBehaviour
                     Debug.Log(request.downloadHandler.text);
                 }
 
-                callback(request.downloadHandler.text);
+                result[0] = request.downloadHandler.text;
             }
             
         }

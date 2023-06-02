@@ -4,7 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class ExcelSettings
 {
-    public List<CycleSettings> settings;
+    public List<CycleSettings> cycleSettings;
+    public List<PlayerSettings> playerSettings;
 }
 [System.Serializable]
 public class CycleSettings

@@ -1,6 +1,4 @@
-using System;
-
-[Serializable]
+[System.Serializable]
 public class PlayerSettings 
 {
     public int health;
@@ -8,4 +6,5 @@ public class PlayerSettings
     public float attackSpeed;
     public float armor;
     public float regeneration;
+    public int goldForUpgrade;
 }

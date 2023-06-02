@@ -8,6 +8,8 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private GameObject panelLose;
     [SerializeField] private GameObject panelPause;
     [SerializeField] private GameObject panelTapForContinuos;
+    [SerializeField] private GameObject panelFight;
+    [SerializeField] private GameObject panelMagazine;
 
     private void Start()
     {
@@ -16,6 +18,20 @@ public class ScreenManager : MonoBehaviour
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
         GlobalEvents.StationEnter.AddListener(SchowStationScreen);
+        GlobalEvents.StartBattle.AddListener(ShowPanelFight);
+        GlobalEvents.EndBattle.AddListener(ShowPanelMagazine);
+    }
+
+    private void ShowPanelFight()
+    {
+        panelFight.SetActive(true);
+        panelMagazine.SetActive(false);
+    }
+
+    private void ShowPanelMagazine()
+    {
+        panelFight.SetActive(false);
+        panelMagazine.SetActive(true);
     }
 
     private void SchowStationScreen()

@@ -2654,6 +2654,7 @@ GameObject:
   - component: {fileID: 5867637954951228270}
   - component: {fileID: 7339678748040997707}
   - component: {fileID: 5453252599193948997}
+  - component: {fileID: 7983081119140148824}
   m_Layer: 5
   m_Name: BottomPanel
   m_TagString: Untagged
@@ -2721,6 +2722,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7983081119140148824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950152145382022985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d5bd1ff2c93cd4da623d4269e8bdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyHealth: {fileID: 5495595556998595805}
+  maxHealth: {fileID: 2323223611686179353}
+  health: {fileID: 5634545076705057240}
+  healthSlider: {fileID: 3893592805794932509}
+  maxExperience: {fileID: 1724139121099124732}
+  experience: {fileID: 5937121093719176812}
+  level: {fileID: 8161589225706041326}
+  experienceSlider: {fileID: 7037561875406844586}
+  golds: {fileID: 8363629025735773650}
+  hlam: {fileID: 1211142628884694439}
 --- !u!1 &3972202095929656289
 GameObject:
   m_ObjectHideFlags: 0

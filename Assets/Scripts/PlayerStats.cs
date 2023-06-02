@@ -41,6 +41,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
+        StartCoroutine(Regeneration());
     }
 
     private void BuyHealth()
@@ -85,6 +86,17 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UpdateUI.Invoke();
     }
 
+    private IEnumerator Regeneration()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            currentHealth += regeneration;
+            if (currentHealth < maxHealth) GlobalEvents.UpdateUI.Invoke();
+            else currentHealth = maxHealth;
+        }
+    }
+
     public float Health 
     { 
         get { return currentHealth; }
@@ -114,8 +126,7 @@ public class PlayerStats : MonoBehaviour
     {
         get 
         {
-            //if (currentLevel == 0) return currentExperience;
-            return currentExperience;// - expFromLevels[currentLevel-1]; 
+            return currentExperience;
         }
     }
 

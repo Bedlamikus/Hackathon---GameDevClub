@@ -61,9 +61,13 @@ public class Enemy : MonoBehaviour
         if (pause) return;
         health -= damage;
         var text = Instantiate(prefabUIPosition, canvas.transform);
-        text.Init("-" + damage.ToString(), transform,100, true, false);
-        if (health < 0)
+        if (health > 0)
         {
+            text.Init("-" + damage.ToString(), transform, 100, true, false);
+        }
+        else
+        {
+            text.Init("-" + (damage + health).ToString(), transform, 100, true, false);
             Die();
         }
     }

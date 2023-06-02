@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private int maxExperience;
+    
     [SerializeField] private List<int> expFromLevels = new List<int>();
     [SerializeField] private int hlam = 0;
     [SerializeField] private float damage = 6;
@@ -42,6 +44,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
         StartCoroutine(Regeneration());
+        SaveStats();
     }
 
     private void BuyHealth()
@@ -163,5 +166,14 @@ public class PlayerStats : MonoBehaviour
     public float AttackSpeed
     {
         get { return attackSpeed; }
+    }
+
+    private void SaveStats()
+    {
+        string expFromLevelsSettings = JsonUtility.ToJson(this);
+        PlayerPrefs.SetString("levelSettings", expFromLevelsSettings);
+        var t = new PlayerStats();
+        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("levelSettings", expFromLevelsSettings), t);
+        print(t.levelSettings[9].health);
     }
 }

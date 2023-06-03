@@ -35,7 +35,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        UpdateStats(0);
+        //UpdateStats(0);
         maxExperience = expFromLevels[0];
         currentHealth = maxHealth;
         currentExperience = 0;
@@ -43,7 +43,6 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
-        GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
         GlobalEvents.SettingsLoaded.AddListener(UpdateSettings);
         StartCoroutine(Regeneration());
@@ -96,9 +95,12 @@ public class PlayerStats : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            currentHealth += regeneration;
-            if (currentHealth < maxHealth) GlobalEvents.UpdateUI.Invoke();
-            else currentHealth = maxHealth;
+            if (currentHealth < maxHealth)
+            {
+                currentHealth += regeneration;
+                if (currentHealth > maxHealth) currentHealth = maxHealth;
+                GlobalEvents.UpdateUI.Invoke();
+            }
         }
     }
 
@@ -185,5 +187,6 @@ public class PlayerStats : MonoBehaviour
         maxExperience = expFromLevels[0];
         currentExperience = 0;
         UpdateStats(0);
+        GlobalEvents.UpdateUI.Invoke();
     }
 }

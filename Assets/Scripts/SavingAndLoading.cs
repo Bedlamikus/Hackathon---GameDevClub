@@ -22,7 +22,7 @@ public class SavingAndLoading : MonoBehaviour
 
     private void LoadingDataFromPlayerPrefs()
     {
-        var settings = JsonUtility.FromJson<ExcelSettings>("DefaultSettings");
+        var settings = JsonUtility.FromJson<ExcelSettings>(PlayerPrefs.GetString("DefaultSettings"));
         GlobalEvents.SettingsLoaded.Invoke(settings);
     }
 

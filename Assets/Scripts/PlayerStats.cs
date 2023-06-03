@@ -25,6 +25,7 @@ public class PlayerStats : MonoBehaviour
 
     private void UpdateStats(int lvl)
     {
+        if (levelSettings.Count <=0) return;
         maxHealth = levelSettings[lvl].health;
         currentHealth = maxHealth;
         damage = levelSettings[lvl].damage;
@@ -35,16 +36,15 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        //UpdateStats(0);
+        UpdateStats(0);
         maxExperience = expFromLevels[0];
-        currentHealth = maxHealth;
         currentExperience = 0;
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
-        GlobalEvents.SettingsLoaded.AddListener(UpdateSettings);
+        GlobalEvents.DefaultSettingsLoaded.AddListener(UpdateSettings);
         StartCoroutine(Regeneration());
     }
 
@@ -57,6 +57,7 @@ public class PlayerStats : MonoBehaviour
             GlobalEvents.UpdateUI.Invoke();
         }
     }
+
     private void ApplyDamage(float damage)
     {
         currentHealth -= damage;

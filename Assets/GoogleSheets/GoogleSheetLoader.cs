@@ -31,6 +31,6 @@ public class GoogleSheetLoader : MonoBehaviour
         _data = _sheetProcessor.LoadCycleSettings(rawCSVtext[0]);
         yield return _cvsLoader.DownloadRawCvsTable(_sheetIdPlayerSettings, rawCSVtext);
         _data.playerSettings = _sheetProcessor.LoadPlayerSettings(rawCSVtext[0]);
-        GlobalEvents.SettingsLoaded.Invoke(_data);
+        GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
     }
 }

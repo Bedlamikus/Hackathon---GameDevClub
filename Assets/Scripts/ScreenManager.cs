@@ -10,6 +10,8 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private GameObject panelTapForContinuos;
     [SerializeField] private GameObject panelFight;
     [SerializeField] private GameObject panelMagazine;
+    [SerializeField] private GameObject panelSettings;
+
 
     private void Start()
     {
@@ -20,6 +22,11 @@ public class ScreenManager : MonoBehaviour
         GlobalEvents.StationEnter.AddListener(SchowStationScreen);
         GlobalEvents.StartBattle.AddListener(ShowPanelFight);
         GlobalEvents.EndBattle.AddListener(ShowPanelMagazine);
+    }
+
+    private void ShowSettings()
+    {
+        panelSettings.SetActive(true);
     }
 
     private void ShowPanelFight()

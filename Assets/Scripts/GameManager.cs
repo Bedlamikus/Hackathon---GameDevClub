@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
-        GlobalEvents.SettingsLoaded.AddListener(DataInit);
+        GlobalEvents.DefaultSettingsLoaded.AddListener(DataInit);
     }
 
     public void Restart()

@@ -53,9 +53,4 @@ public class UpdateUIStats : MonoBehaviour
     {
         hlam.text = player.Hlam.ToString();
     }
-    private void OnEnable()
-    {
-        GlobalEvents.UpdateUI.Invoke();
-
-    }
 }

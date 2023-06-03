@@ -113,8 +113,8 @@ public class Enemy : MonoBehaviour
             {
                 transform.LookAt(targetPosition);
                 transform.position = new Vector3(transform.position.x, heightheightAboveGround, transform.position.z);
-                rb.AddForce(transform.forward * speed_velocity);
-                rb.AddForce(new Vector3(0, 0, -1) * speedWay_velocity);
+                rb.AddForce(transform.forward * speed_velocity * Time.deltaTime);
+                rb.AddForce(new Vector3(0, 0, -1) * speedWay_velocity * Time.deltaTime);
             }
             yield return null;
         }

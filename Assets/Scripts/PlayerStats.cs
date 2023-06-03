@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        //UpdateStats(0);
+        UpdateStats(0);
         maxExperience = expFromLevels[0];
         currentHealth = maxHealth;
         currentExperience = 0;
@@ -170,31 +170,12 @@ public class PlayerStats : MonoBehaviour
         get { return attackSpeed; }
     }
 
-    private void SaveStats()
-    {
-        string expFromLevelsSettings = JsonUtility.ToJson(this);
-        PlayerPrefs.SetString("levelSettings", expFromLevelsSettings);
-    }
-    private void LoadStats()
-    {
-        var s = PlayerPrefs.GetString("levelSettings");
-
-        JsonUtility.FromJsonOverwrite(s, this);
-        if (firstGameStart)
-        {
-            firstGameStart = false;
-            print("FirstStart");
-            SaveStats();
-        }
-        GlobalEvents.UpdateUI.Invoke();
-    }
-
     private void OnEnable()
     {
         //LoadStats();
     }
     private void OnDisable()
     {
-        SaveStats();
+        //SaveStats();
     }
 }

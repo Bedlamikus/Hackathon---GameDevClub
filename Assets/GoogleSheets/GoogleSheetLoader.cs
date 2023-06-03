@@ -17,6 +17,11 @@ public class GoogleSheetLoader : MonoBehaviour
     {
         _cvsLoader = GetComponent<CVSLoader>();
         _sheetProcessor = GetComponent<SheetProcessor>();
+        GlobalEvents.LoadSettings.AddListener(LoadSettings);
+    }
+
+    private void LoadSettings()
+    {
         StartCoroutine(DownloadTable());
     }
 

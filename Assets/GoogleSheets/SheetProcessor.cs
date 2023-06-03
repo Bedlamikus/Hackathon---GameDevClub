@@ -31,7 +31,7 @@ public class SheetProcessor : MonoBehaviour
     public ExcelSettings LoadCycleSettings(string cvsRawData)
     {
         char lineEnding = GetPlatformSpecificLineEnd();
-        string[] rows = cvsRawData.Split(lineEnding);
+        string[] rows = Convert(cvsRawData).Split(lineEnding);
         int dataStartRawIndex = 1;
         ExcelSettings data = new ();
         data.cycleSettings = new List<CycleSettings>();

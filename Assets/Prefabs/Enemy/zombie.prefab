@@ -74,8 +74,8 @@ MonoBehaviour:
   prefabUIPosition: {fileID: 534258279948675988, guid: 42af734b52b27c240bc4a14f9417cceb, type: 3}
   canvas: {fileID: 4240866811638519935}
   health: 100
-  speed_velocity: 2
-  speedWay_velocity: 1.5
+  speed_velocity: 200
+  speedWay_velocity: 150
   cost: 1
   attackDistance: 0
   coolDownAttack: 1

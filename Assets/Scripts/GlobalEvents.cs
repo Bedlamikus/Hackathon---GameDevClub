@@ -29,5 +29,6 @@ public static class GlobalEvents
 
     public static UnityEvent UpdateUI = new();
     public static UnityEvent<ExcelSettings> SettingsLoaded = new();
+    public static UnityEvent LoadSettings = new();
     public static UnityEvent<int> ChangeCycleIndex = new();
 }

@@ -13,13 +13,12 @@ public class GoogleSheetLoader : MonoBehaviour
     private CVSLoader _cvsLoader;
     private SheetProcessor _sheetProcessor;
 
-    private void Start()
+    private void Awake()
     {
+        GlobalEvents.LoadSettings.AddListener(LoadSettings);
         _cvsLoader = GetComponent<CVSLoader>();
         _sheetProcessor = GetComponent<SheetProcessor>();
-        GlobalEvents.LoadSettings.AddListener(LoadSettings);
     }
-
     private void LoadSettings()
     {
         StartCoroutine(DownloadTable());

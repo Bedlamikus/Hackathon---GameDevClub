@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     
     public void LoadCycleByNum(int num)
     {
-        if (num >= 9) return;
+        if (num > 9) return;
         var cycle = Instantiate(gameCycle, transform);
         cycle.Init(_data.cycleSettings[num]);
         currentCycle = num;

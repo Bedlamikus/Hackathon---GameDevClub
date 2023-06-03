@@ -23,11 +23,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int currentHlam;
     [SerializeField] private int currentLevel = 0;
 
-    [SerializeField] private bool firstGameStart = true;
-
     private void UpdateStats(int lvl)
     {
         maxHealth = levelSettings[lvl].health;
+        currentHealth = maxHealth;
         damage = levelSettings[lvl].damage;
         attackSpeed = levelSettings[lvl].attackSpeed;
         armor = levelSettings[lvl].armor;
@@ -46,6 +45,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
+        GlobalEvents.SettingsLoaded.AddListener(UpdateSettings);
         StartCoroutine(Regeneration());
     }
 
@@ -177,5 +177,13 @@ public class PlayerStats : MonoBehaviour
     private void OnDisable()
     {
         //SaveStats();
+    }
+
+    private void UpdateSettings(ExcelSettings settings)
+    {
+        levelSettings = settings.playerSettings;
+        maxExperience = expFromLevels[0];
+        currentExperience = 0;
+        UpdateStats(0);
     }
 }

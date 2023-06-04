@@ -9,6 +9,7 @@ public class GameCycle : MonoBehaviour
     public void Init(CycleSettings cycleSettings)
     {
         var rails = FindObjectOfType<Rails>();
+        rails.CleanOccupiedPositions();
         foreach (var stressPoint in cycleSettings.battlePoints)
         {
             var stress = Instantiate(stressPointPrefab, transform);

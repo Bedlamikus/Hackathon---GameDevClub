@@ -7812,7 +7812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1326a0d52868514f91bab6c774b37ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsFromTable: 0
+  settingsFromTable: 1
 --- !u!1 &1337478574
 GameObject:
   m_ObjectHideFlags: 0

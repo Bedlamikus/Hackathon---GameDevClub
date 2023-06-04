@@ -90,6 +90,11 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (Random.Range(0, 2) == 1)
+        {
+            var newCoin = Instantiate(coin, transform.position, Quaternion.identity);
+            newCoin.transform.parent = transform.parent;
+        }
         _collider.enabled = false;
         transform.parent = null;
         rb.isKinematic = true;
@@ -103,7 +108,6 @@ public class Enemy : MonoBehaviour
         GlobalEvents.ApplyGolds.Invoke(cost);
         GlobalEvents.ApplyExperience.Invoke(cost);
         GlobalEvents.ApplyHlam.Invoke(cost);
-        if (Random.Range(0,2) == 1) Instantiate(coin, transform.position, Quaternion.identity);
     }
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)

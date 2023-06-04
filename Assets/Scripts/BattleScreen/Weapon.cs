@@ -10,9 +10,11 @@ public class Weapon : MonoBehaviour
 
     private bool pause = false;
     private PlayerStats playerSettings;
+    private FightSound sound;
 
     private void Start()
     {
+        sound = FindObjectOfType<FightSound>();
         enemies = FindObjectOfType<Enemies>();
         playerSettings = FindObjectOfType<PlayerStats>();
         GlobalEvents.Pause.AddListener(Pause);
@@ -54,7 +56,8 @@ public class Weapon : MonoBehaviour
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                 bullet.damage = playerSettings.Damage;
                 bullet.transform.LookAt(target.transform);
-                bullet.transform.Rotate(new Vector3(-5, 0, 0));
+                bullet.transform.Rotate(new Vector3(-7, 0, 0));
+                sound.PlayShootStandart();
             }
             yield return null;
         }

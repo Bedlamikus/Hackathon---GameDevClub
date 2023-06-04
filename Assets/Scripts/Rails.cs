@@ -61,7 +61,7 @@ public class Rails : MonoBehaviour
             position = rails[Random.Range(0, rails.Count)].transform.position;
             occupiedPosition = new Vector2Int((int)position.x, (int)position.y);
         }
-        occupiedPositions.Add(new Vector2Int());
+        occupiedPositions.Add(occupiedPosition);
         return position;
     }
 }

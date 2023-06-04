@@ -8,6 +8,9 @@ public class Train : MonoBehaviour
     [SerializeField] private Transform station;
     [SerializeField] private float speed;
 
+    [SerializeField] private AudioClip choo;
+    [SerializeField] private AudioSource sound;
+
     private int paused = 0;
     private Quaternion startRotation;
 
@@ -58,10 +61,12 @@ public class Train : MonoBehaviour
     private void Pause()
     {
         paused = 0;
+        sound.Stop();
     }
 
     private void UnPause()
     {
+        sound.PlayOneShot(choo, 0.2f);
         paused = 1;
         restart = false;
         if (ride == null) StartRide();

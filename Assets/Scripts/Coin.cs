@@ -14,10 +14,13 @@ public class Coin : MonoBehaviour
     [SerializeField] private GameObject particles;
 
     private Mouse mouse;
+    private FightSound sound;
+
     private bool dies = false;
 
     private void Start()
     {
+        sound = FindObjectOfType<FightSound>();
         mouse = FindObjectOfType<Mouse>();
         var position = transform.position;
         position.y += ofssetY;
@@ -48,6 +51,7 @@ public class Coin : MonoBehaviour
         if (mouse.pressed)
         {
             GlobalEvents.ApplyGolds.Invoke(amount);
+            sound.ApplyCoin();
             Die();
         }
     }

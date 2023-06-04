@@ -50,7 +50,8 @@ public class Enemies : MonoBehaviour
         {
             count--;
             yield return new WaitForSeconds(settings.coolDownBeetwenSpawns);
-            Enemy enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
+            print(settings.type);
+            var enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
             enemy.transform.SetParent(this.transform);
             enemy.Init(settings.health, settings.coolDownAttack, settings.damage);
             enemies.Add(enemy);

@@ -14,19 +14,30 @@ public class SavingAndLoading : MonoBehaviour
     private void Start()
     {
         playerSettings = FindObjectOfType<PlayerStats>();
-        GlobalEvents.DefaultSettingsLoaded.AddListener(SavingDataToPlayerPrefs);
-        if (settingsFromTable) LoadSettingsFromGoogleTable();
-        else LoadingDataFromPlayerPrefs();
+        GlobalEvents.DefaultSettingsLoaded.AddListener(SavingDefaultSettingsToPlayerPrefs);
+        GlobalEvents.SaveCurrentSettings.AddListener(SaveCurrentSettings);
+
+
+        if (settingsFromTable)
+        {
+            LoadSettingsFromGoogleTable();
+            return;
+        }
+        if (PlayerPrefs.HasKey(CURRENT_SETTINGS))
+        {
+            LoadCurrentSettings();
+            return;
+        }
+        LoadingDefaultSettingsFromPlayerPrefs();
     }
 
-    private void SavingDataToPlayerPrefs(ExcelSettings settings)
+    private void SavingDefaultSettingsToPlayerPrefs(ExcelSettings settings)
     {
         string s = JsonUtility.ToJson(settings);
         PlayerPrefs.SetString(DEFAULT_SETTINGS, s);
-        SaveCurrentSettings();
     }
 
-    private void LoadingDataFromPlayerPrefs()
+    private void LoadingDefaultSettingsFromPlayerPrefs()
     {
         var settings = JsonUtility.FromJson<ExcelSettings>(PlayerPrefs.GetString(DEFAULT_SETTINGS));
         GlobalEvents.DefaultSettingsLoaded.Invoke(settings);

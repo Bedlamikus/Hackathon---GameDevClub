@@ -179,7 +179,7 @@ public class PlayerStats : MonoBehaviour
     }
     private void OnDisable()
     {
-        //SaveStats();
+        GlobalEvents.SaveCurrentSettings.Invoke();
     }
 
     private void UpdateSettings(ExcelSettings settings)

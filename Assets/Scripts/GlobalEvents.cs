@@ -21,6 +21,7 @@ public static class GlobalEvents
     public static UnityEvent EnemyDie = new();
     public static UnityEvent BattleTrainDie = new();
     public static UnityEvent StartCharlesBattle = new();
+    public static UnityEvent SettingsWindow = new();
 
     public static UnityEvent<int> ApplyGolds = new();
     public static UnityEvent<float> ApplyDamage = new();
@@ -28,6 +29,9 @@ public static class GlobalEvents
     public static UnityEvent<int> ApplyHlam = new();
 
     public static UnityEvent UpdateUI = new();
-    public static UnityEvent<ExcelSettings> SettingsLoaded = new();
+    public static UnityEvent<ExcelSettings> DefaultSettingsLoaded = new();
+    public static UnityEvent SaveCurrentSettings = new();
+    public static UnityEvent LoadCurrentSettings = new();
+    public static UnityEvent LoadSettings = new();
     public static UnityEvent<int> ChangeCycleIndex = new();
 }

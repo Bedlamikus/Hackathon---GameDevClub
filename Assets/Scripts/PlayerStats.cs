@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,23 +9,25 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private int maxExperience;
     
-    [SerializeField] private List<int> expFromLevels = new List<int>();
+    [SerializeField] private List<int> expFromLevels = new ();
     [SerializeField] private int hlam = 0;
     [SerializeField] private float damage = 6;
     [SerializeField] private float attackSpeed = 0.6f;
     [SerializeField] private float armor = 1.0f;
     [SerializeField] private float regeneration = 0.3f;
-    [SerializeField] private List<PlayerSettings> levelSettings = new List<PlayerSettings>();
+    [SerializeField] private List<PlayerSettings> levelSettings = new ();
 
-    private float currentHealth;
-    private int currentExperience;
-    private int currentGolds;
-    private int currentHlam;
-    private int currentLevel = 0;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private int currentExperience;
+    [SerializeField] private int currentGolds;
+    [SerializeField] private int currentHlam;
+    [SerializeField] private int currentLevel = 0;
 
     private void UpdateStats(int lvl)
     {
+        if (levelSettings.Count <=0) return;
         maxHealth = levelSettings[lvl].health;
+        currentHealth = maxHealth;
         damage = levelSettings[lvl].damage;
         attackSpeed = levelSettings[lvl].attackSpeed;
         armor = levelSettings[lvl].armor;
@@ -35,16 +38,14 @@ public class PlayerStats : MonoBehaviour
     {
         UpdateStats(0);
         maxExperience = expFromLevels[0];
-        currentHealth = maxHealth;
         currentExperience = 0;
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
-        GlobalEvents.UpdateUI.Invoke();
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
+        GlobalEvents.DefaultSettingsLoaded.AddListener(UpdateSettings);
         StartCoroutine(Regeneration());
-        SaveStats();
     }
 
     private void BuyHealth()
@@ -56,6 +57,7 @@ public class PlayerStats : MonoBehaviour
             GlobalEvents.UpdateUI.Invoke();
         }
     }
+
     private void ApplyDamage(float damage)
     {
         currentHealth -= damage;
@@ -94,9 +96,12 @@ public class PlayerStats : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            currentHealth += regeneration;
-            if (currentHealth < maxHealth) GlobalEvents.UpdateUI.Invoke();
-            else currentHealth = maxHealth;
+            if (currentHealth < maxHealth)
+            {
+                currentHealth += regeneration;
+                if (currentHealth > maxHealth) currentHealth = maxHealth;
+                GlobalEvents.UpdateUI.Invoke();
+            }
         }
     }
 
@@ -168,12 +173,21 @@ public class PlayerStats : MonoBehaviour
         get { return attackSpeed; }
     }
 
-    private void SaveStats()
+    private void OnEnable()
     {
-        string expFromLevelsSettings = JsonUtility.ToJson(this);
-        PlayerPrefs.SetString("levelSettings", expFromLevelsSettings);
-        var t = new PlayerStats();
-        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("levelSettings", expFromLevelsSettings), t);
-        print(t.levelSettings[9].health);
+        //LoadStats();
+    }
+    private void OnDisable()
+    {
+        GlobalEvents.SaveCurrentSettings.Invoke();
+    }
+
+    private void UpdateSettings(ExcelSettings settings)
+    {
+        levelSettings = settings.playerSettings;
+        maxExperience = expFromLevels[0];
+        currentExperience = 0;
+        UpdateStats(0);
+        GlobalEvents.UpdateUI.Invoke();
     }
 }

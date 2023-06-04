@@ -74,14 +74,15 @@ MonoBehaviour:
   prefabUIPosition: {fileID: 534258279948675988, guid: 42af734b52b27c240bc4a14f9417cceb, type: 3}
   canvas: {fileID: 4240866811638519935}
   health: 100
-  speed_velocity: 2
-  speedWay_velocity: 1.5
+  speed_velocity: 200
+  speedWay_velocity: 150
   cost: 1
   attackDistance: 0
   coolDownAttack: 1
   damage: 20
   heightheightAboveGround: 0.51
   animator: {fileID: 5439005483254686933}
+  coin: {fileID: 708985607480985393, guid: 781d2ddab64fd2741b28a0aee5011b82, type: 3}
   target: {fileID: 0}
   _collider: {fileID: 7216733073541138253}
 --- !u!54 &-6229669653163597149
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5439005483247425267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4387eac879cd5dd45a79c46cb4afddba, type: 3}
+  m_Script: {fileID: 11500000, guid: d7753636dcfd4d3478eff2c344dada5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 3741843800494917837}

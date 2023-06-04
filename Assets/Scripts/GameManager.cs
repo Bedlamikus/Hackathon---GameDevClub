@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
-        GlobalEvents.SettingsLoaded.AddListener(DataInit);
+        GlobalEvents.DefaultSettingsLoaded.AddListener(DataInit);
     }
 
     public void Restart()
@@ -50,9 +50,9 @@ public class GameManager : MonoBehaviour
     
     public void LoadCycleByNum(int num)
     {
-        if (num >= 9) return;
+        if (num > 9) return;
         var cycle = Instantiate(gameCycle, transform);
-        cycle.Init(_data.settings[num]);
+        cycle.Init(_data.cycleSettings[num]);
         currentCycle = num;
         GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
     }

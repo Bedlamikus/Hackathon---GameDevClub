@@ -14,21 +14,17 @@ public class SavingAndLoading : MonoBehaviour
     private void Start()
     {
         playerSettings = FindObjectOfType<PlayerStats>();
-        GlobalEvents.DefaultSettingsLoaded.AddListener(SavingDefaultSettingsToPlayerPrefs);
+        GlobalEvents.EndBattle.AddListener(SaveCurrentSettings);
         GlobalEvents.SaveCurrentSettings.AddListener(SaveCurrentSettings);
-
+        GlobalEvents.DefaultSettingsLoaded.AddListener(SavingDefaultSettingsToPlayerPrefs);
 
         if (settingsFromTable)
         {
+            print("Loading from internet");
             LoadSettingsFromGoogleTable();
             return;
         }
-        if (PlayerPrefs.HasKey(CURRENT_SETTINGS))
-        {
-            LoadCurrentSettings();
-            return;
-        }
-        LoadingDefaultSettingsFromPlayerPrefs();
+        LoadCurrentSettings();
     }
 
     private void SavingDefaultSettingsToPlayerPrefs(ExcelSettings settings)
@@ -46,19 +42,35 @@ public class SavingAndLoading : MonoBehaviour
     public void LoadSettingsFromGoogleTable()
     {
         PlayerPrefs.DeleteAll();
-        PlayerPrefs.SetString(FIRST_START, FIRST_START);
         GlobalEvents.LoadSettings.Invoke();
     }
 
     private void SaveCurrentSettings()
     {
-        var currentSettings = JsonUtility.ToJson(playerSettings);
+        var currentSettings = JsonUtility.ToJson(playerSettings.GetCurrentSettings());
+        print("Saving");
+        print(currentSettings);
         PlayerPrefs.SetString(CURRENT_SETTINGS, currentSettings);
     }
 
     private void LoadCurrentSettings()
     {
-        JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString(CURRENT_SETTINGS), playerSettings);
+        LoadingDefaultSettingsFromPlayerPrefs();
+        StartCoroutine(LoadCurrentSettingsCoroutine());
     }
 
+    private IEnumerator LoadCurrentSettingsCoroutine()
+    {
+        yield return null;// new WaitForSeconds(1);
+        var currentSettings = PlayerPrefs.GetString(CURRENT_SETTINGS);
+        if (currentSettings != "")
+        {
+            //print(currentSettings);
+            var settings = JsonUtility.FromJson<PlayerStatsData>(currentSettings);
+            playerSettings.SetCurrentSettings(settings);
+            var gm = FindObjectOfType<GameManager>();
+            gm.LoadCycleByNum(settings.currentLevel);
+        }
+
+    }
 }

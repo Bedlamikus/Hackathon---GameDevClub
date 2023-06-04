@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     
     public void LoadCycleByNum(int num)
     {
+        ClearCyclesInChild();
         if (num > 9) return;
         var cycle = Instantiate(gameCycle, transform);
         cycle.Init(_data.cycleSettings[num]);
@@ -60,5 +62,15 @@ public class GameManager : MonoBehaviour
     public void LoadNextCycle()
     {
         LoadCycleByNum(currentCycle + 1);
+        GlobalEvents.SaveCurrentSettings.Invoke();
+    }
+
+    private void ClearCyclesInChild()
+    {
+        var cycles = GetComponentsInChildren<GameCycle>();
+        foreach (var cycle in cycles)
+        {
+            Destroy(cycle.gameObject);
+        }
     }
 }

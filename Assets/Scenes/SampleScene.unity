@@ -7498,6 +7498,7 @@ GameObject:
   - component: {fileID: 1282549532}
   - component: {fileID: 1282549531}
   - component: {fileID: 1282549533}
+  - component: {fileID: 1282549534}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7557,6 +7558,19 @@ MonoBehaviour:
   stressEnemiesPrefabs:
   - {fileID: 816004035963181687, guid: 7b82a40455fa45f4995aca06014fcb6c, type: 3}
   - {fileID: 1682089491187834376, guid: 40c9b35d077d49543b74fce3462a7139, type: 3}
+--- !u!114 &1282549534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282549530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93a07fe525a82bc44b2ded566f44db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: 0
 --- !u!1 &1283449302
 GameObject:
   m_ObjectHideFlags: 0
@@ -13055,6 +13069,10 @@ PrefabInstance:
     - target: {fileID: 4480653431877685990, guid: 5c1840b091ee0224e8864a2ed729c91a, type: 3}
       propertyPath: m_Name
       value: LoadScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480653431877685990, guid: 5c1840b091ee0224e8864a2ed729c91a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4681566528644284900, guid: 5c1840b091ee0224e8864a2ed729c91a, type: 3}
       propertyPath: m_Pivot.x

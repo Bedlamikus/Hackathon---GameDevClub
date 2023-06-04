@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6854aaae35acbd146a2ee2e61957a1e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabUIPosition: {fileID: 0}
+  canvas: {fileID: 0}
   health: 200
   speed_velocity: 6
   speedWay_velocity: 0
@@ -56,6 +58,7 @@ MonoBehaviour:
   damage: 4
   heightheightAboveGround: 0.51
   animator: {fileID: 2127274074732082172}
+  coin: {fileID: 708985607480985393, guid: 781d2ddab64fd2741b28a0aee5011b82, type: 3}
   target: {fileID: 0}
   _collider: {fileID: 3634978628397725430}
   retreatDistance: 4

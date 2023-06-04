@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float heightheightAboveGround = 0.51f;
     [SerializeField] private Animator animator;
-
+    [SerializeField] private Coin coin;
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
     [SerializeField] private Collider _collider;
@@ -103,6 +103,7 @@ public class Enemy : MonoBehaviour
         GlobalEvents.ApplyGolds.Invoke(cost);
         GlobalEvents.ApplyExperience.Invoke(cost);
         GlobalEvents.ApplyHlam.Invoke(cost);
+        if (Random.Range(0,2) == 1) Instantiate(coin, transform.position, Quaternion.identity);
     }
 
     protected virtual IEnumerator RunToTarget(Vector3 targetPosition)
@@ -113,8 +114,8 @@ public class Enemy : MonoBehaviour
             {
                 transform.LookAt(targetPosition);
                 transform.position = new Vector3(transform.position.x, heightheightAboveGround, transform.position.z);
-                rb.AddForce(transform.forward * speed_velocity * Time.deltaTime);
-                rb.AddForce(new Vector3(0, 0, -1) * speedWay_velocity * Time.deltaTime);
+                rb.AddForce(speed_velocity * Time.deltaTime * transform.forward);
+                rb.AddForce(speedWay_velocity * Time.deltaTime * new Vector3(0, 0, -1));
             }
             yield return null;
         }

@@ -24,6 +24,7 @@ public class Enemies : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         if (countSpawned <= 0)
         {
+            yield return new WaitForSeconds(2.0f);
             GlobalEvents.EndBattle.Invoke();
             GlobalEvents.StressWin.Invoke();
         }

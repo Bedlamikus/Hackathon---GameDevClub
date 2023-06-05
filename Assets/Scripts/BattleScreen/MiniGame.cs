@@ -12,10 +12,6 @@ public class MiniGame : MonoBehaviour
     public void Init(BattlePoint settings)
     {
         enemies.Init(settings, spawnPoints);
-        foreach (var e in settings.enemies)
-        {
-            print(e.type);
-        }
         speedWay.Init();
         train.Init();
         GlobalEvents.EndBattle.AddListener(DestroyMiniGame);

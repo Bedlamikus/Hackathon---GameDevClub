@@ -48,8 +48,6 @@ public class SavingAndLoading : MonoBehaviour
     private void SaveCurrentSettings()
     {
         var currentSettings = JsonUtility.ToJson(playerSettings.GetCurrentSettings());
-        print("Saving");
-        print(currentSettings);
         PlayerPrefs.SetString(CURRENT_SETTINGS, currentSettings);
     }
 

@@ -15,6 +15,7 @@ public static class GlobalEvents
     public static UnityEvent StressLose = new();
     public static UnityEvent NewLoop = new();
     public static UnityEvent BuyHealth = new();
+    public static UnityEvent BuyAttack = new();
     public static UnityEvent DestroyWay = new();
     public static UnityEvent EndBattle = new();
     public static UnityEvent StartBattle = new();
@@ -27,6 +28,7 @@ public static class GlobalEvents
     public static UnityEvent<float> ApplyDamage = new();
     public static UnityEvent<int> ApplyExperience = new();
     public static UnityEvent<int> ApplyHlam = new();
+    public static UnityEvent<int> NewExperienseLevel = new();
 
     public static UnityEvent UpdateUI = new();
     public static UnityEvent<ExcelSettings> DefaultSettingsLoaded = new();

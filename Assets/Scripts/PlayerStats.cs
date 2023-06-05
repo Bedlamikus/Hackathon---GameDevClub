@@ -1,24 +1,49 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class Parametr
+{
+    public float baseValue;
+    public int currentLevel;
+    public float additionValue;
+    public int goldForUpgrade;
+    virtual public float Value()
+    {
+        return baseValue + currentLevel * additionValue;
+    }
+}
+
+[Serializable]
+public class EnergyParametr : Parametr
+{
+    public List<int> expFromLevels = new();
+
+    override public float Value()
+    {
+        return expFromLevels[currentLevel];
+    }
+}
+
+[Serializable]
 public class PlayerStatsData
 {
-    public int maxHealth;
-    public int maxExperience;
+    public Parametr maxHealth;
+    public EnergyParametr maxExperience;
 
     public List<int> expFromLevels = new();
     public int hlam;
-    public float damage;
-    public float attackSpeed;
-    public float armor;
-    public float regeneration;
+    public Parametr damage;
+    public Parametr attackSpeed;
+    public Parametr armor;
+    public Parametr regeneration;
     public List<PlayerSettings> levelSettings = new();
 
     public float currentHealth;
-    public int currentExperience;
+    public float currentExperience;
     public int currentGolds;
     public int currentHlam;
     public int currentLevel;
@@ -27,57 +52,55 @@ public class PlayerStatsData
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int maxExperience;
+    [SerializeField] private Parametr maxHealth;
+    [SerializeField] private EnergyParametr maxExperience;
     
     [SerializeField] private List<int> expFromLevels = new ();
     [SerializeField] private int hlam = 0;
-    [SerializeField] private float damage = 6;
-    [SerializeField] private float attackSpeed = 0.6f;
-    [SerializeField] private float armor = 1.0f;
-    [SerializeField] private float regeneration = 0.3f;
-    [SerializeField] private List<PlayerSettings> levelSettings = new ();
+    [SerializeField] private Parametr damage;
+    [SerializeField] private Parametr attackSpeed;
+    [SerializeField] private Parametr armor;
+    [SerializeField] private Parametr regeneration;
+    [SerializeField] private List<PlayerSettings> baseSettings;
 
     [SerializeField] private float currentHealth;
-    [SerializeField] private int currentExperience;
+    [SerializeField] private float currentExperience;
     [SerializeField] private int currentGolds;
     [SerializeField] private int currentHlam;
     [SerializeField] private int currentLevel = 0;
 
     private int currentCycle;
 
-    private void UpdateStats(int lvl)
-    {
-        if (levelSettings.Count <=0) return;
-        maxHealth = levelSettings[lvl].health;
-        currentHealth = maxHealth;
-        damage = levelSettings[lvl].damage;
-        attackSpeed = levelSettings[lvl].attackSpeed;
-        armor = levelSettings[lvl].armor;
-        regeneration = levelSettings[lvl].regeneration;
-    }
-
     private void Start()
     {
-        UpdateStats(0);
-        maxExperience = expFromLevels[0];
-        currentExperience = 0;
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
-        GlobalEvents.DefaultSettingsLoaded.AddListener(UpdateSettings);
+        GlobalEvents.BuyAttack.AddListener(BuyAttack);
+        GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
         StartCoroutine(Regeneration());
     }
 
     private void BuyHealth()
     {
-        if (currentHlam > 10)
+        if (currentHlam >= (maxHealth.currentLevel + 1) * maxHealth.goldForUpgrade)
         {
-            maxHealth += 10;
-            currentHealth = maxHealth;
+            maxHealth.currentLevel += 1;
+            currentHealth = maxHealth.Value();
+            currentHlam -= (maxHealth.currentLevel) * maxHealth.goldForUpgrade;
+            GlobalEvents.UpdateUI.Invoke();
+        }
+    }
+
+    private void BuyAttack()
+    {
+        if (currentHlam >= (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade)
+        {
+            attackSpeed.currentLevel += 1;
+            currentHlam -= (attackSpeed.currentLevel) * attackSpeed.goldForUpgrade;
             GlobalEvents.UpdateUI.Invoke();
         }
     }
@@ -85,7 +108,7 @@ public class PlayerStats : MonoBehaviour
     private void ApplyDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
         if (currentHealth <= 0) GlobalEvents.BattleTrainDie.Invoke();
         GlobalEvents.UpdateUI.Invoke();
     }
@@ -93,12 +116,12 @@ public class PlayerStats : MonoBehaviour
     private void ApplyExperience(int exp)
     {
         currentExperience += exp;
-        if (currentExperience >= maxExperience)
+        if (currentExperience >= maxExperience.Value())
         {
+            currentExperience = maxExperience.Value();
             currentLevel += 1;
-            currentExperience = maxExperience;
-            maxExperience = expFromLevels[currentLevel];
-            UpdateStats(currentLevel);
+            maxExperience.currentLevel = currentLevel;
+            GlobalEvents.NewExperienseLevel.Invoke(currentLevel);
         }
         GlobalEvents.UpdateUI.Invoke();
     }
@@ -120,15 +143,15 @@ public class PlayerStats : MonoBehaviour
         currentCycle = cycle;
     }
 
-    private IEnumerator Regeneration()
+    private IEnumerator Regeneration() 
     {
         while (true)
         {
             yield return new WaitForSeconds(1);
-            if (currentHealth < maxHealth)
+            if (currentHealth < maxHealth.Value())
             {
-                currentHealth += regeneration;
-                if (currentHealth > maxHealth) currentHealth = maxHealth;
+                currentHealth += regeneration.Value();
+                if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
                 GlobalEvents.UpdateUI.Invoke();
             }
         }
@@ -139,7 +162,7 @@ public class PlayerStats : MonoBehaviour
         get { return currentHealth; }
     }
 
-    public int Experience
+    public float Experience
     {
         get { return currentExperience; }
     }
@@ -149,9 +172,19 @@ public class PlayerStats : MonoBehaviour
         get { return currentGolds; }
     }
 
-    public int MaxHealth
+    public float MaxHealth
     {
-        get { return maxHealth; }
+        get { return maxHealth.Value();}
+    }
+
+    public float CostHealth
+    {
+        get { return (maxHealth.currentLevel + 1) * maxHealth.goldForUpgrade; }
+    }
+
+    public float HealthAddition
+    {
+        get { return maxHealth.additionValue; }
     }
 
     public int TargetUIExperience
@@ -159,7 +192,7 @@ public class PlayerStats : MonoBehaviour
         get { return expFromLevels[currentLevel]; }
     }
 
-    public int CurrentUIExperience
+    public float CurrentUIExperience
     {
         get 
         {
@@ -188,26 +221,61 @@ public class PlayerStats : MonoBehaviour
 
     public float Armor
     {
-        get { return armor; }
-        set { armor = value; }
+        get { return armor.Value(); }
     }
 
     public float Damage
     {
-        get { return damage; }
+        get { return damage.Value(); }
     }
 
     public float AttackSpeed
     {
-        get { return attackSpeed; }
+        get { return attackSpeed.Value(); }
     }
 
-    private void UpdateSettings(ExcelSettings settings)
+    public float AttackCost
     {
-        levelSettings = settings.playerSettings;
-        maxExperience = expFromLevels[0];
+        get { return (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade; }
+    }
+
+    private void LoadDefaultSettings(ExcelSettings settings)
+    {
+        var goldFU = settings.playerSettings[1].goldForUpgrade;
+        maxHealth.currentLevel = 0;
+        maxHealth.baseValue = settings.playerSettings[0].health;
+        maxHealth.additionValue = settings.playerSettings[1].health;
+        maxHealth.goldForUpgrade = goldFU;
+
+        damage.currentLevel = 0;
+        damage.baseValue = settings.playerSettings[0].damage;
+        damage.additionValue = settings.playerSettings[1].damage;
+        damage.goldForUpgrade = goldFU;
+
+        armor.currentLevel = 0;
+        armor.baseValue = settings.playerSettings[0].armor;
+        armor.additionValue = settings.playerSettings[1].armor;
+        armor.goldForUpgrade = goldFU;
+
+        attackSpeed.currentLevel = 0;
+        attackSpeed.baseValue = settings.playerSettings[0].attackSpeed;
+        attackSpeed.additionValue = settings.playerSettings[1].attackSpeed;
+        attackSpeed.goldForUpgrade = goldFU;
+
+        regeneration.currentLevel = 0;
+        regeneration.baseValue = settings.playerSettings[0].regeneration;
+        regeneration.additionValue = settings.playerSettings[1].regeneration;
+        regeneration.goldForUpgrade = goldFU;
+
+        maxExperience.currentLevel = 0;
+        maxExperience.baseValue = expFromLevels[0];
+        maxExperience.expFromLevels = expFromLevels;
+
+        baseSettings = settings.playerSettings;
+
         currentExperience = 0;
-        UpdateStats(0);
+        currentHealth = maxHealth.Value();
+
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -223,7 +291,7 @@ public class PlayerStats : MonoBehaviour
             attackSpeed = attackSpeed,
             armor = armor,
             regeneration = regeneration,
-            levelSettings = levelSettings,
+            levelSettings = baseSettings,
             currentHealth = currentHealth,
             currentExperience = currentExperience,
             currentGolds = currentGolds,
@@ -233,12 +301,12 @@ public class PlayerStats : MonoBehaviour
         };
         return pleayerStatsData;
     }
+
     public void SetCurrentSettings(PlayerStatsData newSettings)
     {
-        levelSettings = newSettings.levelSettings;
+        baseSettings = newSettings.levelSettings;
         expFromLevels = newSettings.expFromLevels;
         currentLevel = newSettings.currentLevel;
-        UpdateStats(currentLevel);
         maxHealth = newSettings.maxHealth;
         maxExperience = newSettings.maxExperience;
         hlam = newSettings.hlam;

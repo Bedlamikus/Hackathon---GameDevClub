@@ -5,6 +5,15 @@ using UnityEngine.UI;
 public class UpdateUIStats : MonoBehaviour
 {
     [SerializeField] private TMP_Text buyHealth;
+    [SerializeField] private TMP_Text buyHealthButtonText;
+
+    [SerializeField] private TMP_Text buyAttack;
+    [SerializeField] private TMP_Text buyAttackButtonText;
+    [SerializeField] private TMP_Text buyAttackButtonNoActiveText;
+    [SerializeField] private GameObject attackButton;
+    [SerializeField] private GameObject attackButtonNoActive;
+
+
     [SerializeField] private TMP_Text maxHealth;
     [SerializeField] private TMP_Text health;
     [SerializeField] private Slider healthSlider;
@@ -20,16 +29,18 @@ public class UpdateUIStats : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<PlayerStats>();
-        GlobalEvents.UpdateUI.AddListener(UpdateDamage);
+        GlobalEvents.UpdateUI.AddListener(UpdateHealth);
         GlobalEvents.UpdateUI.AddListener(UpdateExperience);
         GlobalEvents.UpdateUI.AddListener(UpdateCoins);
         GlobalEvents.UpdateUI.AddListener(UpdateHlam);
+        GlobalEvents.UpdateUI.AddListener(BuyAttack);
     }
 
-    private void UpdateDamage()
+    private void UpdateHealth()
     {
         maxHealth.text = player.MaxHealth.ToString();
-        buyHealth.text = maxHealth.text;
+        buyHealth.text = maxHealth.text + "+(" + player.HealthAddition.ToString() + ")";
+        buyHealthButtonText.text = player.CostHealth.ToString();
         health.text = ((int)player.Health).ToString();
         healthSlider.value = player.Health / player.MaxHealth;
     }
@@ -52,5 +63,23 @@ public class UpdateUIStats : MonoBehaviour
     private void UpdateHlam()
     {
         hlam.text = player.Hlam.ToString();
+    }
+
+    private void BuyAttack()
+    {
+        buyAttack.text = player.HealthAddition.ToString();
+        buyAttackButtonText.text = player.AttackCost.ToString();
+        buyAttackButtonNoActiveText.text = player.AttackCost.ToString();
+        if (player.AttackCost > player.Hlam)
+        { 
+            attackButton.SetActive(false);
+            attackButtonNoActive.SetActive(true);
+        }
+        else
+        {
+            attackButton.SetActive(true);
+            attackButtonNoActive.SetActive(false);
+        }
+
     }
 }

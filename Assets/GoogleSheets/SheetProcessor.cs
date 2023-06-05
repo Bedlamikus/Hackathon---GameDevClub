@@ -93,7 +93,7 @@ public class SheetProcessor : MonoBehaviour
         int dataStartRawIndex = 1;
         List<PlayerSettings> data = new();
 
-        for (int i = dataStartRawIndex; i < rows.Length - 1; i++)
+        for (int i = dataStartRawIndex; i < rows.Length; i++)
         {
             string[] cells = rows[i].Split(_cellSeporator);
             var settings = new PlayerSettings
@@ -106,6 +106,7 @@ public class SheetProcessor : MonoBehaviour
                 goldForUpgrade = ParseInt(cells[pGoldForUpgrade]),
             };
             data.Add(settings);
+            print(data.Count);
         }
         return data;
     }

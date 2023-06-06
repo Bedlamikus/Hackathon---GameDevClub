@@ -78,7 +78,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
-        GlobalEvents.BuyAttack.AddListener(BuyAttack);
+        GlobalEvents.BuyDamage.AddListener(BuyDamage);
         GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
         StartCoroutine(Regeneration());
@@ -95,12 +95,22 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void BuyAttack()
+    private void BuyAttackSpeed()
     {
         if (currentHlam >= (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade)
         {
             attackSpeed.currentLevel += 1;
             currentHlam -= (attackSpeed.currentLevel) * attackSpeed.goldForUpgrade;
+            GlobalEvents.UpdateUI.Invoke();
+        }
+    }
+
+    private void BuyDamage()
+    {
+        if (currentHlam >= (damage.currentLevel+1) * damage.goldForUpgrade)
+        {
+            damage.currentLevel += 1;
+            currentHlam -= (damage.currentLevel) * damage.goldForUpgrade;
             GlobalEvents.UpdateUI.Invoke();
         }
     }
@@ -187,6 +197,36 @@ public class PlayerStats : MonoBehaviour
         get { return maxHealth.additionValue; }
     }
 
+    public float AttackAddition
+    {
+        get { return attackSpeed.additionValue; }
+    }
+
+    public float AttackSpeed
+    {
+        get { return attackSpeed.Value(); }
+    }
+
+    public float AttackSpeedCost
+    {
+        get { return (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade; }
+    }
+
+    public float DamageAddition
+    {
+        get { return damage.additionValue; }
+    }
+
+    public float DamageSpeed
+    {
+        get { return damage.Value(); }
+    }
+
+    public float DamageCost
+    {
+        get { return (damage.currentLevel + 1) * damage.goldForUpgrade; }
+    }
+
     public int TargetUIExperience
     {
         get { return expFromLevels[currentLevel]; }
@@ -227,16 +267,6 @@ public class PlayerStats : MonoBehaviour
     public float Damage
     {
         get { return damage.Value(); }
-    }
-
-    public float AttackSpeed
-    {
-        get { return attackSpeed.Value(); }
-    }
-
-    public float AttackCost
-    {
-        get { return (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade; }
     }
 
     private void LoadDefaultSettings(ExcelSettings settings)

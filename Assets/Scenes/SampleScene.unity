@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.1802834, g: 0.2257135, b: 0.3069223, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3120,11 +3120,11 @@ RectTransform:
   m_Father: {fileID: 1938853146}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: -242}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 195.99998, y: 252}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &604654333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,7 +4150,7 @@ MonoBehaviour:
   currentHealth: 0
   currentExperience: 0
   currentGolds: 0
-  currentHlam: 0
+  currentHlam: 100
   currentLevel: 0
 --- !u!4 &710501595
 Transform:
@@ -7822,6 +7822,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b642859e49dbbff498ff0404e58222ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1308303497 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7295205957072849260, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+  m_PrefabInstance: {fileID: 1566753367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1318114325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6742823799269065862, guid: b39f10a732c43a0499da23cf3e257210, type: 3}
@@ -9563,6 +9574,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1643797943143802555, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1887461677439716505, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9837,7 +9852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5495595556998595805, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: m_text
-      value: 8
+      value: 8+(8)
       objectReference: {fileID: 0}
     - target: {fileID: 5645583808713699676, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9999,6 +10014,10 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7295205957072849260, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+      propertyPath: m_text
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7967239218195999691, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10012,6 +10031,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1128293402}
     - target: {fileID: 7983081119140148824, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+      propertyPath: healthButton
+      value: 
+      objectReference: {fileID: 1920201981}
+    - target: {fileID: 7983081119140148824, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: buyAttackButtonText
       value: 
       objectReference: {fileID: 1024058203}
@@ -10024,9 +10047,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1227352163}
     - target: {fileID: 7983081119140148824, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+      propertyPath: healthButtonNoActive
+      value: 
+      objectReference: {fileID: 1782760325}
+    - target: {fileID: 7983081119140148824, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: buyAttackButtonNoActiveText
       value: 
       objectReference: {fileID: 288275727}
+    - target: {fileID: 7983081119140148824, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+      propertyPath: buyHealthButtonNoActiveText
+      value: 
+      objectReference: {fileID: 1308303497}
     - target: {fileID: 8039347112166405060, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -10938,6 +10969,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1782760325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1643797943143802555, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+  m_PrefabInstance: {fileID: 1566753367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1783275398
 GameObject:
   m_ObjectHideFlags: 0
@@ -11695,6 +11731,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da873a34b2bdfb44aa697f1887c21364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1920201981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8561141121563539961, guid: b19d0a7f048de414b986005cb76df61c, type: 3}
+  m_PrefabInstance: {fileID: 1566753367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1932722107
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void BuyAttck()
     {
-        GlobalEvents.BuyAttack.Invoke();
+        GlobalEvents.BuyDamage.Invoke();
     }
 
     private void DataInit(ExcelSettings data)

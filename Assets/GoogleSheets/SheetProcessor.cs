@@ -106,7 +106,6 @@ public class SheetProcessor : MonoBehaviour
                 goldForUpgrade = ParseInt(cells[pGoldForUpgrade]),
             };
             data.Add(settings);
-            print(data.Count);
         }
         return data;
     }

@@ -6,13 +6,21 @@ public class UpdateUIStats : MonoBehaviour
 {
     [SerializeField] private TMP_Text buyHealth;
     [SerializeField] private TMP_Text buyHealthButtonText;
+    [SerializeField] private TMP_Text buyHealthButtonNoActiveText;
+    [SerializeField] private GameObject healthButton;
+    [SerializeField] private GameObject healthButtonNoActive;
 
-    [SerializeField] private TMP_Text buyAttack;
-    [SerializeField] private TMP_Text buyAttackButtonText;
-    [SerializeField] private TMP_Text buyAttackButtonNoActiveText;
-    [SerializeField] private GameObject attackButton;
-    [SerializeField] private GameObject attackButtonNoActive;
+    [SerializeField] private TMP_Text buyAttackSpeed;
+    [SerializeField] private TMP_Text buyAttackSpeedButtonText;
+    [SerializeField] private TMP_Text buyAttackSpeedButtonNoActiveText;
+    [SerializeField] private GameObject attackSpeedButton;
+    [SerializeField] private GameObject attackSpeedButtonNoActive;
 
+    [SerializeField] private TMP_Text buyDamage;
+    [SerializeField] private TMP_Text buyDamageButtonText;
+    [SerializeField] private TMP_Text buyDamageButtonNoActiveText;
+    [SerializeField] private GameObject damageButton;
+    [SerializeField] private GameObject damageButtonNoActive;
 
     [SerializeField] private TMP_Text maxHealth;
     [SerializeField] private TMP_Text health;
@@ -33,16 +41,33 @@ public class UpdateUIStats : MonoBehaviour
         GlobalEvents.UpdateUI.AddListener(UpdateExperience);
         GlobalEvents.UpdateUI.AddListener(UpdateCoins);
         GlobalEvents.UpdateUI.AddListener(UpdateHlam);
-        GlobalEvents.UpdateUI.AddListener(BuyAttack);
+        GlobalEvents.UpdateUI.AddListener(BuyDamage);
     }
 
     private void UpdateHealth()
     {
         maxHealth.text = player.MaxHealth.ToString();
-        buyHealth.text = maxHealth.text + "+(" + player.HealthAddition.ToString() + ")";
-        buyHealthButtonText.text = player.CostHealth.ToString();
+        BuyHealth();
+        //buyHealthButtonText.text = player.CostHealth.ToString();
         health.text = ((int)player.Health).ToString();
         healthSlider.value = player.Health / player.MaxHealth;
+    }
+
+    private void BuyHealth()
+    {
+        buyHealth.text = player.MaxHealth.ToString() + "+(" + player.HealthAddition.ToString() + ")";
+        buyHealthButtonText.text = player.CostHealth.ToString();
+        buyHealthButtonNoActiveText.text = player.CostHealth.ToString();
+        if (player.CostHealth > player.Hlam)
+        {
+            healthButton.SetActive(false);
+            healthButtonNoActive.SetActive(true);
+        }
+        else
+        {
+            healthButton.SetActive(true);
+            healthButtonNoActive.SetActive(false);
+        }
     }
 
     private void UpdateExperience()
@@ -67,19 +92,36 @@ public class UpdateUIStats : MonoBehaviour
 
     private void BuyAttack()
     {
-        buyAttack.text = player.HealthAddition.ToString();
-        buyAttackButtonText.text = player.AttackCost.ToString();
-        buyAttackButtonNoActiveText.text = player.AttackCost.ToString();
-        if (player.AttackCost > player.Hlam)
+        buyAttackSpeed.text = (player.AttackSpeed).ToString() + "+(" + player.AttackAddition.ToString() + ")";
+        buyAttackSpeedButtonText.text = player.AttackSpeedCost.ToString();
+        buyAttackSpeedButtonNoActiveText.text = player.AttackSpeedCost.ToString();
+        if (player.AttackSpeedCost > player.Hlam)
         { 
-            attackButton.SetActive(false);
-            attackButtonNoActive.SetActive(true);
+            attackSpeedButton.SetActive(false);
+            attackSpeedButtonNoActive.SetActive(true);
         }
         else
         {
-            attackButton.SetActive(true);
-            attackButtonNoActive.SetActive(false);
+            attackSpeedButton.SetActive(true);
+            attackSpeedButtonNoActive.SetActive(false);
         }
-
     }
+
+    private void BuyDamage()
+    {
+        buyDamage.text = (player.Damage).ToString() + "+(" + player.DamageAddition.ToString() + ")";
+        buyDamageButtonText.text = player.DamageCost.ToString();
+        buyDamageButtonNoActiveText.text = player.DamageCost.ToString();
+        if (player.DamageCost > player.Hlam)
+        {
+            damageButton.SetActive(false);
+            damageButtonNoActive.SetActive(true);
+        }
+        else
+        {
+            damageButton.SetActive(true);
+            damageButtonNoActive.SetActive(false);
+        }
+    }
+
 }

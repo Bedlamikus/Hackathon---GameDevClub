@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
             transform.Rotate(new Vector3(0, 90, 65));
-            if (timer >= 0.3/playerSettings.AttackSpeed && !pause)
+            if (timer >= 1/playerSettings.AttackSpeed && !pause)
             {
                 timer = 0;
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);

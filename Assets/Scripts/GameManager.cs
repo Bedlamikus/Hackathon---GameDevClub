@@ -43,9 +43,19 @@ public class GameManager : MonoBehaviour
         GlobalEvents.BuyHealth.Invoke();
     }
 
-    public void BuyAttck()
+    public void BuyAttckSpeed()
+    {
+        GlobalEvents.BuyAttackSpeed.Invoke();
+    }
+
+    public void BuyDamage()
     {
         GlobalEvents.BuyDamage.Invoke();
+    }
+
+    public void BuyArmor()
+    {
+        GlobalEvents.BuyArmor.Invoke();
     }
 
     private void DataInit(ExcelSettings data)

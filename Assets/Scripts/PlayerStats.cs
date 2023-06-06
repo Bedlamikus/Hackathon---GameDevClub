@@ -11,7 +11,7 @@ public class Parametr
     public int currentLevel;
     public float additionValue;
     public int goldForUpgrade;
-    virtual public float Value()
+    public float Value()
     {
         return baseValue + currentLevel * additionValue;
     }
@@ -22,7 +22,7 @@ public class EnergyParametr : Parametr
 {
     public List<int> expFromLevels = new();
 
-    override public float Value()
+    public new float Value()
     {
         return expFromLevels[currentLevel];
     }
@@ -52,14 +52,14 @@ public class PlayerStatsData
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private Parametr maxHealth;
+    [SerializeField] public Parametr maxHealth;
     [SerializeField] private EnergyParametr maxExperience;
     
     [SerializeField] private List<int> expFromLevels = new ();
     [SerializeField] private int hlam = 0;
-    [SerializeField] private Parametr damage;
-    [SerializeField] private Parametr attackSpeed;
-    [SerializeField] private Parametr armor;
+    [SerializeField] public Parametr damage;
+    [SerializeField] public Parametr attackSpeed;
+    [SerializeField] public Parametr armor;
     [SerializeField] private Parametr regeneration;
     [SerializeField] private List<PlayerSettings> baseSettings;
 
@@ -77,8 +77,10 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
         GlobalEvents.ApplyExperience.AddListener(ApplyExperience);
         GlobalEvents.ApplyHlam.AddListener(ApplyHlam);
+        GlobalEvents.BuyArmor.AddListener(BuyArmor);
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
         GlobalEvents.BuyDamage.AddListener(BuyDamage);
+        GlobalEvents.BuyAttackSpeed.AddListener(BuyAttackSpeed);
         GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
         StartCoroutine(Regeneration());
@@ -86,31 +88,44 @@ public class PlayerStats : MonoBehaviour
 
     private void BuyHealth()
     {
-        if (currentHlam >= (maxHealth.currentLevel + 1) * maxHealth.goldForUpgrade)
+        if (BuyParametr(maxHealth))
         {
-            maxHealth.currentLevel += 1;
             currentHealth = maxHealth.Value();
-            currentHlam -= (maxHealth.currentLevel) * maxHealth.goldForUpgrade;
             GlobalEvents.UpdateUI.Invoke();
         }
     }
 
     private void BuyAttackSpeed()
     {
-        if (currentHlam >= (attackSpeed.currentLevel + 1) * attackSpeed.goldForUpgrade)
+        if (BuyParametr(attackSpeed))
         {
-            attackSpeed.currentLevel += 1;
-            currentHlam -= (attackSpeed.currentLevel) * attackSpeed.goldForUpgrade;
             GlobalEvents.UpdateUI.Invoke();
         }
     }
 
+    private void BuyArmor()
+    {
+        if (BuyParametr(armor))
+        {
+            GlobalEvents.UpdateUI.Invoke();
+        }
+    }
+
+    private bool BuyParametr(Parametr parametr)
+    {
+        if (currentHlam >= (parametr.currentLevel + 1) * parametr.goldForUpgrade)
+        {
+            parametr.currentLevel += 1;
+            currentHlam -= (parametr.currentLevel) * parametr.goldForUpgrade;
+            return true;
+        }
+        return false;
+    }
+
     private void BuyDamage()
     {
-        if (currentHlam >= (damage.currentLevel+1) * damage.goldForUpgrade)
+        if (BuyParametr(damage))
         {
-            damage.currentLevel += 1;
-            currentHlam -= (damage.currentLevel) * damage.goldForUpgrade;
             GlobalEvents.UpdateUI.Invoke();
         }
     }

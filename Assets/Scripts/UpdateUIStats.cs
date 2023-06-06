@@ -22,6 +22,12 @@ public class UpdateUIStats : MonoBehaviour
     [SerializeField] private GameObject damageButton;
     [SerializeField] private GameObject damageButtonNoActive;
 
+    [SerializeField] private TMP_Text buyArmor;
+    [SerializeField] private TMP_Text buyArmorButtonText;
+    [SerializeField] private TMP_Text buyArmorButtonNoActiveText;
+    [SerializeField] private GameObject armorButton;
+    [SerializeField] private GameObject armorButtonNoActive;
+
     [SerializeField] private TMP_Text maxHealth;
     [SerializeField] private TMP_Text health;
     [SerializeField] private Slider healthSlider;
@@ -37,39 +43,27 @@ public class UpdateUIStats : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<PlayerStats>();
-        GlobalEvents.UpdateUI.AddListener(UpdateHealth);
-        GlobalEvents.UpdateUI.AddListener(UpdateExperience);
-        GlobalEvents.UpdateUI.AddListener(UpdateCoins);
-        GlobalEvents.UpdateUI.AddListener(UpdateHlam);
-        GlobalEvents.UpdateUI.AddListener(BuyDamage);
+        GlobalEvents.UpdateUI.AddListener(UpdateUI);
+    }
+
+    private void UpdateUI()
+    {
+        UpdateCoins();
+        UpdateHlam();
+        UpdateHealth();
+        UpdateExperience();
+        BuyHealth();
+        BuyAttackSpeed();
+        BuyDamage();
+        BuyArmor();
     }
 
     private void UpdateHealth()
     {
         maxHealth.text = player.MaxHealth.ToString();
-        BuyHealth();
-        //buyHealthButtonText.text = player.CostHealth.ToString();
         health.text = ((int)player.Health).ToString();
         healthSlider.value = player.Health / player.MaxHealth;
     }
-
-    private void BuyHealth()
-    {
-        buyHealth.text = player.MaxHealth.ToString() + "+(" + player.HealthAddition.ToString() + ")";
-        buyHealthButtonText.text = player.CostHealth.ToString();
-        buyHealthButtonNoActiveText.text = player.CostHealth.ToString();
-        if (player.CostHealth > player.Hlam)
-        {
-            healthButton.SetActive(false);
-            healthButtonNoActive.SetActive(true);
-        }
-        else
-        {
-            healthButton.SetActive(true);
-            healthButtonNoActive.SetActive(false);
-        }
-    }
-
     private void UpdateExperience()
     {
         maxExperience.text = player.TargetUIExperience.ToString();
@@ -79,49 +73,70 @@ public class UpdateUIStats : MonoBehaviour
         experienceSlider.maxValue = player.TargetUIExperience;
         experienceSlider.value = player.CurrentUIExperience;
     }
-
     private void UpdateCoins()
     {
         golds.text = player.Golds.ToString();
     }
-
     private void UpdateHlam()
     {
         hlam.text = player.Hlam.ToString();
     }
-
-    private void BuyAttack()
+    private void BuyHealth()
     {
-        buyAttackSpeed.text = (player.AttackSpeed).ToString() + "+(" + player.AttackAddition.ToString() + ")";
-        buyAttackSpeedButtonText.text = player.AttackSpeedCost.ToString();
-        buyAttackSpeedButtonNoActiveText.text = player.AttackSpeedCost.ToString();
-        if (player.AttackSpeedCost > player.Hlam)
-        { 
-            attackSpeedButton.SetActive(false);
-            attackSpeedButtonNoActive.SetActive(true);
-        }
-        else
-        {
-            attackSpeedButton.SetActive(true);
-            attackSpeedButtonNoActive.SetActive(false);
-        }
+        Buy(
+            player.maxHealth,
+            buyHealth,
+            buyHealthButtonText,
+            buyHealthButtonNoActiveText,
+            healthButton,
+            healthButtonNoActive);
     }
-
+    private void BuyAttackSpeed()
+    {
+        Buy(
+            player.attackSpeed, 
+            buyAttackSpeed,
+            buyAttackSpeedButtonText,
+            buyAttackSpeedButtonNoActiveText,
+            attackSpeedButton,
+            attackSpeedButtonNoActive);
+    }
     private void BuyDamage()
     {
-        buyDamage.text = (player.Damage).ToString() + "+(" + player.DamageAddition.ToString() + ")";
-        buyDamageButtonText.text = player.DamageCost.ToString();
-        buyDamageButtonNoActiveText.text = player.DamageCost.ToString();
-        if (player.DamageCost > player.Hlam)
+        Buy(
+            player.damage,
+            buyDamage,
+            buyDamageButtonText,
+            buyDamageButtonNoActiveText,
+            damageButton,
+            damageButtonNoActive);
+    }
+    private void BuyArmor()
+    {
+        Buy(
+            player.armor,
+            buyArmor,
+            buyArmorButtonText,
+            buyArmorButtonNoActiveText,
+            armorButton,
+            armorButtonNoActive);
+    }
+
+    private void Buy(Parametr parametr, TMP_Text currentPriseAndNext, TMP_Text howCost, TMP_Text howCostUnActive, GameObject buyButton, GameObject unActiveButton)
+    {
+        currentPriseAndNext.text = parametr.Value().ToString() + "+(" + parametr.additionValue.ToString() + ")";
+        var cost = (parametr.currentLevel + 1) * parametr.goldForUpgrade;
+        howCost.text = cost.ToString();
+        howCostUnActive.text = player.DamageCost.ToString();
+        if (cost > player.Hlam)
         {
-            damageButton.SetActive(false);
-            damageButtonNoActive.SetActive(true);
+            buyButton.SetActive(false);
+            unActiveButton.SetActive(true);
         }
         else
         {
-            damageButton.SetActive(true);
-            damageButtonNoActive.SetActive(false);
+            buyButton.SetActive(true);
+            unActiveButton.SetActive(false);
         }
     }
-
 }

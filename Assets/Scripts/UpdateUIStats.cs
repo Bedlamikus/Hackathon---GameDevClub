@@ -124,10 +124,7 @@ public class UpdateUIStats : MonoBehaviour
 
     private void Buy(Parametr parametr, TMP_Text currentPriseAndNext, TMP_Text howCost, TMP_Text howCostUnActive, GameObject buyButton, GameObject unActiveButton)
     {
-        currentPriseAndNext.text = parametr.Value().ToString() + "+(" + parametr.additionValue.ToString() + ")";
         var cost = (parametr.currentLevel + 1) * parametr.goldForUpgrade;
-        howCost.text = cost.ToString();
-        howCostUnActive.text = player.DamageCost.ToString();
         if (cost > player.Hlam)
         {
             buyButton.SetActive(false);
@@ -138,5 +135,8 @@ public class UpdateUIStats : MonoBehaviour
             buyButton.SetActive(true);
             unActiveButton.SetActive(false);
         }
+        currentPriseAndNext.text = parametr.Value().ToString() + "+(" + parametr.additionValue.ToString() + ")";
+        howCost.text = cost.ToString();
+        howCostUnActive.text = cost.ToString();
     }
 }

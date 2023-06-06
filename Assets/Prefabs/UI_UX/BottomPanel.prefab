@@ -2735,6 +2735,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyHealth: {fileID: 5495595556998595805}
+  buyHealthButtonText: {fileID: 6925194574645382307}
+  buyHealthButtonNoActiveText: {fileID: 7295205957072849260}
+  healthButton: {fileID: 8561141121563539961}
+  healthButtonNoActive: {fileID: 1643797943143802555}
+  buyAttackSpeed: {fileID: 8500045239696968889}
+  buyAttackSpeedButtonText: {fileID: 6389384235408751280}
+  buyAttackSpeedButtonNoActiveText: {fileID: 4589493064995689881}
+  attackSpeedButton: {fileID: 8942172104895948696}
+  attackSpeedButtonNoActive: {fileID: 6313684128076109177}
+  buyDamage: {fileID: 2305742674736638892}
+  buyDamageButtonText: {fileID: 7595261542979191204}
+  buyDamageButtonNoActiveText: {fileID: 0}
+  damageButton: {fileID: 1616061007477243910}
+  damageButtonNoActive: {fileID: 0}
+  buyArmor: {fileID: 6401627807070973299}
+  buyArmorButtonText: {fileID: 4524621118690040343}
+  buyArmorButtonNoActiveText: {fileID: 2913207603381814314}
+  armorButton: {fileID: 861338378605835081}
+  armorButtonNoActive: {fileID: 7967239218195999691}
   maxHealth: {fileID: 2323223611686179353}
   health: {fileID: 5634545076705057240}
   healthSlider: {fileID: 3893592805794932509}

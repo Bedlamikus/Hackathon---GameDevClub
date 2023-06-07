@@ -11,17 +11,22 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] private GameObject panelFight;
     [SerializeField] private GameObject panelMagazine;
     [SerializeField] private GameObject panelSettings;
-
+    [SerializeField] private AdReward adReward;
 
     private void Start()
     {
-        GlobalEvents.StressWin.AddListener(ShowPanelWin);
         GlobalEvents.StressLose.AddListener(ShowPanelLose);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
-        GlobalEvents.StationEnter.AddListener(SchowStationScreen);
+        GlobalEvents.StationEnter.AddListener(ShowPanelWin);
         GlobalEvents.StartBattle.AddListener(ShowPanelFight);
         GlobalEvents.EndBattle.AddListener(ShowPanelMagazine);
+        GlobalEvents.EvRewarded.AddListener(SchowStationScreen);
+    }
+
+    public void ShowReward()
+    {
+        Instantiate(adReward, transform.parent);
     }
 
     private void ShowSettings()
@@ -39,6 +44,7 @@ public class ScreenManager : MonoBehaviour
     {
         panelFight.SetActive(false);
         panelMagazine.SetActive(true);
+        panelTapForContinuos.SetActive(true);
     }
 
     private void SchowStationScreen()

@@ -12,9 +12,14 @@ public class Rails : MonoBehaviour
     private int currentWayPoint = 0;
     private int previousWayPoint = 0;
 
-    private void Start()
+    public void Init()
     {
-        GlobalEvents.Restart.AddListener(Restart);
+        Restart();
+    }
+
+    public int Count()
+    {
+        return waypoints.Count;
     }
 
     public void SetNextPoint()
@@ -29,17 +34,15 @@ public class Rails : MonoBehaviour
 
     public Vector3 CurrentPoint()
     {
-        if (waypoints == null) return Vector3.zero;
         return waypoints[currentWayPoint].transform.position;
     }
 
     public Vector3 PreviousPoint()
     {
-        if (waypoints == null) return Vector3.zero;
         return waypoints[previousWayPoint].transform.position;
     }
 
-    private void Restart(int _)
+    private void Restart()
     {
         currentWayPoint = 0;
         previousWayPoint = 0;

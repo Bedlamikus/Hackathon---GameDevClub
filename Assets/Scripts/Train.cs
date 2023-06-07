@@ -17,19 +17,15 @@ public class Train : MonoBehaviour
     private bool restart = false;
     private Coroutine ride;
 
-    private void Start()
+    public void Init()
     {
-        GlobalEvents.TrainStop.AddListener(Pause);
-        GlobalEvents.TrainGo.AddListener(UnPause);
-        GlobalEvents.Restart.AddListener(ResetPosition);
-
+        restart = false;
         startRotation = transform.rotation;
-
-        ride = StartCoroutine(Ride());
     }
 
     private IEnumerator MoveToPoint(Vector3 point)
     {
+        if (restart) yield break;
         Vector3 startPoint = transform.position;
         Vector3 endPoint = new Vector3(point.x, startPoint.y, point.z);
         float needTime = (endPoint - startPoint).magnitude / speed;
@@ -49,40 +45,46 @@ public class Train : MonoBehaviour
 
     private IEnumerator Ride()
     {
-        while (true)
+        for (int i = 0; i < rails.Count(); i++)
         {
             rails.SetNextPoint();
-            if (restart) yield break;
+            if (restart || rails == null) yield break;
             yield return MoveToPoint(rails.CurrentPoint());
-
         }
+        ride = null;
+        Pause();
     }
 
-    private void Pause()
+    public void Pause()
     {
         paused = 0;
         sound.Stop();
     }
 
-    private void UnPause()
+    public void UnPause()
     {
         sound.PlayOneShot(choo, 0.2f);
         paused = 1;
-        restart = false;
-        if (ride == null) StartRide();
     }
-    private void StartRide()
+
+    public bool IsRide()
+    {
+        if (ride != null) return true;
+        return false;
+    }
+
+    public void StartRide()
     {
         ride = StartCoroutine(Ride());
+        UnPause();
     }
-    private void ResetPosition(int _)
+
+    public void ResetPosition()
     {
         Pause();
-        transform.rotation = startRotation;
-        restart = true;
-        StopAllCoroutines();
+        if (ride != null) { StopCoroutine(ride); }
         ride = null;
-        transform.position = new Vector3( station.position.x, transform.position.y, station.position.z);
-        
+        transform.rotation = startRotation;
+        transform.position = new Vector3(station.position.x, transform.position.y, station.position.z);
     }
 }

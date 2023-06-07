@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Rails rails;
     [SerializeField] private Station station;
 
-    private int currentCycle = 0;
+    public int currentCycle = 0;
     private ExcelSettings _data;
 
     private void Start()
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         train.Init();
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.DefaultSettingsLoaded.AddListener(DataInit);
-        GlobalEvents.EvRewarded.AddListener(RestartCurrentLevel);
+        GlobalEvents.EvRewardedLevelRestart.AddListener(RestartCurrentLevel);
     }
 
     public void RestartCurrentLevel()
@@ -108,7 +108,6 @@ public class GameManager : MonoBehaviour
             ContinueLoop();
             return;
         }
-        print("GM: start Ride");
         train.StartRide();
     }
 

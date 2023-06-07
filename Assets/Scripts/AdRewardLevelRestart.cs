@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AdReward : MonoBehaviour
+public class AdRewardLevelRestart : MonoBehaviour
 {
     [SerializeField] private int timer;
     [SerializeField] private TMP_Text timerText;
 
     private void Start()
     {
-        GlobalEvents.EvReward.Invoke();
+        GlobalEvents.EvRewardLevelRestart.Invoke();
         StartCoroutine(RewardCoroutine());
     }
 
@@ -22,7 +22,7 @@ public class AdReward : MonoBehaviour
             timerText.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-        GlobalEvents.EvRewarded.Invoke();
+        GlobalEvents.EvRewardedLevelRestart.Invoke();
         Destroy(gameObject);
     }
 }

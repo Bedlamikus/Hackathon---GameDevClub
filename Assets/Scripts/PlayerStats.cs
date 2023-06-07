@@ -84,7 +84,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.BuyAttackSpeed.AddListener(BuyAttackSpeed);
         GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
-        GlobalEvents.EvRewarded.AddListener(ApplyMaxHealth);
+        GlobalEvents.EvRewardedLevelRestart.AddListener(ApplyMaxHealth);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
 

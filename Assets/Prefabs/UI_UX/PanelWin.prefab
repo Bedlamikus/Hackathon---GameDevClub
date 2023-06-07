@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7434814872714477497}
   - component: {fileID: 304061505920271845}
   - component: {fileID: 7203678095483124692}
+  - component: {fileID: 8321757730793324752}
   - component: {fileID: 6755052022381017954}
   m_Layer: 5
   m_Name: PanelWin
@@ -81,6 +82,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8321757730793324752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272043405490184234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24db8bbe4f186764f86a4d2e42dda2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coins: {fileID: 3821116766845478204}
+  CountCoins: 0
 --- !u!114 &6755052022381017954
 MonoBehaviour:
   m_ObjectHideFlags: 0

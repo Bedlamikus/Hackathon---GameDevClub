@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 4376877253564447838}
   - component: {fileID: 1286605417585315750}
   m_Layer: 5
-  m_Name: RewardScreen
+  m_Name: RewardLevelResetScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

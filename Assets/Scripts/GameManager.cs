@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour
     public void RestartCurrentLevel()
     {
         LoadCycleByNum(currentCycle);
+        station.Disable();
         rails.Init();
-        train.Init();
+        train.ResetPosition();
     }
 
     public void Restart()

@@ -9,10 +9,6 @@ public class Enemies : MonoBehaviour
 
     private int countSpawned;
 
-    private void Start()
-    {
-    }
-
     private void CheckCountEnemies()
     {
         countSpawned--;

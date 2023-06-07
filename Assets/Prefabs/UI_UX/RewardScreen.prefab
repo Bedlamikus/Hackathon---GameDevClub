@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Revarded screen
+  m_text: 'Reward screen
 
     please wait...'
   m_isRightToLeft: 0
@@ -241,7 +241,6 @@ GameObject:
   - component: {fileID: 623166101832259009}
   - component: {fileID: 70792662939636097}
   - component: {fileID: 5368285519131140028}
-  - component: {fileID: 3481809091939750796}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -366,17 +365,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3481809091939750796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5524144859052591748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6a9195719db22747970ac1722b10bcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0
-  timerText: {fileID: 0}

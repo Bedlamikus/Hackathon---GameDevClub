@@ -33,7 +33,6 @@ public class Enemy : MonoBehaviour
         _collider = GetComponent<Collider>();
         StartCoroutine(LifeCycle());
 
-        GlobalEvents.BattleTrainDie.AddListener(Die);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
     }

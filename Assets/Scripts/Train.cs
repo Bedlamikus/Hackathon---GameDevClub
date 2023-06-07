@@ -21,8 +21,6 @@ public class Train : MonoBehaviour
     {
         restart = false;
         startRotation = transform.rotation;
-
-        //ride = StartCoroutine(Ride());
     }
 
     private IEnumerator MoveToPoint(Vector3 point)
@@ -81,13 +79,12 @@ public class Train : MonoBehaviour
         UnPause();
     }
 
-    public void ResetPosition(int _)
+    public void ResetPosition()
     {
         Pause();
-        transform.rotation = startRotation;
-        restart = true;
-        StopAllCoroutines();
+        if (ride != null) { StopCoroutine(ride); }
         ride = null;
+        transform.rotation = startRotation;
         transform.position = new Vector3(station.position.x, transform.position.y, station.position.z);
     }
 }

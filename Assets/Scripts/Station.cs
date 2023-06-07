@@ -18,6 +18,11 @@ public class Station : MonoBehaviour
         StartCoroutine(EnabledTrigger());
     }
 
+    public void Disable()
+    {
+        trigger.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         var train = other.GetComponent<Train>();

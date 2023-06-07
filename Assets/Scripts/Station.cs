@@ -5,19 +5,15 @@ using UnityEngine;
 public class Station : MonoBehaviour
 {
     [SerializeField] float timeForEnabledStation = 2.0f;
-    private Collider trigger;
+    public Collider trigger;
 
     private void Start()
     {
-        GlobalEvents.NewLoop.AddListener(Enabled);
-        GlobalEvents.UnPause.AddListener(Enabled);
-        //GlobalEvents.EvRewarded.AddListener(OnRewarded);
-
         trigger = GetComponent<Collider>();
         trigger.enabled = false;
     }
 
-    public void Enabled()
+    public void Enable()
     {
         StartCoroutine(EnabledTrigger());
     }
@@ -26,8 +22,8 @@ public class Station : MonoBehaviour
     {
         var train = other.GetComponent<Train>();
         if (!train) return;
-        train.Pause();
         GlobalEvents.StationEnter.Invoke();
+        print("Station Enter invoke");
         trigger.enabled = false;
     }
 
@@ -35,9 +31,10 @@ public class Station : MonoBehaviour
     {
         yield return new WaitForSeconds(timeForEnabledStation);
         trigger.enabled = true;
+        print("station enabled");
     }
 
-    public void OnRewarded()
+    private void OnRewarded()
     {
         trigger.enabled = false;
     }

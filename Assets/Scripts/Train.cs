@@ -22,7 +22,7 @@ public class Train : MonoBehaviour
         restart = false;
         startRotation = transform.rotation;
 
-        ride = StartCoroutine(Ride());
+        //ride = StartCoroutine(Ride());
     }
 
     private IEnumerator MoveToPoint(Vector3 point)
@@ -53,6 +53,8 @@ public class Train : MonoBehaviour
             if (restart || rails == null) yield break;
             yield return MoveToPoint(rails.CurrentPoint());
         }
+        ride = null;
+        Pause();
     }
 
     public void Pause()
@@ -65,13 +67,20 @@ public class Train : MonoBehaviour
     {
         sound.PlayOneShot(choo, 0.2f);
         paused = 1;
-        restart = false;
+    }
+
+    public bool IsRide()
+    {
+        if (ride != null) return true;
+        return false;
     }
 
     public void StartRide()
     {
         ride = StartCoroutine(Ride());
+        UnPause();
     }
+
     public void ResetPosition(int _)
     {
         Pause();

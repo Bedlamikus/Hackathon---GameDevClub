@@ -28,8 +28,6 @@ public class StartButton : MonoBehaviour
     public void Tap()
     {
         if (!newLoop) return;
-        GlobalEvents.TrainGo.Invoke();
-        GlobalEvents.NewLoop.Invoke();
         image.raycastTarget = false;
         newLoop = false;
     }

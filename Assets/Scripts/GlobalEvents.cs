@@ -5,15 +5,12 @@ using UnityEngine.Events;
 
 public static class GlobalEvents
 {
-    public static UnityEvent TrainStop = new();
     public static UnityEvent Pause = new();
     public static UnityEvent UnPause = new();
-    public static UnityEvent TrainGo = new();
     public static UnityEvent<int> Restart = new();
     public static UnityEvent StationEnter = new();
     public static UnityEvent StressWin = new();
     public static UnityEvent StressLose = new();
-    public static UnityEvent NewLoop = new();
 
     public static UnityEvent BuyHealth = new();
     public static UnityEvent BuyDamage = new();

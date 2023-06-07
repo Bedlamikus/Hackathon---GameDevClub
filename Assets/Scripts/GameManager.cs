@@ -27,12 +27,13 @@ public class GameManager : MonoBehaviour
     public void RestartCurrentLevel()
     {
         LoadCycleByNum(currentCycle);
+        rails.Init();
+        train.Init();
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(0);
-        GlobalEvents.Restart.Invoke(0);
     }
 
     private void LoseBattle()
@@ -50,21 +51,19 @@ public class GameManager : MonoBehaviour
     {
         GlobalEvents.UnPause.Invoke();
     }
+
     public void BuyHealth() 
     {
         GlobalEvents.BuyHealth.Invoke();
     }
-
     public void BuyAttckSpeed()
     {
         GlobalEvents.BuyAttackSpeed.Invoke();
     }
-
     public void BuyDamage()
     {
         GlobalEvents.BuyDamage.Invoke();
     }
-
     public void BuyArmor()
     {
         GlobalEvents.BuyArmor.Invoke();
@@ -103,7 +102,23 @@ public class GameManager : MonoBehaviour
 
     public void StartLoop()
     {
+        if (train.IsRide())
+        {
+            ContinueLoop();
+            return;
+        }
+        print("GM: start Ride");
+        train.StartRide();
+    }
+
+    private void ContinueLoop()
+    {
         train.UnPause();
-        station.Enabled();
+        station.Enable();
+    }
+
+    public void LoopEnd()
+    {
+        GlobalEvents.StationEnter.Invoke();
     }
 }

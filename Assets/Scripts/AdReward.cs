@@ -42,7 +42,7 @@ public class AdReward : MonoBehaviour
     private void OnDisable()
     {
         GlobalEvents.EvRewarded.Invoke();
-        FindObjectOfType<Station>().OnRewarded();
+        //FindObjectOfType<Station>().OnRewarded();
         FindObjectOfType<Train>().ResetPosition(0);
     }
 }

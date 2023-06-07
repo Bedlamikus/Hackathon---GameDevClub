@@ -15,11 +15,11 @@ public class ScreenManager : MonoBehaviour
 
     private void Start()
     {
-        GlobalEvents.StressWin.AddListener(ShowPanelWin);
+        //GlobalEvents.StressWin.AddListener(ShowPanelWin);
         GlobalEvents.StressLose.AddListener(ShowPanelLose);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
-        GlobalEvents.StationEnter.AddListener(SchowStationScreen);
+        GlobalEvents.StationEnter.AddListener(ShowPanelWin);
         GlobalEvents.StartBattle.AddListener(ShowPanelFight);
         GlobalEvents.EndBattle.AddListener(ShowPanelMagazine);
         GlobalEvents.EvRewarded.AddListener(SchowStationScreen);
@@ -40,6 +40,7 @@ public class ScreenManager : MonoBehaviour
     {
         panelFight.SetActive(false);
         panelMagazine.SetActive(true);
+        panelTapForContinuos.SetActive(true);
     }
 
     private void SchowStationScreen()

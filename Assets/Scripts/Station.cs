@@ -11,21 +11,23 @@ public class Station : MonoBehaviour
     {
         GlobalEvents.NewLoop.AddListener(Enabled);
         GlobalEvents.UnPause.AddListener(Enabled);
+        //GlobalEvents.EvRewarded.AddListener(OnRewarded);
 
         trigger = GetComponent<Collider>();
         trigger.enabled = false;
     }
 
-    private void Enabled()
+    public void Enabled()
     {
         StartCoroutine(EnabledTrigger());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.GetComponent<Train>()) return;
+        var train = other.GetComponent<Train>();
+        if (!train) return;
+        train.Pause();
         GlobalEvents.StationEnter.Invoke();
-        GlobalEvents.TrainStop.Invoke();
         trigger.enabled = false;
     }
 
@@ -33,5 +35,10 @@ public class Station : MonoBehaviour
     {
         yield return new WaitForSeconds(timeForEnabledStation);
         trigger.enabled = true;
+    }
+
+    public void OnRewarded()
+    {
+        trigger.enabled = false;
     }
 }

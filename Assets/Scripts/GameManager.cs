@@ -7,14 +7,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameCycle gameCycle;
+    [SerializeField] private GameObject cycles;
+    [SerializeField] private Train train;
+    [SerializeField] private Rails rails;
+    [SerializeField] private Station station;
 
     private int currentCycle = 0;
     private ExcelSettings _data;
 
     private void Start()
     {
+        rails.Init();
+        train.Init();
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.DefaultSettingsLoaded.AddListener(DataInit);
+        GlobalEvents.EvRewarded.AddListener(RestartCurrentLevel);
+    }
+
+    public void RestartCurrentLevel()
+    {
+        LoadCycleByNum(currentCycle);
     }
 
     public void Restart()
@@ -68,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         ClearCyclesInChild();
         if (num > 9) return;
-        var cycle = Instantiate(gameCycle, transform);
+        var cycle = Instantiate(gameCycle, cycles.transform);
         cycle.Init(_data.cycleSettings[num]);
         currentCycle = num;
         GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
@@ -82,10 +94,16 @@ public class GameManager : MonoBehaviour
 
     private void ClearCyclesInChild()
     {
-        var cycles = GetComponentsInChildren<GameCycle>();
+        var cycles = this.cycles.GetComponentsInChildren<GameCycle>();
         foreach (var cycle in cycles)
         {
             Destroy(cycle.gameObject);
         }
+    }
+
+    public void StartLoop()
+    {
+        train.UnPause();
+        station.Enabled();
     }
 }

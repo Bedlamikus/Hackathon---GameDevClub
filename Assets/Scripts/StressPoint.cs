@@ -23,8 +23,9 @@ public class StressPoint : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.GetComponent<Train>()) return;
-        GlobalEvents.TrainStop.Invoke();
+        var train = other.GetComponent<Train>();
+        if (train == null) return;
+        train.Pause();
         GlobalEvents.StartBattle.Invoke();
         GlobalEvents.EndBattle.AddListener(DestroySelf);
         var game = Instantiate(miniGame, screenFightPosition.transform);

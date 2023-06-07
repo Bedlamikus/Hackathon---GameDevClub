@@ -83,7 +83,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.BuyAttackSpeed.AddListener(BuyAttackSpeed);
         GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
-        StartCoroutine(Regeneration());
+        //StartCoroutine(Regeneration());
     }
 
     private void BuyHealth()

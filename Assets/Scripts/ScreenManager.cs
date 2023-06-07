@@ -22,6 +22,7 @@ public class ScreenManager : MonoBehaviour
         GlobalEvents.StationEnter.AddListener(SchowStationScreen);
         GlobalEvents.StartBattle.AddListener(ShowPanelFight);
         GlobalEvents.EndBattle.AddListener(ShowPanelMagazine);
+        GlobalEvents.EvRewarded.AddListener(SchowStationScreen);
     }
 
     private void ShowSettings()

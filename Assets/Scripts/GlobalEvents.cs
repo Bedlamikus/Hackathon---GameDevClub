@@ -40,4 +40,7 @@ public static class GlobalEvents
     public static UnityEvent LoadCurrentSettings = new();
     public static UnityEvent LoadSettings = new();
     public static UnityEvent<int> ChangeCycleIndex = new();
+
+    public static UnityEvent EvReward = new();
+    public static UnityEvent EvRewarded = new();
 }

@@ -70,6 +70,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private int currentLevel = 0;
 
     private int currentCycle;
+    private bool pause = false;
 
     private void Start()
     {
@@ -84,6 +85,8 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
         GlobalEvents.EvRewarded.AddListener(ApplyMaxHealth);
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
 
         StartCoroutine(Regeneration());
     }
@@ -184,7 +187,7 @@ public class PlayerStats : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            if (currentHealth < maxHealth.Value())
+            if (currentHealth < maxHealth.Value() && !pause)
             {
                 currentHealth += regeneration.Value();
                 if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
@@ -359,5 +362,15 @@ public class PlayerStats : MonoBehaviour
         currentHlam = newSettings.currentHlam;
         currentCycle = newSettings.currentCycle;
         GlobalEvents.UpdateUI.Invoke();
+    }
+
+    private void Pause()
+    {
+        pause = true;
+    }
+
+    private void UnPause()
+    {
+        pause = false;
     }
 }

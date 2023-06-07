@@ -8,22 +8,13 @@ public class Enemies : MonoBehaviour
     private List<Transform> spawnPoints;
 
     private int countSpawned;
+    private bool pause;
 
-    private void CheckCountEnemies()
+    private void Start()
     {
-        countSpawned--;
-        StartCoroutine(CheckContEnemiesCoroutine());
-    }
-
-    private IEnumerator CheckContEnemiesCoroutine()
-    {
-        yield return new WaitForSeconds(1.0f);
-        if (countSpawned <= 0)
-        {
-            yield return new WaitForSeconds(2.0f);
-            GlobalEvents.EndBattle.Invoke();
-            GlobalEvents.StressWin.Invoke();
-        }
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
+        pause = false;
     }
 
     public void Init(BattlePoint enemiesSettings, List<Transform> spawnPoints)
@@ -44,12 +35,15 @@ public class Enemies : MonoBehaviour
         yield return new WaitForSeconds(settings.pauseBeforeSpawn);
         while (count > 0)
         {
-            count--;
             yield return new WaitForSeconds(settings.coolDownBeetwenSpawns);
-            var enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
-            enemy.transform.SetParent(this.transform);
-            enemy.Init(settings.health, settings.coolDownAttack, settings.damage);
-            enemies.Add(enemy);
+            if (!pause)
+            {
+                count--;
+                var enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
+                enemy.transform.SetParent(this.transform);
+                enemy.Init(settings.health, settings.coolDownAttack, settings.damage);
+                enemies.Add(enemy);
+            }
         }
     }
 
@@ -69,5 +63,31 @@ public class Enemies : MonoBehaviour
             count += enemy.count;
         }
         return count;
+    }
+
+    private void CheckCountEnemies()
+    {
+        countSpawned--;
+        StartCoroutine(CheckContEnemiesCoroutine());
+    }
+
+    private IEnumerator CheckContEnemiesCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+        if (countSpawned <= 0)
+        {
+            yield return new WaitForSeconds(2.0f);
+            GlobalEvents.EndBattle.Invoke();
+            GlobalEvents.StressWin.Invoke();
+        }
+    }
+
+    private void Pause()
+    {
+        pause = true;
+    }
+    private void UnPause()
+    {
+        pause = false;
     }
 }

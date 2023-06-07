@@ -15,11 +15,13 @@ public class Coin : MonoBehaviour
 
     private Mouse mouse;
     private FightSound sound;
-
+    private bool pause = false;
     private bool dies = false;
 
     private void Start()
     {
+        GlobalEvents.Pause.AddListener(Pause);
+        GlobalEvents.UnPause.AddListener(UnPause);
         sound = FindObjectOfType<FightSound>();
         mouse = FindObjectOfType<Mouse>();
         var position = transform.position;
@@ -48,6 +50,7 @@ public class Coin : MonoBehaviour
     private void OnMouseOver()
     {
         if (dies) return;
+        if (pause) return;
         if (mouse.pressed)
         {
             GlobalEvents.ApplyGolds.Invoke(amount);
@@ -62,5 +65,14 @@ public class Coin : MonoBehaviour
         particles.transform.parent = null;
         particles.SetActive(true);
         Destroy(gameObject);
+    }
+
+    private void Pause()
+    {
+        pause = true;
+    }
+    private void UnPause()
+    {
+        pause = false;
     }
 }

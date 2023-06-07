@@ -47,12 +47,14 @@ public class Enemy : MonoBehaviour
     private void Pause()
     {
         pause = true;
-        rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     private void UnPause()
     {
         pause = false;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX & RigidbodyConstraints.FreezeRotationZ;
     }
 
     public void ApplyDamage(float damage)

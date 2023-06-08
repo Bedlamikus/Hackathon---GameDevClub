@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.1802834, g: 0.2257135, b: 0.3069223, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4168,7 +4168,7 @@ MonoBehaviour:
     additionValue: 0
     goldForUpgrade: 0
     expFromLevels: 
-  expFromLevels: 1e0000006e000000c80000003b010000da010000
+  expFromLevels: 1e0000006e000000cd0000003d010000c7010000700200003e0300003804000064050000c70600006b080000
   hlam: 0
   damage:
     baseValue: 0

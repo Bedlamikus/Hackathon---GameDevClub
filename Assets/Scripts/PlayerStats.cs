@@ -158,7 +158,9 @@ public class PlayerStats : MonoBehaviour
         if (currentExperience >= maxExperience.Value())
         {
             currentExperience = maxExperience.Value();
-            currentLevel += 1;
+            currentLevel++;
+            if (currentLevel >= expFromLevels.Count)
+                currentLevel--;
             maxExperience.currentLevel = currentLevel;
             GlobalEvents.NewExperienseLevel.Invoke(currentLevel);
         }

@@ -135,7 +135,7 @@ public class UpdateUIStats : MonoBehaviour
             buyButton.SetActive(true);
             unActiveButton.SetActive(false);
         }
-        currentPriseAndNext.text = parametr.Value().ToString() + "+(" + parametr.additionValue.ToString() + ")";
+        currentPriseAndNext.text = parametr.Value().ToString();// + "+(" + parametr.additionValue.ToString() + ")";
         howCost.text = cost.ToString();
         howCostUnActive.text = cost.ToString();
     }

@@ -142,7 +142,7 @@ public class PlayerStats : MonoBehaviour
 
     private void ApplyDamage(float damage)
     {
-        currentHealth -= damage;
+        currentHealth -= (damage - damage * Armor / 100);
         if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
         if (currentHealth <= 0)
         {

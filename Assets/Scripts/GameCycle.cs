@@ -6,7 +6,7 @@ public class GameCycle : MonoBehaviour
 {
     [SerializeField] private StressPoint stressPointPrefab;
 
-    public void Init(CycleSettings cycleSettings)
+    public void Init(CycleSettings cycleSettings, List<EnemiesSettings> enemiesSettings)
     {
         var rails = FindObjectOfType<Rails>();
         rails.CleanOccupiedPositions();
@@ -17,7 +17,7 @@ public class GameCycle : MonoBehaviour
                 stress.transform.position = rails.GetRandomRailPosition();
             else
                 stress.transform.localPosition = new Vector3(stressPoint.position.x, 0, stressPoint.position.y);
-            stress.Init(stressPoint);
+            stress.Init(stressPoint, enemiesSettings);
         }
     }
 }

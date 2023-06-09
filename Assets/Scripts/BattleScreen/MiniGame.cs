@@ -9,9 +9,9 @@ public class MiniGame : MonoBehaviour
     [SerializeField] private Enemies enemies;
 
     private FightSound sound;
-    public void Init(BattlePoint settings)
+    public void Init(BattlePoint points, List<EnemiesSettings> enemiesSettings)
     {
-        enemies.Init(settings, spawnPoints);
+        enemies.Init(points, spawnPoints, enemiesSettings);
         speedWay.Init();
         train.Init();
         GlobalEvents.EndBattle.AddListener(DestroyMiniGame);

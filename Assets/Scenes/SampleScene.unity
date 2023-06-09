@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1802834, g: 0.2257135, b: 0.3069223, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7810,8 +7810,12 @@ MonoBehaviour:
   enemiesPrefabs:
   - {fileID: 4743110244049441296, guid: f63660890618d634ab4fb88ef23eb87b, type: 3}
   - {fileID: 7609195585896111667, guid: e3931cba2f6c4b64d9993d4e86db20ab, type: 3}
+  - {fileID: 4743110244049441296, guid: 1bfda1781a27fb24283c5b097fb1fb01, type: 3}
+  - {fileID: 4743110244049441296, guid: 68819dd74a4db7a4c83e866403fbc159, type: 3}
   stressEnemiesPrefabs:
   - {fileID: 816004035963181687, guid: 7b82a40455fa45f4995aca06014fcb6c, type: 3}
+  - {fileID: 816004035963181687, guid: 56457d10b09adb8479c4ee5da3eca70d, type: 3}
+  - {fileID: 816004035963181687, guid: 6415d37ba4e40c440befb7ef7fc48e18, type: 3}
   - {fileID: 1682089491187834376, guid: 40c9b35d077d49543b74fce3462a7139, type: 3}
 --- !u!114 &1282549534
 MonoBehaviour:
@@ -13312,6 +13316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sheetIdCycleSettings: 0
   _sheetIdPlayerSettings: 312300900
+  _sheetIdEnemySettings: 1704959649
   _data:
     cycleSettings: []
     playerSettings: []

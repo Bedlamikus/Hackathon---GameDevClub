@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         ClearCyclesInChild();
         if (num > 9) return;
         var cycle = Instantiate(gameCycle, cycles.transform);
-        cycle.Init(_data.cycleSettings[num]);
+        cycle.Init(_data.cycleSettings[num], _data.enemiesSettings);
         currentCycle = num;
         GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
     }

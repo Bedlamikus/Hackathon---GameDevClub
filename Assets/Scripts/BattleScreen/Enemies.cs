@@ -6,6 +6,7 @@ public class Enemies : MonoBehaviour
 {
     public List<Enemy> enemies = new();
     private List<Transform> spawnPoints;
+    private List<EnemiesSettings> enemiesSettings;
 
     private int countSpawned;
     private bool pause;
@@ -17,18 +18,19 @@ public class Enemies : MonoBehaviour
         pause = false;
     }
 
-    public void Init(BattlePoint enemiesSettings, List<Transform> spawnPoints)
+    public void Init(BattlePoint points, List<Transform> spawnPoints, List<EnemiesSettings> enemiesSettings)
     {
+        this.enemiesSettings = enemiesSettings;
         this.spawnPoints = spawnPoints;
-        countSpawned = CountEnemiesInSettings(enemiesSettings);
-        foreach (var enemy in enemiesSettings.enemies)
+        countSpawned = CountEnemiesInSettings(points);
+        foreach (var enemy in points.enemies)
         {
             var newRoutine = StartCoroutine(SpawnEnemies(enemy));
         }
         GlobalEvents.EnemyDie.AddListener(CheckCountEnemies);
     }
 
-    private IEnumerator SpawnEnemies(EnemiesSettings settings)
+    private IEnumerator SpawnEnemies(EnemiesSpawnerByCycle settings)
     {
         var enemyPrefabs = FindObjectOfType<EnemyPrefabs>();
         int count = settings.count;
@@ -41,10 +43,28 @@ public class Enemies : MonoBehaviour
                 count--;
                 var enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
                 enemy.transform.SetParent(this.transform);
-                enemy.Init(settings.health, settings.coolDownAttack, settings.damage, settings.speedMultiplier);
+                var i = FindIndexEnemyByType(settings.type);
+                var numCycle = FindObjectOfType<GameManager>().currentCycle;
+                enemy.Init(
+                    enemiesSettings[i].health + numCycle * enemiesSettings[i].additionHealth, 
+                    enemiesSettings[i].coolDownAttack + numCycle * enemiesSettings[i].additionCoolDownAttack, 
+                    enemiesSettings[i].damage + numCycle * enemiesSettings[i].additionDamage, 
+                    enemiesSettings[i].speedMultiplier + numCycle * enemiesSettings[i].additionSpeedMultiplier,
+                    enemiesSettings[i].scale + numCycle * enemiesSettings[i].additionScale);
                 enemies.Add(enemy);
             }
         }
+    }
+
+    private int FindIndexEnemyByType(string typeEnemy)
+    {
+        int result = 0;
+        for (int i = 0;i < enemiesSettings.Count; i++)
+        {
+            if (enemiesSettings[i].enemyType == typeEnemy)
+                result = i;
+        }
+        return result;
     }
 
     private Vector3 RandomPosition()

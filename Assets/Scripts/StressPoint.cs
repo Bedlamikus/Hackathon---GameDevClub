@@ -10,9 +10,11 @@ public class StressPoint : MonoBehaviour
 
     private List<StressEnemy> enemyList = new();
     private ScreenFightPosition screenFightPosition;
+    private List<EnemiesSettings> enemiesSettings;
 
-    public void Init(BattlePoint battlePoint)
+    public void Init(BattlePoint battlePoint, List<EnemiesSettings> enemiesSettings)
     {
+        this.enemiesSettings = enemiesSettings;
         this.battlePoint = battlePoint;
         screenFightPosition = FindObjectOfType<ScreenFightPosition>();
         var enemyPrefabs = FindObjectOfType<EnemyPrefabs>();
@@ -29,7 +31,7 @@ public class StressPoint : MonoBehaviour
         GlobalEvents.StartBattle.Invoke();
         GlobalEvents.EndBattle.AddListener(DestroySelf);
         var game = Instantiate(miniGame, screenFightPosition.transform);
-        game.Init(battlePoint);
+        game.Init(battlePoint, enemiesSettings);
     }
     private void DestroySelf()
     {

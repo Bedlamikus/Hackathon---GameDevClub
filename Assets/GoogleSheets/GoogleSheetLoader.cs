@@ -7,6 +7,7 @@ public class GoogleSheetLoader : MonoBehaviour
 {
     [SerializeField] private string _sheetIdCycleSettings;
     [SerializeField] private string _sheetIdPlayerSettings;
+    [SerializeField] private string _sheetIdEnemySettings;
 
     [SerializeField] private ExcelSettings _data;
     
@@ -31,6 +32,8 @@ public class GoogleSheetLoader : MonoBehaviour
         _data = _sheetProcessor.LoadCycleSettings(rawCSVtext[0]);
         yield return _cvsLoader.DownloadRawCvsTable(_sheetIdPlayerSettings, rawCSVtext);
         _data.playerSettings = _sheetProcessor.LoadPlayerSettings(rawCSVtext[0]);
+        yield return _cvsLoader.DownloadRawCvsTable(_sheetIdEnemySettings, rawCSVtext);
+        _data.enemiesSettings = _sheetProcessor.LoadEnemiesSettings(rawCSVtext[0]);
         GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
     }
 }

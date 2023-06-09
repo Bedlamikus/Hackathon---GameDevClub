@@ -1,23 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class SheetProcessor : MonoBehaviour
 {
     //CycleSettings
-    private const int num = 1;
+    private const int cNum = 1;
     private const int xCoord = 3;
     private const int yCoord = 4;
-    private const int enemyType = 5;
-    private const int countEnemy = 6;
-    private const int pauseBeforeSpawn = 7;
-    private const int cooldDownBeetwenSpawns = 8;
-    private const int coolDownAttack = 9;
-    private const int health = 10;
-    private const int attack = 11;
-    private const int speedMultiplier = 12;
+    private const int cEnemyType = 5;
+    private const int cCountEnemy = 6;
+    private const int cPauseBeforeSpawn = 7;
+    private const int cCooldDownBeetwenSpawns = 8;
+    private const int eEnemyType = 0;
+    private const int eHealth = 1;
+    private const int eAttack = 2;
+    private const int eSpeedMultiplier = 3;
+    private const int eScale = 4;
+    private const int eCoolDownAttack = 5;
 
     //PlayerSettings
     private const int pGoldForUpgrade = 0;
@@ -40,7 +43,7 @@ public class SheetProcessor : MonoBehaviour
         for (int i = dataStartRawIndex; i < rows.Length - 1; i++)
         {
             string[] cells = rows[i].Split(_cellSeporator);
-            int id = ParseInt(cells[num]);
+            int id = ParseInt(cells[cNum]);
             data.cycleSettings.Add(new CycleSettings()
             {
                 num = id,
@@ -55,23 +58,19 @@ public class SheetProcessor : MonoBehaviour
             {
                 var battlePoint = new BattlePoint();
                 battlePoint.position = new Vector2Int(ParseInt(battlePoints[xCoord]), ParseInt(battlePoints[yCoord]));
-                battlePoint.enemies = new List<EnemiesSettings>();
+                battlePoint.enemies = new List<EnemiesSpawnerByCycle>();
 
                 //read enemies
                 i++;
                 string[] enemySells = rows[i].Split(_cellSeporator);
                 while (enemySells[0] == "" && enemySells[2] == "" && i < rows.Length)
                 {
-                    var enemiesSettings = new EnemiesSettings
+                    var enemiesSettings = new EnemiesSpawnerByCycle
                     {
-                        type = enemySells[enemyType],
-                        count = ParseInt(enemySells[countEnemy]),
-                        coolDownAttack = ParseFloat(enemySells[coolDownAttack]),
-                        health = ParseInt(enemySells[health]),
-                        coolDownBeetwenSpawns = ParseFloat(enemySells[cooldDownBeetwenSpawns]),
-                        damage = ParseFloat(enemySells[attack]),
-                        pauseBeforeSpawn = ParseFloat(enemySells[pauseBeforeSpawn]),
-                        speedMultiplier = ParseFloat(enemySells[speedMultiplier]),
+                        type = enemySells[cEnemyType],
+                        count = ParseInt(enemySells[cCountEnemy]),
+                        coolDownBeetwenSpawns = ParseFloat(enemySells[cCooldDownBeetwenSpawns]),
+                        pauseBeforeSpawn = ParseFloat(enemySells[cPauseBeforeSpawn]),
                     };
                     battlePoint.enemies.Add(enemiesSettings);
                     i++;
@@ -112,6 +111,35 @@ public class SheetProcessor : MonoBehaviour
         return data;
     }
 
+    public List<EnemiesSettings> LoadEnemiesSettings(string cvsRawData)
+    {
+        char lineEnding = GetPlatformSpecificLineEnd();
+        string[] rows = Convert(cvsRawData).Split(lineEnding);
+        int dataStartRawIndex = 1;
+        List<EnemiesSettings> data = new();
+
+        for (int i = dataStartRawIndex; i < rows.Length; i += 2)
+        {
+            string[] cells = rows[i].Split(_cellSeporator);
+            var settings = new EnemiesSettings
+            {
+                enemyType = cells[eEnemyType],
+                health = ParseInt(cells[eHealth]),
+                damage = ParseFloat(cells[eAttack]),
+                speedMultiplier = ParseFloat(cells[eSpeedMultiplier]),
+                scale = ParseFloat(cells[eScale]),
+                coolDownAttack = ParseFloat(cells[eCoolDownAttack]),
+            };
+            string[] additionCells = rows[i+1].Split(_cellSeporator);
+            settings.additionHealth = ParseInt(additionCells[eHealth]);
+            settings.additionDamage = ParseFloat(additionCells[eAttack]);
+            settings.additionSpeedMultiplier = ParseFloat(additionCells[eSpeedMultiplier]);
+            settings.additionScale = ParseFloat(additionCells[eScale]);
+            settings.additionCoolDownAttack = ParseFloat(additionCells[eCoolDownAttack]);
+            data.Add(settings);
+        }
+        return data;
+    }
 
     private int ParseInt(string s)
     {
@@ -144,7 +172,6 @@ public class SheetProcessor : MonoBehaviour
         return lineEnding;
     }
 
-    //0,6,"0,6",1,10,"0,3"
     private string Convert(string s)
     {
         string result = "";

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Weapon : MonoBehaviour
 {
@@ -32,19 +33,25 @@ public class Weapon : MonoBehaviour
         pause = false;
     }
 
+    float timer;
     private IEnumerator ShootingLoop()
     {
+        timer = 1 / playerSettings.AttackSpeed;
         while (true)
         {
-            yield return Shooting();
-            //yield return new WaitForSeconds(0.005f / attackSpeed);
+            Enemy target = FindTarget();
+            timer += Time.deltaTime;
+            if (target != null)
+            {
+                transform.LookAt(target.transform);
+                transform.Rotate(new Vector3(0, 90, 65));
+            }
+            yield return Shooting(target);
         }
     }
 
-    private IEnumerator Shooting()
+    private IEnumerator Shooting(Enemy target)
     {
-        Enemy target = FindTarget();
-        float timer = 0;
         while (target != null && target.transform.parent != null) 
         {
             timer += Time.deltaTime;

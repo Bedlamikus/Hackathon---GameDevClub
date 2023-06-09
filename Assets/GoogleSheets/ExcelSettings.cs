@@ -30,4 +30,5 @@ public class EnemiesSettings
     public float coolDownBeetwenSpawns;
     public float pauseBeforeSpawn;
     public float coolDownAttack;
+    public float speedMultiplier;
 }

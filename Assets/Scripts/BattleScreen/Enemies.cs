@@ -41,7 +41,7 @@ public class Enemies : MonoBehaviour
                 count--;
                 var enemy = Instantiate(enemyPrefabs.enemies[settings.type], RandomPosition(), Quaternion.identity);
                 enemy.transform.SetParent(this.transform);
-                enemy.Init(settings.health, settings.coolDownAttack, settings.damage);
+                enemy.Init(settings.health, settings.coolDownAttack, settings.damage, settings.speedMultiplier);
                 enemies.Add(enemy);
             }
         }

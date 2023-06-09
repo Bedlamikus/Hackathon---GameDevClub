@@ -17,6 +17,7 @@ public class SheetProcessor : MonoBehaviour
     private const int coolDownAttack = 9;
     private const int health = 10;
     private const int attack = 11;
+    private const int speedMultiplier = 12;
 
     //PlayerSettings
     private const int pGoldForUpgrade = 0;
@@ -69,7 +70,8 @@ public class SheetProcessor : MonoBehaviour
                         health = ParseInt(enemySells[health]),
                         coolDownBeetwenSpawns = ParseFloat(enemySells[cooldDownBeetwenSpawns]),
                         damage = ParseFloat(enemySells[attack]),
-                        pauseBeforeSpawn = ParseFloat(enemySells[pauseBeforeSpawn])
+                        pauseBeforeSpawn = ParseFloat(enemySells[pauseBeforeSpawn]),
+                        speedMultiplier = ParseFloat(enemySells[speedMultiplier]),
                     };
                     battlePoint.enemies.Add(enemiesSettings);
                     i++;

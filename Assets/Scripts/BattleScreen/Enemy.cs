@@ -37,11 +37,13 @@ public class Enemy : MonoBehaviour
         GlobalEvents.UnPause.AddListener(UnPause);
     }
 
-    public void Init(int health, float coolDownAttack, float adamage)
+    public void Init(int health, float coolDownAttack, float damage, float speedMultiplier)
     {
         this.health = health;
         this.coolDownAttack = coolDownAttack;
-        this.damage = adamage;
+        this.damage = damage;
+        speedWay_velocity *= speedMultiplier;
+        speed_velocity *= speedMultiplier;
     }
 
     private void Pause()

@@ -11,6 +11,7 @@ public class Train : MonoBehaviour
     [SerializeField] private AudioClip choo;
     [SerializeField] private AudioSource sound;
 
+    public bool inFight = false;
     private int paused = 0;
     private Quaternion startRotation;
 
@@ -21,6 +22,8 @@ public class Train : MonoBehaviour
     {
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.StartBattle.AddListener(BattleStart);
+        GlobalEvents.EndBattle.AddListener(BattleEnd);
         restart = false;
         startRotation = transform.rotation;
     }
@@ -65,8 +68,18 @@ public class Train : MonoBehaviour
 
     public void UnPause()
     {
+        if (inFight) return;
         sound.PlayOneShot(choo, 0.2f);
         paused = 1;
+    }
+
+    private void BattleStart()
+    {
+        inFight = true;
+    }
+    private void BattleEnd()
+    {
+        inFight = false;
     }
 
     public bool IsRide()

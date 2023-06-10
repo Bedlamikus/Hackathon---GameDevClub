@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
         speed_velocity *= speedMultiplier;
         var lScale = transform.localScale;
         transform.localScale = lScale * scale;
+        animator.speed *= speedMultiplier;
     }
 
     private void Pause()

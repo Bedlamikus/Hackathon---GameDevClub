@@ -9355,6 +9355,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 619778257975394371, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -168
+      objectReference: {fileID: 0}
     - target: {fileID: 630003312829994737, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -9515,6 +9519,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4864954984933969283, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523655287314788973, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 118
+      objectReference: {fileID: 0}
     - target: {fileID: 7434814872714477497, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9541,7 +9553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7434814872714477497, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 7434814872714477497, guid: 1c7a79a10fd135f46a050833ab9d01ed, type: 3}
       propertyPath: m_SizeDelta.x
@@ -12666,6 +12678,7 @@ MonoBehaviour:
   speed: 3
   choo: {fileID: 8300000, guid: 465190381f2b23b4a85b0aec9521309b, type: 3}
   sound: {fileID: 2026009231}
+  inFight: 0
 --- !u!65 &2026009230
 BoxCollider:
   m_ObjectHideFlags: 0

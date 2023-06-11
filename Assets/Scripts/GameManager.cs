@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
         rails.Init();
         train.Init();
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
-        GlobalEvents.DefaultSettingsLoaded.AddListener(DataInit);
         GlobalEvents.EvRewardedLevelRestart.AddListener(RestartCurrentLevel);
+        DataInit(FindObjectOfType<GoogleSheetLoader>().GetSettings());
     }
 
     public void RestartCurrentLevel()
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     private void DataInit(ExcelSettings data)
     {
         _data = data;
+        GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
         LoadCycleByNum(0);
     }
     
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
         if (num > 9) return;
         var cycle = Instantiate(gameCycle, cycles.transform);
         cycle.Init(_data.cycleSettings[num], _data.enemiesSettings);
+        print(_data.enemiesSettings.Count);
         currentCycle = num;
         GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
     }

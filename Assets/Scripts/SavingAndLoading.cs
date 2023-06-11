@@ -24,7 +24,7 @@ public class SavingAndLoading : MonoBehaviour
             LoadSettingsFromGoogleTable();
             return;
         }
-        LoadCurrentSettings();
+        //LoadCurrentSettings();
     }
 
     private void SavingDefaultSettingsToPlayerPrefs(ExcelSettings settings)

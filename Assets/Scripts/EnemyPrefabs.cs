@@ -10,7 +10,7 @@ public class EnemyPrefabs : MonoBehaviour
     public Dictionary<string, Enemy> enemies = new Dictionary<string, Enemy>();
     public Dictionary<string, StressEnemy> stressEnemies = new Dictionary<string, StressEnemy>();
 
-    private void Start()
+    private void Awake()
     {
         foreach (var enemy in enemiesPrefabs)
         {

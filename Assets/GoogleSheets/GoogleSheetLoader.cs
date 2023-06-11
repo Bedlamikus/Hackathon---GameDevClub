@@ -16,13 +16,10 @@ public class GoogleSheetLoader : MonoBehaviour
 
     private void Awake()
     {
-        GlobalEvents.LoadSettings.AddListener(LoadSettings);
         _cvsLoader = GetComponent<CVSLoader>();
         _sheetProcessor = GetComponent<SheetProcessor>();
-    }
-    private void LoadSettings()
-    {
         StartCoroutine(DownloadTable());
+        DontDestroyOnLoad(gameObject);
     }
 
     private IEnumerator DownloadTable()
@@ -35,5 +32,10 @@ public class GoogleSheetLoader : MonoBehaviour
         yield return _cvsLoader.DownloadRawCvsTable(_sheetIdEnemySettings, rawCSVtext);
         _data.enemiesSettings = _sheetProcessor.LoadEnemiesSettings(rawCSVtext[0]);
         GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
+    }
+
+    public ExcelSettings GetSettings()
+    {
+        return _data;
     }
 }

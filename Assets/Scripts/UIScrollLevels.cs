@@ -26,24 +26,23 @@ public class UIScrollLevels : MonoBehaviour
         lastOpenedLevel = 0;
     }
 
+    Vector2 mousePosition = Vector2.zero;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             mouseDown = true;
+            mousePosition = Input.mousePosition;
             print($"targetlevel = {targetLevel}, lastopenedlevel = {lastOpenedLevel}");
-            StartButton.SetActive(true);
-            if (targetLevel > lastOpenedLevel)
-                StartButton.SetActive(false);
+            ShowButtonOrHide();
             return;
         }
         if (Input.GetMouseButtonUp(0))
         {
             mouseDown = false;
+            if (Vector3.Distance(mousePosition, Input.mousePosition) < 2) return;
             targetLevel = GetNewTargetLevel();
-            StartButton.SetActive(true);
-            if (targetLevel > lastOpenedLevel)
-                StartButton.SetActive(false);
+            ShowButtonOrHide();
             return;
         }
         if (mouseDown)
@@ -66,5 +65,23 @@ public class UIScrollLevels : MonoBehaviour
     public void StartLevel()
     {
         SceneManager.LoadScene(targetLevel + 1);
+    }
+    public void NextTargetLevel()
+    {
+        if (targetLevel < levels)
+            targetLevel++;
+        ShowButtonOrHide();
+    }
+    public void PrevoiusTargetLevel()
+    {
+        if (targetLevel >0)
+            targetLevel--;
+        ShowButtonOrHide();
+    }
+    public void ShowButtonOrHide()
+    {
+        StartButton.SetActive(true);
+        if (targetLevel > lastOpenedLevel)
+            StartButton.SetActive(false);
     }
 }

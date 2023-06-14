@@ -89,6 +89,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UnPause.AddListener(UnPause);
 
         StartCoroutine(Regeneration());
+        DontDestroyOnLoad(gameObject);
     }
 
     private void ApplyMaxHealth()

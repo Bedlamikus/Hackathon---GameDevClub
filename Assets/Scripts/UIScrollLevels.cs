@@ -33,7 +33,6 @@ public class UIScrollLevels : MonoBehaviour
         {
             mouseDown = true;
             mousePosition = Input.mousePosition;
-            print($"targetlevel = {targetLevel}, lastopenedlevel = {lastOpenedLevel}");
             ShowButtonOrHide();
             return;
         }

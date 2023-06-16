@@ -42,4 +42,6 @@ public static class GlobalEvents
     public static UnityEvent EvRewardedLevelRestart = new();
     public static UnityEvent EvRewardMuliplyCoin = new();
     public static UnityEvent<int> EvRewardedMuliplyCoin = new();
+
+    public static UnityEvent<float> SuperAttackSpeed = new();
 }

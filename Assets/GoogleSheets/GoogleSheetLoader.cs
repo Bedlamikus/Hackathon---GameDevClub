@@ -18,8 +18,13 @@ public class GoogleSheetLoader : MonoBehaviour
     {
         _cvsLoader = GetComponent<CVSLoader>();
         _sheetProcessor = GetComponent<SheetProcessor>();
-        StartCoroutine(DownloadTable());
+        GlobalEvents.LoadSettings.AddListener(DownloadSettings);
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void DownloadSettings()
+    {
+        StartCoroutine(DownloadTable());
     }
 
     private IEnumerator DownloadTable()

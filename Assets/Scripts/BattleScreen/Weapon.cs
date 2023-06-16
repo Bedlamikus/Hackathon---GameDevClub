@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -12,14 +13,18 @@ public class Weapon : MonoBehaviour
     private bool pause = false;
     private PlayerStats playerSettings;
     private FightSound sound;
+    private float attackSpeed;
+    private bool superAttack = false;
 
     private void Start()
     {
         sound = FindObjectOfType<FightSound>();
         enemies = FindObjectOfType<Enemies>();
         playerSettings = FindObjectOfType<PlayerStats>();
+        attackSpeed = playerSettings.attackSpeed.Value();
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.SuperAttackSpeed.AddListener(SuperAttackSpeed);
         StartCoroutine(ShootingLoop());
     }
 
@@ -36,7 +41,7 @@ public class Weapon : MonoBehaviour
     float timer;
     private IEnumerator ShootingLoop()
     {
-        timer = 1 / playerSettings.AttackSpeed;
+        timer = 1 / attackSpeed;
         while (true)
         {
             Enemy target = FindTarget();
@@ -57,7 +62,7 @@ public class Weapon : MonoBehaviour
             timer += Time.deltaTime;
             transform.LookAt(target.transform);
             transform.Rotate(new Vector3(0, 90, 65));
-            if (timer >= 1/playerSettings.AttackSpeed && !pause)
+            if (timer >= 1/ attackSpeed && !pause)
             {
                 timer = 0;
                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
@@ -86,5 +91,20 @@ public class Weapon : MonoBehaviour
             }
         }
         return target;
+    }
+
+    private void SuperAttackSpeed(float time)
+    {
+        if (superAttack) return;
+        StartCoroutine(SuperAttackSpeedCoroutine(time));
+    }
+
+    private IEnumerator SuperAttackSpeedCoroutine(float time)
+    {
+        superAttack = true;
+        attackSpeed = playerSettings.attackSpeed.Value() * 3;
+        yield return new WaitForSeconds(time);
+        attackSpeed = playerSettings.attackSpeed.Value();
+        superAttack = false;
     }
 }

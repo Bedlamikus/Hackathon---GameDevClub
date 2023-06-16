@@ -28,7 +28,6 @@ public class Station : MonoBehaviour
         var train = other.GetComponent<Train>();
         if (!train) return;
         GlobalEvents.StationEnter.Invoke();
-        print("Station Enter invoke");
         trigger.enabled = false;
     }
 
@@ -36,7 +35,6 @@ public class Station : MonoBehaviour
     {
         yield return new WaitForSeconds(timeForEnabledStation);
         trigger.enabled = true;
-        print("station enabled");
     }
 
     private void OnRewarded()

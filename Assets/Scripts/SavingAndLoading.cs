@@ -24,12 +24,13 @@ public class SavingAndLoading : MonoBehaviour
             LoadSettingsFromGoogleTable();
             return;
         }
-        //LoadCurrentSettings();
+        LoadCurrentSettings();
     }
 
     private void SavingDefaultSettingsToPlayerPrefs(ExcelSettings settings)
     {
         string s = JsonUtility.ToJson(settings);
+        print(s);
         PlayerPrefs.SetString(DEFAULT_SETTINGS, s);
     }
 

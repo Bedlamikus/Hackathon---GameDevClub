@@ -46,6 +46,11 @@ public class UpdateUIStats : MonoBehaviour
         GlobalEvents.UpdateUI.AddListener(UpdateUI);
     }
 
+    private void OnEnable()
+    {
+        UpdateUI();
+    }
+
     private void UpdateUI()
     {
         UpdateCoins();

@@ -7,6 +7,7 @@ public class UIPositionToWorldObject : MonoBehaviour
 {
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private TMP_Text text;
+
     public void Init(string text, Transform target, int heightOffset, bool moveUp, bool splash)
     {
         rectTransform.position = Camera.main.WorldToScreenPoint(target.position) + new Vector3(0, heightOffset, 0);

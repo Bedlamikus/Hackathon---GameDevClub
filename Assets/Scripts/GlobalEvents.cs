@@ -45,4 +45,5 @@ public static class GlobalEvents
 
     public static UnityEvent<float, float> SuperAttackSpeed = new();
     public static UnityEvent<float, float> SuperRegen = new();
+    public static UnityEvent<float, float> SuperDamage = new();
 }

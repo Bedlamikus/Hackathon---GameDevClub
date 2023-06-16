@@ -16,16 +16,24 @@ public class SuperButtons : MonoBehaviour
     [SerializeField] private Button buttonSuperRegen;
     [SerializeField] private Image imageSuperRegenFilled;
 
+    [SerializeField] private float timeSuperDamage = 3f;
+    [SerializeField] private float timeSuperDamageCoolDown = 8f;
+    [SerializeField] private float multiplySuperDamage = 1.25f;
+    [SerializeField] private Button buttonSuperDamage;
+    [SerializeField] private Image imageSuperDamageFilled;
+
     private void Start()
     {
         buttonSuperAttack.onClick.AddListener(SuperAttackEvent);
         buttonSuperRegen.onClick.AddListener(SuperRegenEvent);
+        buttonSuperDamage.onClick.AddListener(SuperDamageEvent);
     }
 
     private void OnEnable()
     {
-        StartCoroutine(FillImage(imageSuperAttackFilled, buttonSuperAttack, timeSuperAttackCoolDown));
-        StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown));
+        StartCoroutine(FillImage(imageSuperAttackFilled, buttonSuperAttack, timeSuperAttackCoolDown / 10));
+        StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown / 10));
+        StartCoroutine(FillImage(imageSuperDamageFilled, buttonSuperDamage, timeSuperDamageCoolDown / 10));
     }
 
     private void SuperAttackEvent()
@@ -38,6 +46,12 @@ public class SuperButtons : MonoBehaviour
     {
         GlobalEvents.SuperRegen.Invoke(timeSuperRegen, multiplySuperRegenSpeed);
         StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown));
+    }
+
+    private void SuperDamageEvent()
+    {
+        GlobalEvents.SuperDamage.Invoke(timeSuperDamage, multiplySuperDamage);
+        StartCoroutine(FillImage(imageSuperDamageFilled, buttonSuperDamage, timeSuperDamageCoolDown));
     }
 
     private IEnumerator FillImage(Image image, Button button, float timer)

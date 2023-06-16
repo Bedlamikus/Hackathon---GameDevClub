@@ -75,6 +75,8 @@ public class PlayerStats : MonoBehaviour
     private float currentRegenerationTime;
     private bool superRegeneration = false;
 
+    private float damageMultiply = 1f;
+
     private void Start()
     {
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
@@ -91,6 +93,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
         GlobalEvents.SuperRegen.AddListener(SuperRegen);
+        GlobalEvents.SuperDamage.AddListener(SuperDamage);
 
         StartCoroutine(Regeneration());
         DontDestroyOnLoad(gameObject);
@@ -227,6 +230,24 @@ public class PlayerStats : MonoBehaviour
         superRegeneration = false;
     }
 
+    private void SuperDamage(float time, float multiply)
+    {
+        StartCoroutine(SuperDamageCoroutine(time, multiply));
+    }
+
+    IEnumerator SuperDamageCoroutine(float time, float multiply)
+    {
+        damageMultiply = multiply;
+        float timer = 0f;
+        while (timer <= time && !pause)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        damageMultiply = 1f;
+    }
+
+
     public float Health 
     { 
         get { return currentHealth; }
@@ -277,7 +298,7 @@ public class PlayerStats : MonoBehaviour
     }
     public float Damage
     {
-        get { return damage.Value(); }
+        get { return damage.Value() * damageMultiply; }
     }
 
     public int TargetUIExperience

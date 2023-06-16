@@ -1,7 +1,7 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 [Serializable]
@@ -72,6 +72,9 @@ public class PlayerStats : MonoBehaviour
     private int currentCycle;
     private bool pause = false;
 
+    private float currentRegenerationTime;
+    private bool superRegeneration = false;
+
     private void Start()
     {
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
@@ -87,6 +90,7 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.EvRewardedLevelRestart.AddListener(ApplyMaxHealth);
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.SuperRegen.AddListener(SuperRegen);
 
         StartCoroutine(Regeneration());
         DontDestroyOnLoad(gameObject);
@@ -143,6 +147,7 @@ public class PlayerStats : MonoBehaviour
 
     private void ApplyDamage(float damage)
     {
+        if (superRegeneration) return;
         currentHealth -= (damage - damage * Armor / 100);
         if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
         if (currentHealth <= 0)
@@ -187,16 +192,39 @@ public class PlayerStats : MonoBehaviour
 
     private IEnumerator Regeneration() 
     {
+        currentRegenerationTime = 1f;
+        float timer = 0;
         while (true)
         {
-            yield return new WaitForSeconds(1);
-            if (currentHealth < maxHealth.Value() && !pause)
+            timer += Time.deltaTime;
+            if (timer > currentRegenerationTime && currentHealth < maxHealth.Value() && !pause)
             {
+                timer = 0;
                 currentHealth += regeneration.Value();
                 if (currentHealth > maxHealth.Value()) currentHealth = maxHealth.Value();
                 GlobalEvents.UpdateUI.Invoke();
             }
+            yield return null;
         }
+    }
+
+    private void SuperRegen(float time, float multiply)
+    {
+        StartCoroutine(SuperRegenCoroutine(time, multiply));
+    }
+
+    IEnumerator SuperRegenCoroutine(float time, float multiply)
+    {
+        superRegeneration = true;
+        currentRegenerationTime = 1/ multiply;
+        float timer = 0f;
+        while (timer <= time && currentHealth < maxHealth.Value() && !pause)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        currentRegenerationTime = 1f;
+        superRegeneration = false;
     }
 
     public float Health 

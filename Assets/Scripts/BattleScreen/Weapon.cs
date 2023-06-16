@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -93,16 +94,16 @@ public class Weapon : MonoBehaviour
         return target;
     }
 
-    private void SuperAttackSpeed(float time)
+    private void SuperAttackSpeed(float time, float multiply)
     {
         if (superAttack) return;
-        StartCoroutine(SuperAttackSpeedCoroutine(time));
+        StartCoroutine(SuperAttackSpeedCoroutine(time, multiply));
     }
 
-    private IEnumerator SuperAttackSpeedCoroutine(float time)
+    private IEnumerator SuperAttackSpeedCoroutine(float time, float multiply)
     {
         superAttack = true;
-        attackSpeed = playerSettings.attackSpeed.Value() * 3;
+        attackSpeed = playerSettings.attackSpeed.Value() * multiply;
         yield return new WaitForSeconds(time);
         attackSpeed = playerSettings.attackSpeed.Value();
         superAttack = false;

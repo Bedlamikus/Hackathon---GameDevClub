@@ -4,24 +4,46 @@ using UnityEngine.UI;
 
 public class SuperButtons : MonoBehaviour
 {
-    [SerializeField] private Button SuperAttack;
-    [SerializeField] private Image SuperAttackFilledImage;
+    [SerializeField] private float timeSuperAttack = 1f;
+    [SerializeField] private float timeSuperAttackCoolDown = 3f;
+    [SerializeField] private float multiplySuperAttackSpeed = 3f;
+    [SerializeField] private Button buttonSuperAttack;
+    [SerializeField] private Image imageSuperAttackFilled;
+
+    [SerializeField] private float timeSuperRegen = 1f;
+    [SerializeField] private float timeSuperRegenCoolDown = 3f;
+    [SerializeField] private float multiplySuperRegenSpeed = 3f;
+    [SerializeField] private Button buttonSuperRegen;
+    [SerializeField] private Image imageSuperRegenFilled;
 
     private void Start()
     {
-        SuperAttack.onClick.AddListener(SuperAttackEvent);
+        buttonSuperAttack.onClick.AddListener(SuperAttackEvent);
+        buttonSuperRegen.onClick.AddListener(SuperRegenEvent);
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(FillImage(imageSuperAttackFilled, buttonSuperAttack, timeSuperAttackCoolDown));
+        StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown));
     }
 
     private void SuperAttackEvent()
     {
-        GlobalEvents.SuperAttackSpeed.Invoke(3f);
-        StartCoroutine(FillImage(SuperAttackFilledImage, 3f));
+        GlobalEvents.SuperAttackSpeed.Invoke(timeSuperAttack, multiplySuperAttackSpeed);
+        StartCoroutine(FillImage(imageSuperAttackFilled, buttonSuperAttack, timeSuperAttackCoolDown));
     }
 
-    private IEnumerator FillImage(Image image, float timer)
+    private void SuperRegenEvent()
+    {
+        GlobalEvents.SuperRegen.Invoke(timeSuperRegen, multiplySuperRegenSpeed);
+        StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown));
+    }
+
+    private IEnumerator FillImage(Image image, Button button, float timer)
     {
         image.gameObject.SetActive(true);
-        SuperAttack.interactable = false;
+        button.interactable = false;
         float currentTimer = timer;
         while (currentTimer > 0)
         {
@@ -30,6 +52,6 @@ public class SuperButtons : MonoBehaviour
             yield return null;
         }
         image.gameObject.SetActive(false);
-        SuperAttack.interactable = true;
+        button.interactable = true;
     }
 }

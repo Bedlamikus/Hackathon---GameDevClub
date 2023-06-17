@@ -7,7 +7,7 @@ public static class GlobalEvents
 {
     public static UnityEvent Pause = new();
     public static UnityEvent UnPause = new();
-    public static UnityEvent<int> Restart = new();
+    public static UnityEvent RestartGame = new();
     public static UnityEvent StationEnter = new();
     public static UnityEvent StressWin = new();
     public static UnityEvent StressLose = new();
@@ -35,7 +35,8 @@ public static class GlobalEvents
     public static UnityEvent<ExcelSettings> DefaultSettingsLoaded = new();
     public static UnityEvent SaveCurrentSettings = new();
     public static UnityEvent LoadCurrentSettings = new();
-    public static UnityEvent LoadSettings = new();
+    public static UnityEvent LoadSettingsFromInternet = new();
+    public static UnityEvent LoadDefaultSettings = new();
     public static UnityEvent<int> ChangeCycleIndex = new();
 
     public static UnityEvent EvRewardLevelRestart = new();

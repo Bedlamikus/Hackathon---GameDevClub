@@ -18,7 +18,8 @@ public class GoogleSheetLoader : MonoBehaviour
     {
         _cvsLoader = GetComponent<CVSLoader>();
         _sheetProcessor = GetComponent<SheetProcessor>();
-        GlobalEvents.LoadSettings.AddListener(DownloadSettings);
+        GlobalEvents.LoadSettingsFromInternet.AddListener(DownloadSettings);
+        GlobalEvents.LoadDefaultSettings.AddListener(DownloadDefaultSettings);
         DontDestroyOnLoad(gameObject);
     }
 
@@ -39,8 +40,27 @@ public class GoogleSheetLoader : MonoBehaviour
         GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
     }
 
+    private IEnumerator DownloadDefaultSettingsCoroutinee()
+    {
+        yield return new WaitForSeconds(1f);
+        string[] rawCSVtext = new string[1];
+        yield return _cvsLoader.DownloadRawCvsTable(_sheetIdCycleSettings, rawCSVtext);
+        _data = _sheetProcessor.LoadCycleSettings(rawCSVtext[0]);
+        yield return _cvsLoader.DownloadRawCvsTable(_sheetIdPlayerSettings, rawCSVtext);
+        _data.playerSettings = _sheetProcessor.LoadPlayerSettings(rawCSVtext[0]);
+        yield return _cvsLoader.DownloadRawCvsTable(_sheetIdEnemySettings, rawCSVtext);
+        _data.enemiesSettings = _sheetProcessor.LoadEnemiesSettings(rawCSVtext[0]);
+        GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
+    }
+
+
     public ExcelSettings GetSettings()
     {
         return _data;
+    }
+
+    private void DownloadDefaultSettings()
+    {
+        StartCoroutine(DownloadDefaultSettingsCoroutinee());
     }
 }

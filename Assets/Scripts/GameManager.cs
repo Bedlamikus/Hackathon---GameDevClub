@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         train.Init();
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.EvRewardedLevelRestart.AddListener(RestartCurrentLevel);
+        GlobalEvents.RestartGame.AddListener(Restart);
         DataInit(FindObjectOfType<GoogleSheetLoader>().GetSettings());
 
     }
@@ -74,7 +75,6 @@ public class GameManager : MonoBehaviour
     private void DataInit(ExcelSettings data)
     {
         _data = data;
-        //GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
         LoadCycleByNum(0);
     }
     

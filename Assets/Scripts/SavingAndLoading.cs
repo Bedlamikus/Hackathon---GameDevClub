@@ -9,53 +9,26 @@ public class SavingAndLoading : MonoBehaviour
     private PlayerStats playerSettings;
     private const string DEFAULT_SETTINGS = "DefaultSettings";
     private const string CURRENT_SETTINGS = "CurrentSettings";
-    private const string FIRST_START = "FirstStart";
 
     private void Start()
     {
         playerSettings = FindObjectOfType<PlayerStats>();
         GlobalEvents.EndBattle.AddListener(SaveCurrentSettings);
         GlobalEvents.SaveCurrentSettings.AddListener(SaveCurrentSettings);
-        GlobalEvents.DefaultSettingsLoaded.AddListener(SavingDefaultSettingsToPlayerPrefs);
 
         if (settingsFromTable)
         {
             print("Loading from internet");
-            LoadSettingsFromGoogleTable();
+            GlobalEvents.LoadSettingsFromInternet.Invoke();
             return;
         }
-        LoadCurrentSettings();
-    }
-
-    private void SavingDefaultSettingsToPlayerPrefs(ExcelSettings settings)
-    {
-        string s = JsonUtility.ToJson(settings);
-        print(s);
-        PlayerPrefs.SetString(DEFAULT_SETTINGS, s);
-    }
-
-    private void LoadingDefaultSettingsFromPlayerPrefs()
-    {
-        var settings = JsonUtility.FromJson<ExcelSettings>(PlayerPrefs.GetString(DEFAULT_SETTINGS));
-        GlobalEvents.DefaultSettingsLoaded.Invoke(settings);
-    }
-
-    public void LoadSettingsFromGoogleTable()
-    {
-        PlayerPrefs.DeleteAll();
-        GlobalEvents.LoadSettings.Invoke();
+        GlobalEvents.LoadDefaultSettings.Invoke();
     }
 
     private void SaveCurrentSettings()
     {
         var currentSettings = JsonUtility.ToJson(playerSettings.GetCurrentSettings());
         PlayerPrefs.SetString(CURRENT_SETTINGS, currentSettings);
-    }
-
-    private void LoadCurrentSettings()
-    {
-        LoadingDefaultSettingsFromPlayerPrefs();
-        StartCoroutine(LoadCurrentSettingsCoroutine());
     }
 
     private IEnumerator LoadCurrentSettingsCoroutine()

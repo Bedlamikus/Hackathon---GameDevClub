@@ -77,7 +77,7 @@ public class PlayerStats : MonoBehaviour
 
     private float damageMultiply = 1f;
 
-    private void Start()
+    private void Awake()
     {
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
         GlobalEvents.ApplyDamage.AddListener(ApplyDamage);
@@ -368,6 +368,10 @@ public class PlayerStats : MonoBehaviour
         baseSettings = settings.playerSettings;
 
         currentExperience = 0;
+        currentLevel = 0;
+        currentHlam = 0;
+        currentGolds = 0;
+        currentCycle = 1;
         currentHealth = maxHealth.Value();
 
         GlobalEvents.UpdateUI.Invoke();

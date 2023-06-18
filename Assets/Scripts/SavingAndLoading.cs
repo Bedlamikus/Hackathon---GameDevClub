@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SavingAndLoading : MonoBehaviour
 {
-    [SerializeField] private bool settingsFromTable = true;
+    [SerializeField] private bool settingsFromTable = false;
 
     private PlayerStats playerSettings;
     private const string DEFAULT_SETTINGS = "DefaultSettings";

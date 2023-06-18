@@ -42,12 +42,15 @@ public class UpdateUIStats : MonoBehaviour
 
     private void Awake()
     {
+        print("UpdateUIStats Awake");
+
         player = FindObjectOfType<PlayerStats>();
         GlobalEvents.UpdateUI.AddListener(UpdateUI);
     }
 
     private void OnEnable()
     {
+        print("Try Update On Start Level0");
         UpdateUI();
     }
 

@@ -63,8 +63,10 @@ public class ScreenManager : MonoBehaviour
 
     private void ShowPanelWin()
     {
-        panelWin.GetComponent<PanelWin>().SetRandomCoins();
-        panelWin.SetActive(true);
+        panelWinObject.SetRandomCoins();
+        panelWinObject.gameObject.SetActive(true);
+        //panelWin.GetComponent<PanelWin>().SetRandomCoins();
+        //panelWin.SetActive(true);
     }
 
     private void ShowPanelLose()

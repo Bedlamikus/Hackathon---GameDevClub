@@ -82,7 +82,12 @@ MonoBehaviour:
   damage: 20
   heightheightAboveGround: 0.51
   animator: {fileID: 5439005483254686933}
-  coin: {fileID: 708985607480985393, guid: 781d2ddab64fd2741b28a0aee5011b82, type: 3}
+  luts:
+  - {fileID: 708985607480985393, guid: 781d2ddab64fd2741b28a0aee5011b82, type: 3}
+  - {fileID: 708985607480985393, guid: ae851f86bde39644093ae880bcfba9cc, type: 3}
+  - {fileID: 708985607480985393, guid: ae851f86bde39644093ae880bcfba9cc, type: 3}
+  - {fileID: 708985607480985393, guid: ae851f86bde39644093ae880bcfba9cc, type: 3}
+  - {fileID: 708985607480985393, guid: ae851f86bde39644093ae880bcfba9cc, type: 3}
   target: {fileID: 0}
   _collider: {fileID: 7216733073541138253}
 --- !u!54 &-6229669653163597149

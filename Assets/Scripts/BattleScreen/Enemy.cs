@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float heightheightAboveGround = 0.51f;
     [SerializeField] private Animator animator;
-    [SerializeField] private Coin coin;
+    [SerializeField] private List<Lut> luts;
     [SerializeField] protected BattleTrain target = null;
     protected Rigidbody rb;
     [SerializeField] private Collider _collider;
@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
     {
         if (Random.Range(0, 2) == 1)
         {
-            var newCoin = Instantiate(coin, transform.position, Quaternion.identity);
+            var newCoin = Instantiate(luts[Random.Range(0, luts.Count)], transform.position, Quaternion.identity);
             newCoin.transform.parent = transform.parent;
         }
         _collider.enabled = false;

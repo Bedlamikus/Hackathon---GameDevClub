@@ -1,10 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Coin : MonoBehaviour
+public enum LutType
 {
+    COIN,
+    HLAM,
+}
+
+public class Lut : MonoBehaviour
+{
+    [SerializeField] private LutType lutType;
     [SerializeField] private int amount = 1;
     [SerializeField] private float angleSpeed = 1f;
     [SerializeField] private float mooveUpSpeed = 1f;
@@ -53,10 +58,22 @@ public class Coin : MonoBehaviour
         if (pause) return;
         if (mouse.pressed)
         {
-            GlobalEvents.ApplyGolds.Invoke(amount);
-            sound.ApplyCoin();
+            ApplyLut();
             Die();
         }
+    }
+
+    private void ApplyLut()
+    {
+        if (lutType == LutType.COIN)
+        {
+            GlobalEvents.ApplyGolds.Invoke(amount);
+        }
+        if (lutType == LutType.HLAM)
+        {
+            GlobalEvents.ApplyHlam.Invoke(amount);
+        }
+        sound.ApplyCoin();
     }
 
     private void Die()

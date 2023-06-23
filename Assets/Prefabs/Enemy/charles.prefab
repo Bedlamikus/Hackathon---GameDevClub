@@ -111,11 +111,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2000839645432801300}
-  - component: {fileID: 7609195585896111667}
   - component: {fileID: 8510571364104542525}
+  - component: {fileID: 7609195585896111667}
   - component: {fileID: 3634978628397725430}
   m_Layer: 0
-  m_Name: Charles
+  m_Name: charles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,35 +138,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7609195585896111667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5420417021469900227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6854aaae35acbd146a2ee2e61957a1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabUIPosition: {fileID: 534258279948675988, guid: 42af734b52b27c240bc4a14f9417cceb, type: 3}
-  canvas: {fileID: 8547872090013035080}
-  health: 200
-  speed_velocity: 6
-  speedWay_velocity: 0
-  cost: 200
-  attackDistance: 0
-  coolDownAttack: 2
-  damage: 4
-  heightheightAboveGround: 0.51
-  animator: {fileID: 2127274074732082172}
-  coin: {fileID: 708985607480985393, guid: 781d2ddab64fd2741b28a0aee5011b82, type: 3}
-  target: {fileID: 0}
-  _collider: {fileID: 3634978628397725430}
-  retreatDistance: 4
-  retreadSpeed: 5
-  retreatTimer: 5
 --- !u!54 &8510571364104542525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -194,6 +165,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &7609195585896111667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420417021469900227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6854aaae35acbd146a2ee2e61957a1e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabUIPosition: {fileID: 534258279948675988, guid: 42af734b52b27c240bc4a14f9417cceb, type: 3}
+  canvas: {fileID: 8547872090013035080}
+  health: 200
+  speed_velocity: 600
+  speedWay_velocity: 0
+  cost: 200
+  attackDistance: 0
+  coolDownAttack: 2
+  damage: 20
+  heightheightAboveGround: 0.51
+  animator: {fileID: 2127274074732082172}
+  luts:
+  - {fileID: 708985607480985393, guid: 4f610a5fa009d3046af7a75ebddd76bd, type: 3}
+  target: {fileID: 0}
+  _collider: {fileID: 3634978628397725430}
+  retreatDistance: 4
+  retreadSpeed: 5
+  retreatTimer: 5
 --- !u!136 &3634978628397725430
 CapsuleCollider:
   m_ObjectHideFlags: 0

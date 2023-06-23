@@ -13,14 +13,15 @@ public class UIProgressBarUpdate : MonoBehaviour
     [SerializeField] private TMP_Text experience;
     [SerializeField] private TMP_Text level;
     [SerializeField] private Slider experienceSlider;
+    [SerializeField] private TMP_Text golds;
+    [SerializeField] private TMP_Text hlam;
 
     private PlayerStats player;
 
     private void Awake()
     {
         player = FindObjectOfType<PlayerStats>();
-        GlobalEvents.UpdateUI.AddListener(UpdateHealthBar);
-        GlobalEvents.UpdateUI.AddListener(UpdateExperience);
+        GlobalEvents.UpdateUI.AddListener(UpdateUI);
     }
 
     private void UpdateHealthBar()
@@ -43,4 +44,21 @@ public class UIProgressBarUpdate : MonoBehaviour
     {
         GlobalEvents.UpdateUI.Invoke();
     }
+
+    private void UpdateCoins()
+    {
+        golds.text = player.Golds.ToString();
+    }
+    private void UpdateHlam()
+    {
+        hlam.text = player.Hlam.ToString();
+    }
+    private void UpdateUI()
+    {
+        UpdateCoins();
+        UpdateHlam();
+        UpdateHealthBar();
+        UpdateExperience();
+    }
+
 }

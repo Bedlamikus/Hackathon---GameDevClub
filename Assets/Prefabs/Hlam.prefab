@@ -53,7 +53,7 @@ MonoBehaviour:
   mooveUpSpeed: 0.01
   mooveUpDirection: 0.3
   destroyAfterMooveUp: 1
-  ofssetY: 1
+  ofssetY: 0.1
   particles: {fileID: 5560897065412934228}
 --- !u!65 &2443190467729695282
 BoxCollider:
@@ -70,7 +70,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4934,6 +4934,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 679d6f26da54fcf4f800ff96c1ffcfbb, type: 2}
+    - target: {fileID: 3104875392756114477, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.013
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104875392756114477, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6965633020482081057, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
       propertyPath: m_Name
       value: Hlam 1
@@ -4944,15 +4952,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8702216690613172999, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8702216690613172999, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8702216690613172999, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8702216690613172999, guid: 9a4eb233a7cacc64494e2ba3df924c1f, type: 3}
       propertyPath: m_LocalPosition.x

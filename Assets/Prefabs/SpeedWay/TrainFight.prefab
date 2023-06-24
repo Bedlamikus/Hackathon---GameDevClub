@@ -98,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 6
   bulletPrefab: {fileID: 3376773445452861185, guid: 0dce730a5a9955143a0385831955f1f0, type: 3}
-  enemies: {fileID: 0}
 --- !u!1 &1685278299588679795
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,11 +574,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90959f39c232f9541b47b3484c32af39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90959f39c232f9541b47b3484c32af39, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.05
+      value: -0.165
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90959f39c232f9541b47b3484c32af39, type: 3}
       propertyPath: m_LocalPosition.z

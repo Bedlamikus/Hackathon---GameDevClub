@@ -13,7 +13,7 @@ namespace YG.Example
 
         public void TestSend1()
         {
-            TestSend1("SomeEvent1");
+            TestSend1("301523903");
         }
 
         public void TestSend2()

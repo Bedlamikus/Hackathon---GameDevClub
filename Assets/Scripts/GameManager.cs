@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.EvRewardedLevelRestart.AddListener(RestartCurrentLevel);
         GlobalEvents.RestartGame.AddListener(Restart);
-        DataInit(FindObjectOfType<GoogleSheetLoader>().GetSettings());
+        DataInit(YandexGame.Instance.savesData);
 
     }
 

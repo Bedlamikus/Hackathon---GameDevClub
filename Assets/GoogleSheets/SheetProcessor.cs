@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class SheetProcessor : MonoBehaviour
+public static class SheetProcessor
 {
     //CycleSettings
     private const int cNum = 1;
@@ -32,7 +28,7 @@ public class SheetProcessor : MonoBehaviour
 
     private const char _cellSeporator = ',';
 
-    public ExcelSettings LoadCycleSettings(string cvsRawData)
+    public static ExcelSettings LoadCycleSettings(string cvsRawData)
     {
         char lineEnding = GetPlatformSpecificLineEnd();
         string[] rows = Convert(cvsRawData).Split(lineEnding);
@@ -87,7 +83,7 @@ public class SheetProcessor : MonoBehaviour
 
     }
 
-    public List<PlayerSettings> LoadPlayerSettings(string cvsRawData)
+    public static List<PlayerSettings> LoadPlayerSettings(string cvsRawData)
     {
         char lineEnding = GetPlatformSpecificLineEnd();
         string[] rows = Convert(cvsRawData).Split(lineEnding);
@@ -111,7 +107,7 @@ public class SheetProcessor : MonoBehaviour
         return data;
     }
 
-    public List<EnemiesSettings> LoadEnemiesSettings(string cvsRawData)
+    public static List<EnemiesSettings> LoadEnemiesSettings(string cvsRawData)
     {
         char lineEnding = GetPlatformSpecificLineEnd();
         string[] rows = Convert(cvsRawData).Split(lineEnding);
@@ -141,7 +137,7 @@ public class SheetProcessor : MonoBehaviour
         return data;
     }
 
-    private int ParseInt(string s)
+    private static int ParseInt(string s)
     {
         int result = -1;
         if (!int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out result))
@@ -152,7 +148,7 @@ public class SheetProcessor : MonoBehaviour
         return result;
     }
     
-    private float ParseFloat(string s)
+    private static float ParseFloat(string s)
     {
         float result = -1;
         if (!float.TryParse(s, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out result))
@@ -163,7 +159,7 @@ public class SheetProcessor : MonoBehaviour
         return result;
     }
     
-    private char GetPlatformSpecificLineEnd()
+    private static char GetPlatformSpecificLineEnd()
     {
         char lineEnding = '\n';
 #if UNITY_IOS
@@ -172,7 +168,7 @@ public class SheetProcessor : MonoBehaviour
         return lineEnding;
     }
 
-    private string Convert(string s)
+    private static string Convert(string s)
     {
         string result = "";
         for (int i = 0; i < s.Length;  i++)

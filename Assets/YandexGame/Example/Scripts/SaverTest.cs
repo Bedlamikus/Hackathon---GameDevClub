@@ -5,10 +5,7 @@ namespace YG.Example
 {
     public class SaverTest : MonoBehaviour
     {
-        [SerializeField] InputField integerText;
-        [SerializeField] InputField stringifyText;
-        [SerializeField] Text systemSavesText;
-        [SerializeField] Toggle[] booleanArrayToggle;
+        private GoogleSheetLoader googleSheetLoader;
 
         private void OnEnable() => YandexGame.GetDataEvent += GetLoad;
         private void OnDisable() => YandexGame.GetDataEvent -= GetLoad;
@@ -34,18 +31,8 @@ namespace YG.Example
 
         public void GetLoad()
         {
-            integerText.text = string.Empty;
-            stringifyText.text = string.Empty;
-
-            integerText.placeholder.GetComponent<Text>().text = YandexGame.savesData.money.ToString();
-            stringifyText.placeholder.GetComponent<Text>().text = YandexGame.savesData.newPlayerName;
-
-            for (int i = 0; i < booleanArrayToggle.Length; i++)
-                booleanArrayToggle[i].isOn = YandexGame.savesData.openLevels[i];
-
-            systemSavesText.text = $"Language - {YandexGame.savesData.language}\n" +
-            $"First Session - {YandexGame.savesData.isFirstSession}\n" +
-            $"Prompt Done - {YandexGame.savesData.promptDone}\n";
+            GlobalEvents.DefaultSettingsLoaded.Invoke(YandexGame.savesData._data);
+            if (YandexGame.savesData.isFirstSession) MetricEvents.Instance.FirstStartGame();
         }
     }
 }

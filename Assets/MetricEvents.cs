@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using YG;
 
-public class MetricEvents : MonoBehaviour
+[System.Serializable]
+public class MetricData
 {
-    public MetricEvents Instance;
-
-    /// <summary>
-    /// Events
-    /// </summary>
-
     private bool firstStartGame = true;
     private bool levelOneStart = false;
     private bool CycleEnded1 = false;
@@ -23,6 +19,13 @@ public class MetricEvents : MonoBehaviour
     private bool CycleEnded8 = false;
     private bool CycleEnded9 = false;
     private bool CycleEnded10 = false;
+}
+
+public class MetricEvents : MonoBehaviour
+{
+    public static MetricEvents Instance;
+
+    public MetricData _metricData;
 
     private void Awake()
     {
@@ -37,8 +40,9 @@ public class MetricEvents : MonoBehaviour
             }
     }
 
-    private void SavedEvents()
+    public void FirstStartGame()
     {
-
+        YandexMetrica.Send("301523903");
     }
+
 }

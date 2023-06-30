@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class SavingAndLoading : MonoBehaviour
 {
@@ -27,22 +28,6 @@ public class SavingAndLoading : MonoBehaviour
 
     private void SaveCurrentSettings()
     {
-        var currentSettings = JsonUtility.ToJson(playerSettings.GetCurrentSettings());
-        PlayerPrefs.SetString(CURRENT_SETTINGS, currentSettings);
-    }
-
-    private IEnumerator LoadCurrentSettingsCoroutine()
-    {
-        yield return null;// new WaitForSeconds(1);
-        var currentSettings = PlayerPrefs.GetString(CURRENT_SETTINGS);
-        if (currentSettings != "")
-        {
-            //print(currentSettings);
-            var settings = JsonUtility.FromJson<PlayerStatsData>(currentSettings);
-            playerSettings.SetCurrentSettings(settings);
-            var gm = FindObjectOfType<GameManager>();
-            gm.LoadCycleByNum(settings.currentLevel);
-        }
-
+        YandexGame.Instance._SaveProgress();
     }
 }

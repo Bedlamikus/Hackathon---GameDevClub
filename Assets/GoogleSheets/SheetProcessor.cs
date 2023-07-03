@@ -53,7 +53,7 @@ public static class SheetProcessor
             while (battlePoints[2] == "BattlePoint" && i < rows.Length)
             {
                 var battlePoint = new BattlePoint();
-                battlePoint.position = new Vector2Int(ParseInt(battlePoints[xCoord]), ParseInt(battlePoints[yCoord]));
+                battlePoint.position = new IntPosition(ParseInt(battlePoints[xCoord]), ParseInt(battlePoints[yCoord]));
                 battlePoint.enemies = new List<EnemiesSpawnerByCycle>();
 
                 //read enemies

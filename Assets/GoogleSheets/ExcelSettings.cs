@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 [System.Serializable]
 public class ExcelSettings
@@ -16,9 +15,21 @@ public class CycleSettings
 }
 
 [System.Serializable]
+public class IntPosition
+{
+    public int x;
+    public int y;
+    public IntPosition(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+[System.Serializable]
 public class BattlePoint
 {
-    public Vector2Int position;
+    public IntPosition position;
     public List<EnemiesSpawnerByCycle> enemies;
 }
 [System.Serializable]

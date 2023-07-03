@@ -71,7 +71,7 @@ namespace YG
         static bool _scopes;
         public static bool nowFullAd;
         public static bool nowVideoAd;
-        public static SavesYG savesData = new SavesYG();
+        public static SavesYG _savesData = new SavesYG();
         public static JsonEnvironmentData EnvironmentData = new JsonEnvironmentData();
         public static JsonPayments PaymentsData = new JsonPayments();
         public static YandexGame Instance;
@@ -109,6 +109,11 @@ namespace YG
             if (!infoYG.staticRBTInGame)
                 StaticRBTDeactivate();
 #endif
+        }
+
+        public SavesYG savesData()
+        {
+            return _savesData;
         }
 
         static void Message(string message)
@@ -154,7 +159,7 @@ namespace YG
             _scopes = false;
             nowFullAd = false;
             nowVideoAd = false;
-            savesData = new SavesYG();
+            _savesData = new SavesYG();
             EnvironmentData = new JsonEnvironmentData();
             PaymentsData = new JsonPayments();
             Instance = null;
@@ -191,7 +196,7 @@ namespace YG
             Message("Save Editor");
             FileStream fs = new FileStream(pathSaves, FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(fs, savesData);
+            formatter.Serialize(fs, _savesData);
             fs.Close();
         }
 
@@ -218,7 +223,8 @@ namespace YG
                 BinaryFormatter formatter = new BinaryFormatter();
                 try
                 {
-                    savesData = (SavesYG)formatter.Deserialize(fs);
+                    _savesData = (SavesYG)formatter.Deserialize(fs);
+                    print("Попытка чтения из локального хранилища едитора");
                     AfterLoading();
                 }
                 catch (Exception e)
@@ -247,7 +253,7 @@ namespace YG
 #if JSON_NET_ENABLED
                 savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
 #else
-                savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
+                _savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
 #endif
             }
 
@@ -279,18 +285,19 @@ namespace YG
         {
             _SDKEnabled = true;
             GetDataEvent?.Invoke();
+            GlobalEvents.SettingsLoaded.Invoke(YandexGame.Instance.savesData().playerStatsData);
 
             if (Instance.infoYG.LocalizationEnable &&
                 Instance.infoYG.callingLanguageCheck == InfoYG.CallingLanguageCheck.EveryGameLaunch)
                 LanguageRequest();
-            else SwitchLangEvent?.Invoke(savesData.language);
+            else SwitchLangEvent?.Invoke(_savesData.language);
         }
 
         public static Action onResetProgress;
         public void _ResetSaveProgress()
         {
             Message("Reset Save Progress");
-            savesData = new SavesYG { isFirstSession = false };
+            _savesData = new SavesYG ();
             _SDKEnabled = true;
 
             if (infoYG.LocalizationEnable &&
@@ -298,9 +305,9 @@ namespace YG
                 infoYG.callingLanguageCheck == InfoYG.CallingLanguageCheck.EveryGameLaunch))
                 LanguageRequest();
 
+            GlobalEvents.SettingsLoaded.Invoke(YandexGame.Instance.savesData().playerStatsData);
             GetDataEvent?.Invoke();
             onResetProgress?.Invoke();
-
         }
         public static void ResetSaveProgress() => Instance._ResetSaveProgress();
 
@@ -308,7 +315,7 @@ namespace YG
         {
             if (_SDKEnabled)
             {
-                savesData.idSave++;
+                _savesData.idSave++;
 #if !UNITY_EDITOR
                 if (!infoYG.saveCloud || (infoYG.saveCloud && infoYG.localSaveSync))
                 {
@@ -411,7 +418,7 @@ namespace YG
 #if JSON_NET_ENABLED
             SaveYG(JsonConvert.SerializeObject(savesData), Instance.infoYG.flush);
 #else
-            SaveYG(JsonUtility.ToJson(savesData), Instance.infoYG.flush);
+            SaveYG(JsonUtility.ToJson(_savesData), Instance.infoYG.flush);
 #endif
         }
 
@@ -524,7 +531,7 @@ namespace YG
 
         public static void SwitchLanguage(string language)
         {
-            savesData.language = language;
+            _savesData.language = language;
             SwitchLangEvent?.Invoke(language);
         }
 
@@ -814,7 +821,7 @@ namespace YG
             if (EnvironmentData.promptCanShow)
                 PromptShowInternal();
 #else
-            savesData.promptDone = true;
+            _savesData.promptDone = true;
             SaveProgress();
 
             Instance.PromptDo?.Invoke();
@@ -1015,7 +1022,7 @@ namespace YG
                         Message("Load Cloud Broken! But we tried to restore and load cloud saves. Local saves are disabled.");
                     else Message("Load Cloud Complete! Local saves are disabled.");
 
-                    savesData = cloudData;
+                    _savesData = cloudData;
                     AfterLoading();
                 }
                 return;
@@ -1044,24 +1051,24 @@ namespace YG
                 if (cloudData.idSave >= localData.idSave)
                 {
                     Message($"Load Cloud Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
-                    savesData = cloudData;
+                    _savesData = cloudData;
                 }
                 else
                 {
                     Message($"Load Local Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
-                    savesData = localData;
+                    _savesData = localData;
                 }
                 AfterLoading();
             }
             else if (cloudDataState == DataState.Exist)
             {
-                savesData = cloudData;
+                _savesData = cloudData;
                 Message("Load Cloud Complete! Local Data - " + localDataState);
                 AfterLoading();
             }
             else if (localDataState == DataState.Exist)
             {
-                savesData = localData;
+                _savesData = localData;
                 Message("Load Local Complete! Cloud Data - " + cloudDataState);
                 AfterLoading();
             }
@@ -1074,7 +1081,7 @@ namespace YG
 #if JSON_NET_ENABLED
                 savesData = JsonConvert.DeserializeObject<SavesYG>(data);
 #else
-                savesData = JsonUtility.FromJson<SavesYG>(data);
+                _savesData = JsonUtility.FromJson<SavesYG>(data);
 #endif
                 Message("Cloud Saves Partially Restored!");
                 AfterLoading();
@@ -1087,7 +1094,7 @@ namespace YG
 #if JSON_NET_ENABLED
                 savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
 #else
-                savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
+                _savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
 #endif
                 Message("Local Saves Partially Restored!");
                 AfterLoading();
@@ -1251,7 +1258,7 @@ namespace YG
                 lang = "en";
 
             Message("Language Request: Lang - " + lang);
-            savesData.language = lang;
+            _savesData.language = lang;
             SwitchLangEvent?.Invoke(lang);
         }
         #endregion Language
@@ -1395,7 +1402,7 @@ namespace YG
         public static Action PromptFailEvent;
         public void OnPromptSuccess()
         {
-            savesData.promptDone = true;
+            _savesData.promptDone = true;
             SaveProgress();
 
             PromptDo?.Invoke();

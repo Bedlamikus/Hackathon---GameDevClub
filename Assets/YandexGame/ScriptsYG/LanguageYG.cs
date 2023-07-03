@@ -68,7 +68,7 @@ namespace YG
         private void OnEnable()
         {
             YandexGame.SwitchLangEvent += SwitchLanguage;
-            SwitchLanguage(YandexGame.savesData.language);
+            SwitchLanguage(YandexGame._savesData.language);
         }
 
         private void OnDisable() => YandexGame.SwitchLangEvent -= SwitchLanguage;

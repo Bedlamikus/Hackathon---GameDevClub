@@ -50,7 +50,7 @@ namespace YG
 
                 if (!tr) tr = transform;
 
-                tr.Find("Panel").Find("LanguageDebug").GetChild(0).GetComponent<Text>().text = YandexGame.savesData.language;
+                tr.Find("Panel").Find("LanguageDebug").GetChild(0).GetComponent<Text>().text = YandexGame._savesData.language;
 
                 string playerId = YandexGame.playerId;
                 if (playerId.Length > 10)

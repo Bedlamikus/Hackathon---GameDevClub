@@ -10,10 +10,10 @@ public class LoadScreen : MonoBehaviour
 
     private void Awake()
     {
-        GlobalEvents.DefaultSettingsLoaded.AddListener(Die);
+        GlobalEvents.SettingsLoaded.AddListener(Die);
     }
 
-    private void Die(ExcelSettings _)
+    private void Die(PlayerStatsData _)
     {
         StartCoroutine(Transparent());
     }

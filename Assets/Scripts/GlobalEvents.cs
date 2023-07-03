@@ -32,7 +32,7 @@ public static class GlobalEvents
     public static UnityEvent<int> NewExperienseLevel = new();
 
     public static UnityEvent UpdateUI = new();
-    public static UnityEvent<ExcelSettings> DefaultSettingsLoaded = new();
+    public static UnityEvent<PlayerStatsData> SettingsLoaded = new();
     public static UnityEvent SaveCurrentSettings = new();
     public static UnityEvent LoadCurrentSettings = new();
     public static UnityEvent LoadSettingsFromInternet = new();

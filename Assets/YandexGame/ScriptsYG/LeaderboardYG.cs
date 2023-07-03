@@ -90,7 +90,7 @@ namespace YG
 
                 if (entriesLB == "No data")
                 {
-                    switch (YandexGame.savesData.language)
+                    switch (YandexGame._savesData.language)
                     {
                         case "ru":
                             error = "Нет данных";

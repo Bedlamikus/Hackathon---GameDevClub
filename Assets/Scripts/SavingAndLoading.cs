@@ -7,13 +7,12 @@ public class SavingAndLoading : MonoBehaviour
 {
     [SerializeField] private bool settingsFromTable = false;
 
-    private PlayerStats playerSettings;
+    private PlayerStats playerStats;
     private const string DEFAULT_SETTINGS = "DefaultSettings";
     private const string CURRENT_SETTINGS = "CurrentSettings";
 
     private void Start()
     {
-        playerSettings = FindObjectOfType<PlayerStats>();
         GlobalEvents.EndBattle.AddListener(SaveCurrentSettings);
         GlobalEvents.SaveCurrentSettings.AddListener(SaveCurrentSettings);
 
@@ -28,6 +27,19 @@ public class SavingAndLoading : MonoBehaviour
 
     private void SaveCurrentSettings()
     {
+        YandexGame.Instance.savesData().playerStatsData = PlayerStats.GetCurrentSettings();
         YandexGame.Instance._SaveProgress();
+    }
+
+    private PlayerStats PlayerStats 
+    { 
+        get 
+        { 
+            if (playerStats == null) 
+            {
+                playerStats = FindObjectOfType<PlayerStats>();
+            }
+            return playerStats;
+        }
     }
 }

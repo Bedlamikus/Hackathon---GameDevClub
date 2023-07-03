@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using YG;
 
 [Serializable]
 public class Parametr
@@ -87,7 +87,6 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.BuyHealth.AddListener(BuyHealth);
         GlobalEvents.BuyDamage.AddListener(BuyDamage);
         GlobalEvents.BuyAttackSpeed.AddListener(BuyAttackSpeed);
-        GlobalEvents.DefaultSettingsLoaded.AddListener(LoadDefaultSettings);
         GlobalEvents.ChangeCycleIndex.AddListener(UpdateCycle);
         GlobalEvents.EvRewardedLevelRestart.AddListener(ApplyMaxHealth);
         GlobalEvents.Pause.AddListener(Pause);
@@ -96,7 +95,23 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.SuperDamage.AddListener(SuperDamage);
 
         StartCoroutine(Regeneration());
-        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        if (YandexGame.Instance.savesData().isFirstSession)
+        {
+            LoadDefaultSettings(YandexGame.Instance.savesData()._defaultData);
+        }
+        else
+            SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
+        GlobalEvents.UpdateUI.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        YandexGame.Instance.savesData().playerStatsData = GetCurrentSettings();
+        YandexGame.Instance._SaveProgress();
     }
 
     private void ApplyMaxHealth()
@@ -333,7 +348,7 @@ public class PlayerStats : MonoBehaviour
         get { return currentHlam; }
     }
 
-    private void LoadDefaultSettings(ExcelSettings settings)
+    public void LoadDefaultSettings(ExcelSettings settings)
     {
         var goldFU = settings.playerSettings[1].goldForUpgrade;
         maxHealth.currentLevel = 0;
@@ -361,6 +376,11 @@ public class PlayerStats : MonoBehaviour
         regeneration.additionValue = settings.playerSettings[1].regeneration;
         regeneration.goldForUpgrade = goldFU;
 
+        expFromLevels = new List<int>
+        {
+            30, 110, 210, 320, 460, 620, 830, 1080, 1380, 1740, 2160, 2640, 3210, 3850, 4580, 5410, 6330, 7360, 8510, 9770, 11160,
+        };
+
         maxExperience.currentLevel = 0;
         maxExperience.baseValue = expFromLevels[0];
         maxExperience.expFromLevels = expFromLevels;
@@ -374,6 +394,7 @@ public class PlayerStats : MonoBehaviour
         currentCycle = 1;
         currentHealth = maxHealth.Value();
 
+        YandexGame._savesData.playerStatsData = GetCurrentSettings();
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -424,7 +445,6 @@ public class PlayerStats : MonoBehaviour
     {
         pause = true;
     }
-
     private void UnPause()
     {
         pause = false;

@@ -5,7 +5,7 @@ namespace YG.Example
 {
     public class SaverTest : MonoBehaviour
     {
-        private GoogleSheetLoader googleSheetLoader;
+        private PlayerStats playerStats;
 
         private void OnEnable() => YandexGame.GetDataEvent += GetLoad;
         private void OnDisable() => YandexGame.GetDataEvent -= GetLoad;
@@ -14,16 +14,13 @@ namespace YG.Example
         {
             if (YandexGame.SDKEnabled)
                 GetLoad();
+            GlobalEvents.SaveCurrentSettings.AddListener(Save);
         }
+
 
         public void Save()
         {
-            YandexGame.savesData.money = int.Parse(integerText.text);
-            YandexGame.savesData.newPlayerName = stringifyText.text.ToString();
-
-            for (int i = 0; i < booleanArrayToggle.Length; i++)
-                YandexGame.savesData.openLevels[i] = booleanArrayToggle[i].isOn;
-
+            YandexGame._savesData.playerStatsData = playerStats.GetCurrentSettings();
             YandexGame.SaveProgress();
         }
 
@@ -31,8 +28,9 @@ namespace YG.Example
 
         public void GetLoad()
         {
-            GlobalEvents.DefaultSettingsLoaded.Invoke(YandexGame.savesData._data);
-            if (YandexGame.savesData.isFirstSession) MetricEvents.Instance.FirstStartGame();
+            print("try load settings in SaverTest");
+            GlobalEvents.SettingsLoaded.Invoke(YandexGame.Instance.savesData().playerStatsData);
+            if (YandexGame._savesData.isFirstSession) MetricEvents.Instance.FirstStartGame();
         }
     }
 }

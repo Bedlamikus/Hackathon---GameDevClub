@@ -16,8 +16,8 @@ public class GoogleSheetLoader : MonoBehaviour
     private void Awake()
     {
         _cvsLoader = GetComponent<CVSLoader>();
-        GlobalEvents.LoadSettingsFromInternet.AddListener(DownloadSettings);
-        GlobalEvents.LoadDefaultSettings.AddListener(DownloadDefaultSettings);
+        //GlobalEvents.LoadSettingsFromInternet.AddListener(DownloadSettings);
+        //GlobalEvents.LoadDefaultSettings.AddListener(DownloadDefaultSettings);
         DontDestroyOnLoad(gameObject);
     }
 
@@ -35,7 +35,7 @@ public class GoogleSheetLoader : MonoBehaviour
         _data.playerSettings = SheetProcessor.LoadPlayerSettings(rawCSVtext[0]);
         yield return _cvsLoader.DownloadRawCvsTable(_sheetIdEnemySettings, rawCSVtext);
         _data.enemiesSettings = SheetProcessor.LoadEnemiesSettings(rawCSVtext[0]);
-        GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
+        //GlobalEvents.SettingsLoaded.Invoke(_data);
     }
 
     private IEnumerator DownloadDefaultSettingsCoroutinee()
@@ -48,7 +48,7 @@ public class GoogleSheetLoader : MonoBehaviour
         _data.playerSettings = SheetProcessor.LoadPlayerSettings(rawCSVtext[0]);
         rawCSVtext[0] = "NamePrefab,HP,Atk,Speed,Prefab size,CoolDown attack\r\nBaseZombie,5,2,1,1,1\r\naddition,3,\"1,5\",0,0,0\r\nFastZombie,5,3,2,\"0,7\",1\r\naddition,3,2,0,0,0\r\nSlowZombie,20,2,\"0,6\",\"1,4\",1\r\naddition,12,2,0,0,0";
         _data.enemiesSettings = SheetProcessor.LoadEnemiesSettings(rawCSVtext[0]);
-        GlobalEvents.DefaultSettingsLoaded.Invoke(_data);
+        //GlobalEvents.SettingsLoaded.Invoke(_data);
     }
 
     private void DownloadDefaultSettings()

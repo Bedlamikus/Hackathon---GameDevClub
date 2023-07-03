@@ -48,12 +48,6 @@ public class UpdateUIStats : MonoBehaviour
         GlobalEvents.UpdateUI.AddListener(UpdateUI);
     }
 
-    private void OnEnable()
-    {
-        print("Try Update On Start Level0");
-        UpdateUI();
-    }
-
     private void UpdateUI()
     {
         UpdateCoins();

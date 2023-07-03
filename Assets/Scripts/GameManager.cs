@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
         GlobalEvents.BattleTrainDie.AddListener(LoseBattle);
         GlobalEvents.EvRewardedLevelRestart.AddListener(RestartCurrentLevel);
         GlobalEvents.RestartGame.AddListener(Restart);
-        DataInit(YandexGame.Instance.savesData);
+        var YG = YandexGame.Instance;
+        DataInit(YG.savesData()._defaultData);
 
     }
 

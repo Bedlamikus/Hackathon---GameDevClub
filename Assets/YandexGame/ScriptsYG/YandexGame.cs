@@ -116,6 +116,11 @@ namespace YG
             return _savesData;
         }
 
+        public void UpdateSavesData(PlayerStatsData data)
+        {
+            _savesData.playerStatsData = data;
+        }
+
         static void Message(string message)
         {
             if (_debug) Debug.Log(message);
@@ -207,9 +212,9 @@ namespace YG
             Message("Save Local");
 #if !UNITY_EDITOR
 #if JSON_NET_ENABLED
-            SaveToLocalStorage("savesData", JsonConvert.SerializeObject(savesData));
+            SaveToLocalStorage("savesData", JsonConvert.SerializeObject(_savesData));
 #else
-            SaveToLocalStorage("savesData", JsonUtility.ToJson(savesData));
+            SaveToLocalStorage("savesData", JsonUtility.ToJson(_savesData));
 #endif
 #endif
         }
@@ -251,7 +256,7 @@ namespace YG
             else
             {
 #if JSON_NET_ENABLED
-                savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
+                _savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
 #else
                 _savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
 #endif
@@ -416,7 +421,7 @@ namespace YG
         {
             Message("Save Cloud");
 #if JSON_NET_ENABLED
-            SaveYG(JsonConvert.SerializeObject(savesData), Instance.infoYG.flush);
+            SaveYG(JsonConvert.SerializeObject(_savesData), Instance.infoYG.flush);
 #else
             SaveYG(JsonUtility.ToJson(_savesData), Instance.infoYG.flush);
 #endif
@@ -1079,7 +1084,7 @@ namespace YG
                 Message("Cloud Saves - Broken! Data Recovering...");
                 ResetSaveProgress();
 #if JSON_NET_ENABLED
-                savesData = JsonConvert.DeserializeObject<SavesYG>(data);
+                _savesData = JsonConvert.DeserializeObject<SavesYG>(data);
 #else
                 _savesData = JsonUtility.FromJson<SavesYG>(data);
 #endif
@@ -1092,7 +1097,7 @@ namespace YG
                 Message("Local Saves - Broken! Data Recovering...");
                 ResetSaveProgress();
 #if JSON_NET_ENABLED
-                savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
+                _savesData = JsonConvert.DeserializeObject<SavesYG>(LoadFromLocalStorage("savesData"));
 #else
                 _savesData = JsonUtility.FromJson<SavesYG>(LoadFromLocalStorage("savesData"));
 #endif

@@ -27,7 +27,7 @@ public class SavingAndLoading : MonoBehaviour
 
     private void SaveCurrentSettings()
     {
-        YandexGame.Instance.savesData().playerStatsData = PlayerStats.GetCurrentSettings();
+        YandexGame.Instance.UpdateSavesData(PlayerStats.GetCurrentSettings());
         YandexGame.Instance._SaveProgress();
     }
 

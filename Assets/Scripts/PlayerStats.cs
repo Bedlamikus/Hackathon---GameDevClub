@@ -396,7 +396,7 @@ public class PlayerStats : MonoBehaviour
         currentCycle = 1;
         currentHealth = maxHealth.Value();
 
-        YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
+        //YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
         GlobalEvents.UpdateUI.Invoke();
     }
 

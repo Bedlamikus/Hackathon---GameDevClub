@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 #if JSON_NET_ENABLED
 using Newtonsoft.Json;
 #endif
@@ -116,7 +117,7 @@ namespace YG
             return _savesData;
         }
 
-        public void UpdateSavesData(PlayerStatsData data)
+        public void UpdateSavesData(string data)
         {
             _savesData.playerStatsData = data;
         }
@@ -229,7 +230,6 @@ namespace YG
                 try
                 {
                     _savesData = (SavesYG)formatter.Deserialize(fs);
-                    print("Попытка чтения из локального хранилища едитора");
                     AfterLoading();
                 }
                 catch (Exception e)

@@ -99,18 +99,13 @@ public class PlayerStats : MonoBehaviour
 
     private void OnEnable()
     {
-        if (YandexGame.Instance.savesData().isFirstSession)
-        {
-            LoadDefaultSettings(YandexGame.Instance.savesData()._defaultData);
-        }
-        else
-            SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
+        SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
         GlobalEvents.UpdateUI.Invoke();
     }
 
     private void OnDisable()
     {
-        YandexGame.Instance.savesData().playerStatsData = GetCurrentSettings();
+        YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
         YandexGame.Instance._SaveProgress();
     }
 
@@ -394,11 +389,11 @@ public class PlayerStats : MonoBehaviour
         currentCycle = 1;
         currentHealth = maxHealth.Value();
 
-        YandexGame._savesData.playerStatsData = GetCurrentSettings();
+        YandexGame._savesData.playerStatsData = GetCurrentJsonSettings();
         GlobalEvents.UpdateUI.Invoke();
     }
 
-    public PlayerStatsData GetCurrentSettings()
+    public string GetCurrentJsonSettings()
     {
         var pleayerStatsData = new PlayerStatsData
         {
@@ -418,26 +413,28 @@ public class PlayerStats : MonoBehaviour
             currentLevel = currentLevel,
             currentCycle = currentCycle,
         };
-        return pleayerStatsData;
+        
+        return JsonUtility.ToJson(pleayerStatsData);
     }
 
-    public void SetCurrentSettings(PlayerStatsData newSettings)
+    public void SetCurrentSettings(string newSettings)
     {
-        baseSettings = newSettings.levelSettings;
-        expFromLevels = newSettings.expFromLevels;
-        currentLevel = newSettings.currentLevel;
-        maxHealth = newSettings.maxHealth;
-        maxExperience = newSettings.maxExperience;
-        hlam = newSettings.hlam;
-        damage = newSettings.damage;
-        attackSpeed = newSettings.attackSpeed;
-        armor = newSettings.armor;
-        regeneration = newSettings.regeneration;
-        currentHealth = newSettings.currentHealth;
-        currentExperience = newSettings.currentExperience;
-        currentGolds = newSettings.currentGolds;
-        currentHlam = newSettings.currentHlam;
-        currentCycle = newSettings.currentCycle;
+        var settings = JsonUtility.FromJson<PlayerStatsData>(newSettings);
+        baseSettings = settings.levelSettings;
+        expFromLevels = settings.expFromLevels;
+        currentLevel = settings.currentLevel;
+        maxHealth = settings.maxHealth;
+        maxExperience = settings.maxExperience;
+        hlam = settings.hlam;
+        damage = settings.damage;
+        attackSpeed = settings.attackSpeed;
+        armor = settings.armor;
+        regeneration = settings.regeneration;
+        currentHealth = settings.currentHealth;
+        currentExperience = settings.currentExperience;
+        currentGolds = settings.currentGolds;
+        currentHlam = settings.currentHlam;
+        currentCycle = settings.currentCycle;
         GlobalEvents.UpdateUI.Invoke();
     }
 

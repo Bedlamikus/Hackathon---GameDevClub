@@ -20,7 +20,7 @@ namespace YG.Example
 
         public void Save()
         {
-            YandexGame._savesData.playerStatsData = playerStats.GetCurrentSettings();
+            YandexGame._savesData.playerStatsData = playerStats.GetCurrentJsonSettings();
             YandexGame.SaveProgress();
         }
 

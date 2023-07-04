@@ -16,7 +16,7 @@ namespace YG
 
         public MetricData metricData;
         public ExcelSettings _defaultData;
-        public PlayerStatsData playerStatsData;
+        public string playerStatsData;
 
         public SavesYG()
         {

@@ -13,7 +13,7 @@ public class LoadScreen : MonoBehaviour
         GlobalEvents.SettingsLoaded.AddListener(Die);
     }
 
-    private void Die(PlayerStatsData _)
+    private void Die(string _)
     {
         StartCoroutine(Transparent());
     }

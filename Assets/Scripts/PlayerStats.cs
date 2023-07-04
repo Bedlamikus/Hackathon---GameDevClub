@@ -99,7 +99,14 @@ public class PlayerStats : MonoBehaviour
 
     private void OnEnable()
     {
-        SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
+        if (YandexGame.Instance.savesData().playerStatsData == "")
+        {
+            LoadDefaultSettings(YandexGame.Instance.savesData()._defaultData);
+        }
+        else
+        {
+            SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
+        }
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -389,7 +396,7 @@ public class PlayerStats : MonoBehaviour
         currentCycle = 1;
         currentHealth = maxHealth.Value();
 
-        YandexGame._savesData.playerStatsData = GetCurrentJsonSettings();
+        YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
         GlobalEvents.UpdateUI.Invoke();
     }
 

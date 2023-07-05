@@ -106,7 +106,13 @@ public class PlayerStats : MonoBehaviour
         else
         {
             SetCurrentSettings(YandexGame.Instance.savesData().playerStatsData);
+            print("PlayerStats: CurrentCycle = " + currentCycle);
         }
+        GlobalEvents.UpdateUI.Invoke();
+    }
+
+    private void Start()
+    {
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -350,6 +356,11 @@ public class PlayerStats : MonoBehaviour
         get { return currentHlam; }
     }
 
+    public int CurrentCycle
+    {
+        get { return currentCycle; }
+    }
+
     public void LoadDefaultSettings(ExcelSettings settings)
     {
         var goldFU = settings.playerSettings[1].goldForUpgrade;
@@ -393,10 +404,8 @@ public class PlayerStats : MonoBehaviour
         currentLevel = 0;
         currentHlam = 0;
         currentGolds = 0;
-        currentCycle = 1;
+        currentCycle = 0;
         currentHealth = maxHealth.Value();
-
-        //YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
         GlobalEvents.UpdateUI.Invoke();
     }
 

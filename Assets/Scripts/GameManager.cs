@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
         GlobalEvents.RestartGame.AddListener(Restart);
         var YG = YandexGame.Instance;
         DataInit(YG.savesData()._defaultData);
-
+        var c = FindObjectOfType<PlayerStats>().CurrentCycle;
+        print(c);
+        LoadCycleByNum(c);
     }
 
     public void RestartCurrentLevel()

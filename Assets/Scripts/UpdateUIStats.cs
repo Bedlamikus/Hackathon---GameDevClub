@@ -40,14 +40,16 @@ public class UpdateUIStats : MonoBehaviour
 
     private PlayerStats player;
 
-    private void Awake()
+    private void Start()
     {
         player = FindObjectOfType<PlayerStats>();
         GlobalEvents.UpdateUI.AddListener(UpdateUI);
+        UpdateUI();
     }
 
     private void UpdateUI()
     {
+        if (Player == null) return;
         UpdateCoins();
         UpdateHlam();
         UpdateHealth();
@@ -60,31 +62,31 @@ public class UpdateUIStats : MonoBehaviour
 
     private void UpdateHealth()
     {
-        maxHealth.text = player.MaxHealth.ToString();
-        health.text = ((int)player.Health).ToString();
-        healthSlider.value = player.Health / player.MaxHealth;
+        maxHealth.text = Player.MaxHealth.ToString();
+        health.text = ((int)Player.Health).ToString();
+        healthSlider.value = Player.Health / Player.MaxHealth;
     }
     private void UpdateExperience()
     {
-        maxExperience.text = player.TargetUIExperience.ToString();
-        experience.text = player.CurrentUIExperience.ToString();
-        level.text = "LVL " + player.Level.ToString();
-        experienceSlider.minValue = player.MinUIExperience;
-        experienceSlider.maxValue = player.TargetUIExperience;
-        experienceSlider.value = player.CurrentUIExperience;
+        maxExperience.text = Player.TargetUIExperience.ToString();
+        experience.text = Player.CurrentUIExperience.ToString();
+        level.text = "LVL " + Player.Level.ToString();
+        experienceSlider.minValue = Player.MinUIExperience;
+        experienceSlider.maxValue = Player.TargetUIExperience;
+        experienceSlider.value = Player.CurrentUIExperience;
     }
     private void UpdateCoins()
     {
-        golds.text = player.Golds.ToString();
+        golds.text = Player.Golds.ToString();
     }
     private void UpdateHlam()
     {
-        hlam.text = player.Hlam.ToString();
+        hlam.text = Player.Hlam.ToString();
     }
     private void BuyHealth()
     {
         Buy(
-            player.maxHealth,
+            Player.maxHealth,
             buyHealth,
             buyHealthButtonText,
             buyHealthButtonNoActiveText,
@@ -94,7 +96,7 @@ public class UpdateUIStats : MonoBehaviour
     private void BuyAttackSpeed()
     {
         Buy(
-            player.attackSpeed, 
+            Player.attackSpeed, 
             buyAttackSpeed,
             buyAttackSpeedButtonText,
             buyAttackSpeedButtonNoActiveText,
@@ -104,7 +106,7 @@ public class UpdateUIStats : MonoBehaviour
     private void BuyDamage()
     {
         Buy(
-            player.damage,
+            Player.damage,
             buyDamage,
             buyDamageButtonText,
             buyDamageButtonNoActiveText,
@@ -114,7 +116,7 @@ public class UpdateUIStats : MonoBehaviour
     private void BuyArmor()
     {
         Buy(
-            player.armor,
+            Player.armor,
             buyArmor,
             buyArmorButtonText,
             buyArmorButtonNoActiveText,
@@ -125,7 +127,7 @@ public class UpdateUIStats : MonoBehaviour
     private void Buy(Parametr parametr, TMP_Text currentPriseAndNext, TMP_Text howCost, TMP_Text howCostUnActive, GameObject buyButton, GameObject unActiveButton)
     {
         var cost = (parametr.currentLevel + 1) * parametr.goldForUpgrade;
-        if (cost > player.Hlam)
+        if (cost > Player.Hlam)
         {
             buyButton.SetActive(false);
             unActiveButton.SetActive(true);
@@ -138,5 +140,15 @@ public class UpdateUIStats : MonoBehaviour
         currentPriseAndNext.text = parametr.Value().ToString();// + "+(" + parametr.additionValue.ToString() + ")";
         howCost.text = cost.ToString();
         howCostUnActive.text = cost.ToString();
+    }
+
+    private PlayerStats Player
+    {
+        get 
+        {
+            if (player == null)
+                player = FindObjectOfType<PlayerStats>();
+            return player;
+        }
     }
 }

@@ -114,6 +114,7 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         GlobalEvents.UpdateUI.Invoke();
+        GlobalEvents.LoadDefaultSettings.AddListener(LoadDefaultSettingsFromYandex);
     }
 
     private void OnDisable()
@@ -359,6 +360,13 @@ public class PlayerStats : MonoBehaviour
     public int CurrentCycle
     {
         get { return currentCycle; }
+    }
+
+    private void LoadDefaultSettingsFromYandex()
+    {
+        LoadDefaultSettings(YandexGame.Instance.savesData()._defaultData);
+        YandexGame.Instance.savesData().playerStatsData = GetCurrentJsonSettings();
+        YandexGame.Instance._SaveProgress();
     }
 
     public void LoadDefaultSettings(ExcelSettings settings)

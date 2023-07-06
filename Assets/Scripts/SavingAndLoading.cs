@@ -23,8 +23,8 @@ public class SavingAndLoading : MonoBehaviour
             GlobalEvents.LoadSettingsFromInternet.Invoke();
             return;
         }
-        print("SavingAndLoading: Вызываю LoadDefaultSettings");
-        GlobalEvents.LoadDefaultSettings.Invoke();
+        //print("SavingAndLoading: Вызываю LoadDefaultSettings");
+        //GlobalEvents.LoadDefaultSettings.Invoke();
     }
 
     private void SaveCurrentSettings()

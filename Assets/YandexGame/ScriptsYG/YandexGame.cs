@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System.Collections;
 #if JSON_NET_ENABLED
 using Newtonsoft.Json;
 #endif
@@ -91,7 +92,6 @@ namespace YG
             {
                 if (Instance != null)
                 {
-                    YandexGame.Instance.Start();
                     Destroy(gameObject);
                 }
                 else

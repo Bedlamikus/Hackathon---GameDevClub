@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        YandexGame.ResetSaveProgress();
+        GlobalEvents.LoadDefaultSettings.Invoke();
         SceneManager.LoadScene(0);
     }
 

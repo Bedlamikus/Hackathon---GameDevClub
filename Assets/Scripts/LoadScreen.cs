@@ -10,6 +10,7 @@ public class LoadScreen : MonoBehaviour
 
     private void Awake()
     {
+        print("LoadScreen: подписался на SettingsLoaded");
         GlobalEvents.SettingsLoaded.AddListener(Die);
     }
 

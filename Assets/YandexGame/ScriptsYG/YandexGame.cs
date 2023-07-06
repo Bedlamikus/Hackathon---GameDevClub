@@ -82,13 +82,18 @@ namespace YG
         #region Methods
         private void Awake()
         {
+            print("YandexGame: awake");
             pathSaves = Application.dataPath + "/YandexGame/WorkingData/saveyg.yg";
             transform.SetParent(null);
             gameObject.name = "YandexGame";
 
             if (singleton)
             {
-                if (Instance != null) Destroy(gameObject);
+                if (Instance != null)
+                {
+                    YandexGame.Instance.Start();
+                    Destroy(gameObject);
+                }
                 else
                 {
                     Instance = this;
@@ -103,6 +108,7 @@ namespace YG
 
         private void Start()
         {
+            print("YandexGame: Start");
             if (infoYG.AdWhenLoadingScene)
                 _FullscreenShow();
 

@@ -13,6 +13,7 @@ public class SavingAndLoading : MonoBehaviour
 
     private void Start()
     {
+        print("SavingAndLoading: start");
         GlobalEvents.EndBattle.AddListener(SaveCurrentSettings);
         GlobalEvents.SaveCurrentSettings.AddListener(SaveCurrentSettings);
 
@@ -22,6 +23,7 @@ public class SavingAndLoading : MonoBehaviour
             GlobalEvents.LoadSettingsFromInternet.Invoke();
             return;
         }
+        print("SavingAndLoading: Вызываю LoadDefaultSettings");
         GlobalEvents.LoadDefaultSettings.Invoke();
     }
 

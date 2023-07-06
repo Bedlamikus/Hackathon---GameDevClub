@@ -18,7 +18,6 @@ public class GoogleSheetLoader : MonoBehaviour
         _cvsLoader = GetComponent<CVSLoader>();
         //GlobalEvents.LoadSettingsFromInternet.AddListener(DownloadSettings);
         //GlobalEvents.LoadDefaultSettings.AddListener(DownloadDefaultSettings);
-        DontDestroyOnLoad(gameObject);
     }
 
     private void DownloadSettings()

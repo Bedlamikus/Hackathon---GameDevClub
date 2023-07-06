@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         var YG = YandexGame.Instance;
         DataInit(YG.savesData()._defaultData);
         var c = FindObjectOfType<PlayerStats>().CurrentCycle;
-        print(c);
+        print("GameMAnager: currentCycle = " + c.ToString());
         LoadCycleByNum(c);
     }
 
@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
     private void DataInit(ExcelSettings data)
     {
         _data = data;
-        LoadCycleByNum(0);
     }
     
     public void LoadCycleByNum(int num)

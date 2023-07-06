@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using YG;
 
 public class AdRewardCoinMultiply : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class AdRewardCoinMultiply : MonoBehaviour
     private void Start()
     {
         GlobalEvents.EvRewardMuliplyCoin.Invoke();
-        StartCoroutine(RewardCoroutine());
+        YandexGame.RewVideoShow(0);
+        YandexGame.CloseVideoEvent += ApplyCoins;
     }
 
     private IEnumerator RewardCoroutine()
@@ -25,7 +27,17 @@ public class AdRewardCoinMultiply : MonoBehaviour
             timerText.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
+        Destroy(gameObject);
+    }
+
+    private void ApplyCoins()
+    {
         GlobalEvents.ApplyGolds.Invoke(coins * multiply);
         Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        YandexGame.CloseVideoEvent -= ApplyCoins;
     }
 }

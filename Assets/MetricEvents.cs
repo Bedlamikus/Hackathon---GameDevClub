@@ -7,18 +7,7 @@ using YG;
 [System.Serializable]
 public class MetricData
 {
-    private bool firstStartGame = true;
-    private bool levelOneStart = false;
-    private bool CycleEnded1 = false;
-    private bool CycleEnded2 = false;
-    private bool CycleEnded3 = false;
-    private bool CycleEnded4 = false;
-    private bool CycleEnded5 = false;
-    private bool CycleEnded6 = false;
-    private bool CycleEnded7 = false;
-    private bool CycleEnded8 = false;
-    private bool CycleEnded9 = false;
-    private bool CycleEnded10 = false;
+    public const string M_CoinsMultiplyReward = "";
 }
 
 public class MetricEvents : MonoBehaviour

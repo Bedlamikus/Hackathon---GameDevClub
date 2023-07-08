@@ -77,6 +77,8 @@ public class PlayerStats : MonoBehaviour
 
     private float damageMultiply = 1f;
 
+    private MetricEvents metric;
+
     private void Awake()
     {
         GlobalEvents.ApplyGolds.AddListener(ApplyGolds);
@@ -93,6 +95,8 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UnPause.AddListener(UnPause);
         GlobalEvents.SuperRegen.AddListener(SuperRegen);
         GlobalEvents.SuperDamage.AddListener(SuperDamage);
+
+        metric = FindObjectOfType<MetricEvents>();
 
         StartCoroutine(Regeneration());
     }
@@ -141,6 +145,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (BuyParametr(attackSpeed))
         {
+            metric.ApplySpeedAttack();
             GlobalEvents.UpdateUI.Invoke();
         }
     }
@@ -168,6 +173,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (BuyParametr(damage))
         {
+            metric.ApplyDamage();
             GlobalEvents.UpdateUI.Invoke();
         }
     }

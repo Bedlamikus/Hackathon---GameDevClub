@@ -14,7 +14,6 @@ namespace YG
 
         // Ваши сохранения
 
-        public MetricData metricData;
         public ExcelSettings _defaultData;
         public string playerStatsData = "";
 

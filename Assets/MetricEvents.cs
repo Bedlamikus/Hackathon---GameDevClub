@@ -4,17 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using YG;
 
-[System.Serializable]
-public class MetricData
-{
-    public const string M_CoinsMultiplyReward = "";
-}
-
 public class MetricEvents : MonoBehaviour
 {
     public static MetricEvents Instance;
 
-    public MetricData _metricData;
+    public const string M_CoinsMultiplyReward = "302475577";
+    public const string M_ApplyAttakSpeed = "302475371";
+    public const string M_ApplyAttakDamage = "301636022";
 
     private void Awake()
     {
@@ -34,4 +30,18 @@ public class MetricEvents : MonoBehaviour
         YandexMetrica.Send("301523903");
     }
 
+    public void ApplyDamage()
+    {
+        YandexMetrica.Send(M_ApplyAttakDamage);
+    }
+
+    public void ApplySpeedAttack()
+    {
+        YandexMetrica.Send(M_ApplyAttakSpeed);
+    }
+
+    public void RewardCoins()
+    {
+        YandexMetrica.Send(M_CoinsMultiplyReward);
+    }
 }

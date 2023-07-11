@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using YG;
 
 public class AdRewardLevelRestart : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class AdRewardLevelRestart : MonoBehaviour
     {
         GlobalEvents.EvRewardLevelRestart.Invoke();
         StartCoroutine(RewardCoroutine());
+        YandexGame.RewVideoShow(0);
+        YandexGame.CloseVideoEvent += RestartRewarded;
     }
 
     private IEnumerator RewardCoroutine()
@@ -22,7 +26,17 @@ public class AdRewardLevelRestart : MonoBehaviour
             timerText.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-        GlobalEvents.EvRewardedLevelRestart.Invoke();
         Destroy(gameObject);
+    }
+    private void RestartRewarded()
+    {
+        GlobalEvents.EvRewardedLevelRestart.Invoke();
+        MetricEvents.Instance.RewardBeforePlayerDie();
+        Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        YandexGame.CloseVideoEvent -= RestartRewarded;
     }
 }

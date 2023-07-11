@@ -32,6 +32,7 @@ public class AdRewardCoinMultiply : MonoBehaviour
 
     private void ApplyCoins()
     {
+        MetricEvents.Instance.RewardCoins();
         GlobalEvents.ApplyGolds.Invoke(coins * multiply);
         Destroy(gameObject);
     }

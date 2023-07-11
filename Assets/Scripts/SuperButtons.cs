@@ -38,18 +38,21 @@ public class SuperButtons : MonoBehaviour
 
     private void SuperAttackEvent()
     {
+        MetricEvents.Instance.FightAttackSpeed();
         GlobalEvents.SuperAttackSpeed.Invoke(timeSuperAttack, multiplySuperAttackSpeed);
         StartCoroutine(FillImage(imageSuperAttackFilled, buttonSuperAttack, timeSuperAttackCoolDown));
     }
 
     private void SuperRegenEvent()
     {
+        MetricEvents.Instance.FightHealth();
         GlobalEvents.SuperRegen.Invoke(timeSuperRegen, multiplySuperRegenSpeed);
         StartCoroutine(FillImage(imageSuperRegenFilled, buttonSuperRegen, timeSuperRegenCoolDown));
     }
 
     private void SuperDamageEvent()
     {
+        MetricEvents.Instance.FightAttackDamage();
         GlobalEvents.SuperDamage.Invoke(timeSuperDamage, multiplySuperDamage);
         StartCoroutine(FillImage(imageSuperDamageFilled, buttonSuperDamage, timeSuperDamageCoolDown));
     }

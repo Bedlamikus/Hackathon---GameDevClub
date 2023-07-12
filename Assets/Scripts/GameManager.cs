@@ -26,12 +26,13 @@ public class GameManager : MonoBehaviour
         var YG = YandexGame.Instance;
         DataInit(YG.savesData()._defaultData);
         var c = FindObjectOfType<PlayerStats>().CurrentCycle;
-        print("GameMAnager: currentCycle = " + c.ToString());
         LoadCycleByNum(c);
     }
 
     public void RestartCurrentLevel()
     {
+        var c = FindObjectOfType<PlayerStats>().CurrentCycle;
+        print("GameMAnager: Restart currentCycle = " + c.ToString());
         LoadCycleByNum(currentCycle);
         station.Disable();
         rails.Init();
@@ -85,7 +86,10 @@ public class GameManager : MonoBehaviour
     public void LoadCycleByNum(int num)
     {
         ClearCyclesInChild();
-        if (num > 9) return;
+        if (num > 9)
+        {
+            return;
+        }
         var cycle = Instantiate(gameCycle, cycles.transform);
         cycle.Init(_data.cycleSettings[num], _data.enemiesSettings);
         currentCycle = num;

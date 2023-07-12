@@ -26,7 +26,6 @@ public class AdRewardLevelRestart : MonoBehaviour
             timerText.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-        Destroy(gameObject);
     }
     private void RestartRewarded()
     {

@@ -8,7 +8,7 @@ public class PanelWin : MonoBehaviour
 
     public void SetRandomCoins()
     {
-        int i = Random.Range(0, (FindObjectOfType<GameManager>().currentCycle + 1) * 100);
+        int i = Random.Range(0, (FindObjectOfType<GameManager>().currentCycle + 1) * 20);
         coins.text = "+" + i.ToString();
         CountCoins = i;
     }

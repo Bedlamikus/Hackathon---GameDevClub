@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
         ClearCyclesInChild();
         if (num > 9)
         {
+            rails.SetGoAwayPoints();
             return;
         }
         var cycle = Instantiate(gameCycle, cycles.transform);
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextCycle()
     {
+        MetricEvents.Instance.EndCycle(currentCycle);
         LoadCycleByNum(currentCycle + 1);
         GlobalEvents.SaveCurrentSettings.Invoke();
     }

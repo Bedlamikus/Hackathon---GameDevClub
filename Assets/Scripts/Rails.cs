@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Rails : MonoBehaviour
 {
-    [SerializeField] private List<WayPoint> waypoints;
+    [SerializeField] private List<WayPoint> wayPoints;
     [SerializeField] private List<GameObject> rails;
+    [SerializeField] private List<WayPoint> goAwayPoints;
 
     private List<Vector2Int> occupiedPositions = new();
 
@@ -19,14 +20,14 @@ public class Rails : MonoBehaviour
 
     public int Count()
     {
-        return waypoints.Count;
+        return wayPoints.Count;
     }
 
     public void SetNextPoint()
     {
         previousWayPoint = currentWayPoint;
         currentWayPoint++;
-        if (currentWayPoint >= waypoints.Count)
+        if (currentWayPoint >= wayPoints.Count)
         { 
             currentWayPoint = 0; 
         }
@@ -34,12 +35,12 @@ public class Rails : MonoBehaviour
 
     public Vector3 CurrentPoint()
     {
-        return waypoints[currentWayPoint].transform.position;
+        return wayPoints[currentWayPoint].transform.position;
     }
 
     public Vector3 PreviousPoint()
     {
-        return waypoints[previousWayPoint].transform.position;
+        return wayPoints[previousWayPoint].transform.position;
     }
 
     private void Restart()
@@ -66,5 +67,11 @@ public class Rails : MonoBehaviour
         }
         occupiedPositions.Add(occupiedPosition);
         return position;
+    }
+
+    public void SetGoAwayPoints()
+    {
+        wayPoints = goAwayPoints;
+        Restart();
     }
 }

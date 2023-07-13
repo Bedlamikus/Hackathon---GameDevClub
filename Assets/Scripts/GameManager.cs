@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public int currentCycle = 0;
     private ExcelSettings _data;
+    private bool resetCyclesIfStartAgain = true;
 
     private void Start()
     {
@@ -86,10 +87,18 @@ public class GameManager : MonoBehaviour
     public void LoadCycleByNum(int num)
     {
         ClearCyclesInChild();
-        if (num > 9)
+        if (num > 9 && resetCyclesIfStartAgain != true)
         {
+            currentCycle = num;
             rails.SetGoAwayPoints();
+            GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
+            GlobalEvents.SaveCurrentSettings.Invoke();
             return;
+        }
+        if (num > 9 && resetCyclesIfStartAgain)
+        {
+            resetCyclesIfStartAgain = false;
+            num = 0;
         }
         var cycle = Instantiate(gameCycle, cycles.transform);
         cycle.Init(_data.cycleSettings[num], _data.enemiesSettings);
@@ -99,6 +108,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextCycle()
     {
+        resetCyclesIfStartAgain = false;
         MetricEvents.Instance.EndCycle(currentCycle);
         LoadCycleByNum(currentCycle + 1);
         GlobalEvents.SaveCurrentSettings.Invoke();

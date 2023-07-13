@@ -16,6 +16,11 @@ public class UITextCycleIndex : MonoBehaviour
 
     private void ChangeText(int index)
     {
+        if (index > 9)
+        {
+            text.text = "All Cycles ended";
+            return;
+        }
         text.text = beforeText + (index + 1).ToString() + afterText;
     }
 }

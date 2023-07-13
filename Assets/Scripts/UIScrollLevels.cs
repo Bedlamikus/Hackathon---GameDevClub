@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UIScrollLevels : MonoBehaviour
 {
+    public MainMenu mainMenu;
     [SerializeField] private RectTransform targetScreen;
     [SerializeField] private GameObject content;
     [SerializeField] private Scrollbar scrollbar;
@@ -63,7 +64,7 @@ public class UIScrollLevels : MonoBehaviour
     }
     public void StartLevel()
     {
-        SceneManager.LoadScene(targetLevel + 1);
+        mainMenu.StartLevel(targetLevel);
     }
     public void NextTargetLevel()
     {
@@ -79,8 +80,8 @@ public class UIScrollLevels : MonoBehaviour
     }
     public void ShowButtonOrHide()
     {
-        StartButton.SetActive(true);
-        if (targetLevel > lastOpenedLevel)
-            StartButton.SetActive(false);
+        StartButton.SetActive(mainMenu.IsLevelOpened(targetLevel));
+        //if (targetLevel > lastOpenedLevel)
+        //    StartButton.SetActive(false);
     }
 }

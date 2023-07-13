@@ -16,7 +16,6 @@ public class UIScrollLevels : MonoBehaviour
     [SerializeField] private GameObject StartButton;
 
     private int targetLevel;
-    private int lastOpenedLevel;
     
     private bool mouseDown;
 
@@ -24,7 +23,6 @@ public class UIScrollLevels : MonoBehaviour
     {
         mouseDown = false;
         targetLevel = 0;
-        lastOpenedLevel = 0;
     }
 
     Vector2 mousePosition = Vector2.zero;
@@ -81,7 +79,5 @@ public class UIScrollLevels : MonoBehaviour
     public void ShowButtonOrHide()
     {
         StartButton.SetActive(mainMenu.IsLevelOpened(targetLevel));
-        //if (targetLevel > lastOpenedLevel)
-        //    StartButton.SetActive(false);
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
 
 namespace YG
@@ -16,6 +17,8 @@ namespace YG
 
         public ExcelSettings _defaultData;
         public string playerStatsData = "";
+        public List<Level> levels;
+        public int currentLevel;
 
         public SavesYG()
         {

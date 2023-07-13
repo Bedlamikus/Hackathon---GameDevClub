@@ -2043,14 +2043,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e0777b48736274c9e3f47ce89cd800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollLevels: {fileID: 1530703687}
   levels:
-  - name: FOREST RIDE
+  - enabled: 1
+    name: FOREST RIDE
     ended: 0
     currentCycle: 0
-  - name: ICE ESCAPE
+  - enabled: 0
+    name: ICE ESCAPE
     ended: 0
     currentCycle: 0
-  - name: SANDSHTORM
+  - enabled: 0
+    name: SANDSHTORM
     ended: 0
     currentCycle: 0
 --- !u!1 &1070524559
@@ -3459,6 +3463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2015d10de0a0644b20b3760abac596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenu: {fileID: 974721212}
   targetScreen: {fileID: 1530703683}
   content: {fileID: 606906941}
   scrollbar: {fileID: 1070524561}

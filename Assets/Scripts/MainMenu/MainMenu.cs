@@ -50,6 +50,8 @@ public class MainMenu : MonoBehaviour
     }
     public bool IsLevelOpened(int index)
     {
+        if (levels == null) return false;
+
         if (levels[index].enabled) return true;
         return false;
     }

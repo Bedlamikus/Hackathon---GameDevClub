@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviour
             rails.SetGoAwayPoints();
             exitDoor.Open();
             secondDoor.Close();
+            var data = YandexGame.Instance.savesData();
+            data.levels[data.currentLevel].ended = true;
             GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
             GlobalEvents.SaveCurrentSettings.Invoke();
             return;

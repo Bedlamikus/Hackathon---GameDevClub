@@ -1,3 +1,4 @@
+using Assets.Scripts.BattleScreen;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Train train;
     [SerializeField] private Rails rails;
     [SerializeField] private Station station;
+    [SerializeField] private Door exitDoor;
+    [SerializeField] private Door secondDoor;
 
     public int currentCycle = 0;
     private ExcelSettings _data;
@@ -91,6 +94,8 @@ public class GameManager : MonoBehaviour
         {
             currentCycle = num;
             rails.SetGoAwayPoints();
+            exitDoor.Open();
+            secondDoor.Close();
             GlobalEvents.ChangeCycleIndex.Invoke(currentCycle);
             GlobalEvents.SaveCurrentSettings.Invoke();
             return;

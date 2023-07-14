@@ -7836,6 +7836,8 @@ MonoBehaviour:
   train: {fileID: 2026009229}
   rails: {fileID: 1887447493}
   station: {fileID: 991242082}
+  exitDoor: {fileID: 1868107398}
+  secondDoor: {fileID: 723959835}
   currentCycle: 0
 --- !u!4 &1282549532
 Transform:

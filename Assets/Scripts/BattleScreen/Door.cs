@@ -21,11 +21,11 @@ namespace Assets.Scripts.BattleScreen
             }
             Close();
         }
-        private void Close()
+        public void Close()
         {
             StartCoroutine(DirectionDoor(false));
         }
-        private void Open()
+        public void Open()
         {
             StartCoroutine(DirectionDoor(true));
         }

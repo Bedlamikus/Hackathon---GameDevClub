@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -11,6 +12,7 @@ public class Level
     public bool enabled;
     public string name;
     public bool ended;
+    public bool startAgane;
     public int currentCycle;
 }
 
@@ -19,6 +21,7 @@ public class MainMenu : MonoBehaviour
     public UIScrollLevels scrollLevels;
     public List<Level> levels;
     private int currentLevel = 0;
+    public GameObject levelEndedPanel;
 
     private void OnEnable()
     {
@@ -31,9 +34,19 @@ public class MainMenu : MonoBehaviour
     public void StartLevel(int index)
     {
         currentLevel = index;
+        if (levels[index].ended && !levels[index].startAgane)
+        {
+            levelEndedPanel.SetActive(true);
+            return;
+        }
         Save();
-        YandexGame.Instance._SaveProgress();
         SceneManager.LoadScene(index + 1);
+    }
+    public void StartCurrentLevel()
+    {
+        levels[currentLevel].startAgane = true;
+        Save();
+        SceneManager.LoadScene(currentLevel + 1);
     }
     public bool IsLevelOpened(int index)
     {
@@ -45,6 +58,7 @@ public class MainMenu : MonoBehaviour
         var data = YandexGame.Instance.savesData();
         data.levels = levels;
         data.currentLevel = currentLevel;
+        YandexGame.Instance._SaveProgress();
     }
     public void Load()
     {

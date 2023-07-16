@@ -9,6 +9,7 @@ public class Train : MonoBehaviour
     [SerializeField] private float speed;
 
     [SerializeField] private AudioClip choo;
+    [SerializeField] private AudioClip continueChoo;
     [SerializeField] private AudioSource sound;
 
     public bool inFight = false;
@@ -48,6 +49,7 @@ public class Train : MonoBehaviour
         transform.position = endPoint;
     }
 
+    private bool fromStation = true;
     private IEnumerator Ride()
     {
         for (int i = 0; i < rails.Count(); i++)
@@ -58,6 +60,7 @@ public class Train : MonoBehaviour
         }
         ride = null;
         Pause();
+        fromStation = true;
     }
 
     public void Pause()
@@ -69,7 +72,15 @@ public class Train : MonoBehaviour
     public void UnPause()
     {
         if (inFight) return;
-        sound.PlayOneShot(choo, 0.2f);
+        if (fromStation)
+        {
+            fromStation = false;
+            sound.PlayOneShot(choo, 0.2f);
+        }
+        else
+        {
+            sound.Play();
+        }
         paused = 1;
     }
 

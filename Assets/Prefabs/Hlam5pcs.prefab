@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lutType: 1
-  amount: 1
+  amount: 5
   angleSpeed: 1
   mooveUpSpeed: 0.01
   mooveUpDirection: 0.3

@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
         if (Random.Range(0, 2) == 1)
         {
             var newCoin = Instantiate(luts[Random.Range(0, luts.Count)], transform.position, Quaternion.identity);
-            newCoin.transform.parent = transform.parent;
+            //newCoin.transform.parent = transform.parent;
         }
         _collider.enabled = false;
         transform.parent = null;

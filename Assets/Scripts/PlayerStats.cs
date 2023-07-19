@@ -48,6 +48,7 @@ public class PlayerStatsData
     public int currentHlam;
     public int currentLevel;
     public int currentCycle;
+    public bool mute;
 }
 
 public class PlayerStats : MonoBehaviour
@@ -78,6 +79,8 @@ public class PlayerStats : MonoBehaviour
     private float damageMultiply = 1f;
 
     private MetricEvents metric;
+
+    private bool mute;
 
     private void Awake()
     {
@@ -420,6 +423,9 @@ public class PlayerStats : MonoBehaviour
         currentGolds = 0;
         currentCycle = 0;
         currentHealth = maxHealth.Value();
+
+        mute = false;
+
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -442,6 +448,7 @@ public class PlayerStats : MonoBehaviour
             currentHlam = currentHlam,
             currentLevel = currentLevel,
             currentCycle = currentCycle,
+            mute = mute,
         };
         
         return JsonUtility.ToJson(pleayerStatsData);
@@ -465,6 +472,7 @@ public class PlayerStats : MonoBehaviour
         currentGolds = settings.currentGolds;
         currentHlam = settings.currentHlam;
         currentCycle = settings.currentCycle;
+        mute = settings.mute;
         GlobalEvents.UpdateUI.Invoke();
     }
 
@@ -475,5 +483,18 @@ public class PlayerStats : MonoBehaviour
     private void UnPause()
     {
         pause = false;
+    }
+
+    public bool Mute
+    {
+        get
+        {
+            return mute;
+        }
+        set
+        {
+            mute = value;
+            print(mute);
+        }
     }
 }

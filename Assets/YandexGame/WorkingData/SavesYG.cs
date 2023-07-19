@@ -19,6 +19,7 @@ namespace YG
         public string playerStatsData = "";
         public List<Level> levels;
         public int currentLevel;
+        public bool mute = false;
 
         public SavesYG()
         {

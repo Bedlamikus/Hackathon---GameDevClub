@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class Train : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Train : MonoBehaviour
 
     private bool restart = false;
     private Coroutine ride;
+
+    private PlayerStats settings;
 
     public void Init()
     {
@@ -72,14 +75,17 @@ public class Train : MonoBehaviour
     public void UnPause()
     {
         if (inFight) return;
+        
         if (fromStation)
         {
             fromStation = false;
-            sound.PlayOneShot(choo, 0.2f);
+            if (Settings.Mute == false)
+                sound.PlayOneShot(choo, 0.2f);
         }
         else
         {
-            sound.Play();
+            if (Settings.Mute == false)
+                sound.Play();
         }
         paused = 1;
     }
@@ -112,5 +118,17 @@ public class Train : MonoBehaviour
         ride = null;
         transform.rotation = startRotation;
         transform.position = new Vector3(station.position.x, transform.position.y, station.position.z);
+    }
+
+    private PlayerStats Settings
+    {
+        get
+        {
+            if (settings == null)
+            {
+                settings = FindObjectOfType<PlayerStats>();
+            }
+            return settings;
+        }
     }
 }

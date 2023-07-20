@@ -14,6 +14,7 @@ public class UILevelListMainMenu : MonoBehaviour
 
     private bool slided = false;
     private int currentLevel = 0;
+    public int level => currentLevel;
     private int previousLevel = -1;
 
     private bool mouseDown;
@@ -131,5 +132,10 @@ public class UILevelListMainMenu : MonoBehaviour
             return;
         }
         currentLevel--;
+    }
+
+    public void ShowButtonStartLevel(int levelIndex)
+    {
+        levels[levelIndex].OpenLevel();
     }
 }

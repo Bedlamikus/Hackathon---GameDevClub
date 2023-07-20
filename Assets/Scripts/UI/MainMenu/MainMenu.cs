@@ -16,19 +16,16 @@ public class Level
 
 public class MainMenu : MonoBehaviour
 {
-    public UIScrollLevels scrollLevels;
-    public List<Level> levels;
+    [SerializeField] private List<Level> levels;
     private int currentLevel = 0;
-    public GameObject levelEndedPanel;
+    [SerializeField] private UILevelListMainMenu levelItems;
+    [SerializeField] private GameObject levelEndedPanel;
 
-    private void OnEnable()
+    private void Start()
     {
-        YandexGame.GetDataEvent += Load;
+        GlobalEvents.StartLevelButton.AddListener(StartCurrentLevel);
     }
-    private void OnDisable()
-    {
-        YandexGame.GetDataEvent -= Load;
-    }
+
     public void StartLevel(int index)
     {
         currentLevel = index;
@@ -40,16 +37,20 @@ public class MainMenu : MonoBehaviour
         Save();
         SceneManager.LoadScene(index + 1);
     }
-    public void StartCurrentLevel()
+    public void StartCurrentLevelAgain()
     {
         levels[currentLevel].startAgane = true;
         Save();
         SceneManager.LoadScene(currentLevel + 1);
     }
+
+    public void StartCurrentLevel()
+    {
+        StartLevel(levelItems.level);
+    }
+
     public bool IsLevelOpened(int index)
     {
-        if (levels == null) return false;
-
         if (levels[index].enabled) return true;
         return false;
     }
@@ -60,12 +61,34 @@ public class MainMenu : MonoBehaviour
         data.currentLevel = currentLevel;
         YandexGame.Instance._SaveProgress();
     }
-    public void Load()
+
+    public void Load(string _)
     {
         var data = YandexGame.Instance.savesData();
-        if (data.levels == null) return;
+        if (data.levels == null)
+        {
+            CheckUILevels();
+            return;
+        }
         levels = data.levels;
         currentLevel = data.currentLevel;
+        CheckUILevels();
+    }
+
+    private void CheckUILevels()
+    {
+        for (int i = 0; i < levels.Count; i++)
+        {
+            if (levels[i].enabled)
+            {
+                levelItems.ShowButtonStartLevel(i);
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        GlobalEvents.SettingsLoaded.AddListener(Load);
     }
 }
 

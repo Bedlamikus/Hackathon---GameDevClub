@@ -6,6 +6,8 @@ public class UILevel : MonoBehaviour
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject comigSoon;
 
+    public Button button => startButton.GetComponentInChildren<Button>();
+
     private RectTransform rectTransform;
 
     public void MoveXY(float x, float y)

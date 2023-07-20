@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILevel : MonoBehaviour
 {
+    [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject comigSoon;
+
     private RectTransform rectTransform;
 
     public void MoveXY(float x, float y)
@@ -32,5 +36,11 @@ public class UILevel : MonoBehaviour
             }
             return rectTransform;
         }
+    }
+
+    public void OpenLevel()
+    {
+        startButton.SetActive(true);
+        comigSoon.SetActive(false);
     }
 }

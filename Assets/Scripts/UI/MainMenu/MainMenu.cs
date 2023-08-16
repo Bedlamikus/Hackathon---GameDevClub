@@ -24,6 +24,15 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         GlobalEvents.StartLevelButton.AddListener(StartCurrentLevel);
+        var data = YandexGame.Instance.savesData();
+        if (data.levels == null)
+        {
+            CheckUILevels();
+            return;
+        }
+        levels = data.levels;
+        currentLevel = data.currentLevel;
+        CheckUILevels();
     }
 
     public void StartLevel(int index)

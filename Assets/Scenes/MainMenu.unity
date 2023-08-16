@@ -312,7 +312,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1609454179}
         m_TargetAssemblyTypeName: UILevelListMainMenu, Assembly-CSharp
-        m_MethodName: SlideLevelLeft
+        m_MethodName: SlideLevelRight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -844,10 +844,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelEnded
       objectReference: {fileID: 0}
+    - target: {fileID: 1150574604646198310, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4509944478431570935, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 974721212}
+    - target: {fileID: 4560007295579469828, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5119041677179807344, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -931,6 +939,62 @@ PrefabInstance:
     - target: {fileID: 5119041677179807344, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.8384445
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.9113882
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.16314815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749372960196913764, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070942517227884021, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070942517227884021, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070942517227884021, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070942517227884021, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354705577632355949, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_fontSize
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354705577632355949, guid: ea241e7a839fd4a4d88fc3b766b0aab7, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1052,6 +1116,10 @@ PrefabInstance:
     - target: {fileID: 8968940494582966718, guid: f54947e2d764ed94caee70734a349a91, type: 3}
       propertyPath: m_Name
       value: LevelItem (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968940494582966718, guid: f54947e2d764ed94caee70734a349a91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1208,7 +1276,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1609454179}
         m_TargetAssemblyTypeName: UILevelListMainMenu, Assembly-CSharp
-        m_MethodName: SlideLevelRight
+        m_MethodName: SlideLevelLeft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1670,6 +1738,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1609454178}
     m_Modifications:
+    - target: {fileID: 1310827470174703702, guid: f54947e2d764ed94caee70734a349a91, type: 3}
+      propertyPath: m_text
+      value: START LEVEL
+      objectReference: {fileID: 0}
     - target: {fileID: 1873981269626736058, guid: f54947e2d764ed94caee70734a349a91, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1773,6 +1845,14 @@ PrefabInstance:
     - target: {fileID: 5262282772081913880, guid: f54947e2d764ed94caee70734a349a91, type: 3}
       propertyPath: m_fontSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515499546011513399, guid: f54947e2d764ed94caee70734a349a91, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015817908548334584, guid: f54947e2d764ed94caee70734a349a91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8968940494582966718, guid: f54947e2d764ed94caee70734a349a91, type: 3}
       propertyPath: m_Name

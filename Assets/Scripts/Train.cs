@@ -12,6 +12,8 @@ public class Train : MonoBehaviour
     [SerializeField] private AudioClip choo;
     [SerializeField] private AudioClip continueChoo;
     [SerializeField] private AudioSource sound;
+    [SerializeField] private float angleSpeed = 5f;
+    [SerializeField] private GameObject forwardPosition;
 
     public bool inFight = false;
     private int paused = 0;
@@ -32,6 +34,19 @@ public class Train : MonoBehaviour
         startRotation = transform.rotation;
     }
 
+    private IEnumerator RotationToPoint(Vector3 point)
+    {
+        var currentPoint = forwardPosition.transform.position;
+        float needTime = (currentPoint - point).magnitude / angleSpeed;
+        float timer = 0f;
+        while (timer < needTime)
+        {
+            timer += Time.deltaTime;
+            transform.LookAt(Vector3.Lerp(currentPoint, point, timer / needTime));
+            yield return null;
+        }
+    }
+
     private IEnumerator MoveToPoint(Vector3 point)
     {
         if (restart) yield break;
@@ -40,7 +55,7 @@ public class Train : MonoBehaviour
         float needTime = (endPoint - startPoint).magnitude / speed;
         float timer = 0;
 
-        transform.LookAt(new Vector3(point.x, startPoint.y, point.z));
+        StartCoroutine(RotationToPoint(new Vector3(point.x, startPoint.y, point.z)));
 
         while (timer < needTime)
         {

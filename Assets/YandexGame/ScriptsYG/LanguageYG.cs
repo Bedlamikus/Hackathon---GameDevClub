@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 #if UNITY_EDITOR
 using System.Collections;
@@ -15,6 +16,7 @@ namespace YG
     {
         public Text textUIComponent;
         public TextMesh textMeshComponent;
+        public TMP_Text textMeshPro;
         public InfoYG infoYG;
         [Space(10)]
         public string text;
@@ -41,6 +43,7 @@ namespace YG
         {
             textUIComponent = GetComponent<Text>();
             textMeshComponent = GetComponent<TextMesh>();
+            textMeshPro = GetComponent<TMP_Text>();
 
             infoYG = GetInfoYG();
         }
@@ -88,6 +91,11 @@ namespace YG
 
         void AssignTranslate(string translation)
         {
+            if (textMeshPro)
+            {
+                textMeshPro.text = translation;
+                return;
+            }
             if (textUIComponent)
                 textUIComponent.text = translation;
             else if (textMeshComponent)

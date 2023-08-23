@@ -9,6 +9,7 @@ public class UISettings : MonoBehaviour
 {
     [SerializeField] private Button sound;
     [SerializeField] private TMP_Text sound_BTN_text;
+    [SerializeField] private TMP_Text sound_BTN_before_text;
 
     [SerializeField] private Button close;
 
@@ -22,10 +23,10 @@ public class UISettings : MonoBehaviour
 
     public void Preload()
     {
-        sound_BTN_text.text = "sound on";
+        sound_BTN_text.text = sound_BTN_before_text.text + " on";
         if (Settings.Mute)
         {
-            sound_BTN_text.text = "sound off";
+            sound_BTN_text.text = sound_BTN_before_text.text + " off";
         }
     }
 
@@ -33,12 +34,12 @@ public class UISettings : MonoBehaviour
     {
         if (Settings.Mute)
         {
-            sound_BTN_text.text = "sound on";
+            sound_BTN_text.text = sound_BTN_before_text.text + " on";
             Settings.Mute = false;
         }
         else
         {
-            sound_BTN_text.text = "sound off";
+            sound_BTN_text.text = sound_BTN_before_text.text + " off";
             Settings.Mute = true;
         }
     }

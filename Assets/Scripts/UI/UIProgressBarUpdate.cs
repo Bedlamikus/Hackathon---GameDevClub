@@ -35,7 +35,7 @@ public class UIProgressBarUpdate : MonoBehaviour
     {
         maxExperience.text = player.TargetUIExperience.ToString();
         experience.text = player.CurrentUIExperience.ToString();
-        level.text = "LVL " + player.Level.ToString();
+        level.text = level.text.Substring(0, 4) + player.Level.ToString();
         experienceSlider.minValue = player.MinUIExperience;
         experienceSlider.maxValue = player.TargetUIExperience;
         experienceSlider.value = player.CurrentUIExperience;

@@ -70,7 +70,7 @@ public class UpdateUIStats : MonoBehaviour
     {
         maxExperience.text = Player.TargetUIExperience.ToString();
         experience.text = Player.CurrentUIExperience.ToString();
-        level.text = "LVL " + Player.Level.ToString();
+        level.text = level.text.Substring(0,4) + Player.Level.ToString();
         experienceSlider.minValue = Player.MinUIExperience;
         experienceSlider.maxValue = Player.TargetUIExperience;
         experienceSlider.value = Player.CurrentUIExperience;

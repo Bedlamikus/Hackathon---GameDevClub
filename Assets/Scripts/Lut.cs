@@ -27,6 +27,7 @@ public class Lut : MonoBehaviour
     {
         GlobalEvents.Pause.AddListener(Pause);
         GlobalEvents.UnPause.AddListener(UnPause);
+        GlobalEvents.EndBattle.AddListener(Die);
         sound = FindObjectOfType<FightSound>();
         mouse = FindObjectOfType<Mouse>();
         var position = transform.position;

@@ -90,7 +90,8 @@ public class Train : MonoBehaviour
     public void UnPause()
     {
         if (inFight) return;
-        
+
+        print("Train settings: mute=" + Settings.Mute);
         if (fromStation)
         {
             fromStation = false;

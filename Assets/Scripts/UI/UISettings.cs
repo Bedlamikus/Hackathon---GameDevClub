@@ -35,18 +35,17 @@ public class UISettings : MonoBehaviour
         if (Settings.Mute)
         {
             sound_BTN_text.text = sound_BTN_before_text.text + " on";
-            Settings.Mute = false;
+            GlobalEvents.UnMute.Invoke();
         }
         else
         {
             sound_BTN_text.text = sound_BTN_before_text.text + " off";
-            Settings.Mute = true;
+            GlobalEvents.Mute.Invoke();
         }
     }
 
     private void CloseSettings()
     {
-        print("Change mute, save it");
         GlobalEvents.SaveCurrentSettings.Invoke();
         gameObject.SetActive(false);
     }

@@ -98,6 +98,8 @@ public class PlayerStats : MonoBehaviour
         GlobalEvents.UnPause.AddListener(UnPause);
         GlobalEvents.SuperRegen.AddListener(SuperRegen);
         GlobalEvents.SuperDamage.AddListener(SuperDamage);
+        GlobalEvents.Mute.AddListener(SoundOff);
+        GlobalEvents.UnMute.AddListener(SoundOn);
 
         metric = FindObjectOfType<MetricEvents>();
 
@@ -494,7 +496,14 @@ public class PlayerStats : MonoBehaviour
         set
         {
             mute = value;
-            print(mute);
         }
+    }
+    private void SoundOff()
+    {
+        mute = true;
+    }
+    private void SoundOn()
+    {
+        mute = false;
     }
 }

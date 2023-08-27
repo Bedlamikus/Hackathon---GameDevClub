@@ -19,11 +19,15 @@ public class FightSound : MonoBehaviour
     private void Start()
     {
         GlobalEvents.EnemyDie.AddListener(ZombieDeath);
+        GlobalEvents.Mute.AddListener(SoundOff);
+        GlobalEvents.UnMute.AddListener(SoundOn);
+        if (Settings.Mute)
+            SoundOff();
     }
 
     public void PlayShootStandart()
     {
-        if (Settings.Mute)  return;
+        if (Settings.Mute) return;
         audioSource.PlayOneShot(shootStandart, 0.2f);
     }
 
@@ -48,6 +52,7 @@ public class FightSound : MonoBehaviour
 
     public void TrainStart()
     {
+        print("Fight settings: mute=" + Settings.Mute);
         if (Settings.Mute) return;
         audioSource.PlayOneShot(train);
     }
@@ -67,6 +72,16 @@ public class FightSound : MonoBehaviour
             }
             return settings;
         }
+    }
+
+    private void SoundOff()
+    {
+        audioSource.Stop();
+        audioSource.mute = true;
+    }
+    private void SoundOn()
+    {
+        audioSource.mute = false;
     }
 }
 

@@ -11,6 +11,8 @@ public static class GlobalEvents
     public static UnityEvent StationEnter = new();
     public static UnityEvent StressWin = new();
     public static UnityEvent StressLose = new();
+    public static UnityEvent Mute = new();
+    public static UnityEvent UnMute = new();
 
     public static UnityEvent BuyHealth = new();
     public static UnityEvent BuyDamage = new();
